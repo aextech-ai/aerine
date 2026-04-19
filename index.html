@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aerine Ergastorion — Browser v1 sketch · AEXTech Holdings</title>
+<style>
+/* ── KEEL: palette inherited from grIPhon, extended for our domain ──────── */
+:root {
+  --oak:       #2A241C;
+  --oak-mid:   #3F362A;
+  --oak-light: #5A4A35;
+  --oak-faint: #7A6542;
+  --brass:     #8B6F47;
+  --brass-mid: #A6916B;
+  --brass-light:#D4C5A3;
+  --parch:     #FDF8ED;
+  --parch-mid: #FAF4E4;
+  --parch-warm:#F5EFDF;
+  --parch-card:#F5EAD0;
+  --parch-deep:#EDE4D1;
+
+  /* Confidence — honest label, not judgment */
+  --strong-bg:  #D4E4D0;  --strong-fg: #2E4A26;  --strong-bar: #4A7A3E;
+  --mod-bg:     #EED9B5;  --mod-fg:    #6A4A18;  --mod-bar:    #B08038;
+  --emerg-bg:   #D6DBEC;  --emerg-fg:  #2C3A64;  --emerg-bar:  #5A6FA0;
+
+  /* Desks — one color each for the five extraction desks */
+  --sym-bg: #EFD5D8; --sym-fg: #6B2832; --sym-bd: #BA7A80;
+  --bio-bg: #D4E1CF; --bio-fg: #2E4A26; --bio-bd: #7FA476;
+  --nut-bg: #ECD9A8; --nut-fg: #5A3E0A; --nut-bd: #BA955A;
+  --mech-bg:#D9D0E4; --mech-fg:#3E2E5A; --mech-bd:#8678A6;
+  --meas-bg:#CFD8DE; --meas-fg:#25384A; --meas-bd:#6C8194;
+
+  /* Guilds — archetype palette, not clinical */
+  --g-ferm:    #C29A6A;  /* workers — brass */
+  --g-meth:    #8FA2B8;  /* minimalists — slate-blue */
+  --g-sulf:    #B16868;  /* bullies — muted maroon */
+  --g-but:     #7FA476;  /* healers — sage */
+  --g-muc:     #9A9080;  /* architects — stone */
+  --g-opp:     #C78650;  /* locusts — rust */
+
+  /* Flags — all honesty markers, not dismissals */
+  --flag-bg:   #F2E8D0;  --flag-fg: #5A4A20;  --flag-bd: #B09660;
+  --echo-bg:   #E8D6DC;  --echo-fg: #5A2838;  --echo-bd: #A66880;
+
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-sans: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--parch-deep);
+  font-family: var(--font-sans);
+  color: var(--oak);
+  min-height: 100vh;
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
+.erg-shell {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  max-width: 1460px;
+  margin: 0 auto;
+}
+.erg-rail {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px;
+  padding: 12px 14px;
+  align-self: start;
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  position: sticky;
+  top: 18px;
+}
+.erg-main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
+.erg-header {
+  display: flex; align-items: center; justify-content: space-between; padding: 0 2px;
+}
+.erg-wordmark {
+  font-family: var(--font-mono); font-size: 13px; color: var(--oak-light);
+  letter-spacing: 0.04em;
+}
+.erg-wordmark span { color: var(--brass); }
+.erg-batch-banner {
+  font-size: 11px; color: var(--oak-light);
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+  background: var(--parch-mid);
+  border-radius: 3px;
+  border: 0.5px solid var(--brass-mid);
+}
+.erg-count { font-size: 12px; color: var(--oak-light); font-family: var(--font-mono); }
+
+/* ── RAIL ────────────────────────────────────────────────────────────────── */
+.erg-rail h3 {
+  font-size: 14px; color: var(--oak-light); font-family: var(--font-mono);
+  letter-spacing: 0.04em; margin-bottom: 10px;
+}
+.erg-rail h3 em { color: var(--brass); font-style: normal; }
+.erg-search {
+  width: 100%; height: 32px;
+  border: 0.5px solid var(--brass); background: var(--parch-mid);
+  border-radius: 3px; padding: 0 10px;
+  font-size: 12px; color: var(--oak);
+  font-family: var(--font-mono); margin-bottom: 12px;
+}
+.erg-search:focus { outline: none; border-color: var(--oak); background: var(--parch); }
+
+.erg-fgroup {
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 0.5px solid var(--brass-light);
+}
+.erg-fgroup:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.erg-flabel {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--oak-faint); margin-bottom: 5px;
+  font-family: var(--font-mono); font-weight: 500;
+}
+.erg-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 3px;
+  font-size: 11px; border: 0.5px solid var(--brass);
+  cursor: pointer; margin: 2px 3px 2px 0;
+  background: var(--parch-mid); color: var(--oak-mid);
+  font-family: var(--font-mono);
+}
+.erg-chip:hover { background: var(--parch-card); border-color: var(--oak-light); }
+.erg-chip.active { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-chip-ct { font-size: 9px; opacity: 0.7; }
+
+/* Guild boolean-mode toggle — any / all / only */
+/* KEEL:
+   any  = OR  — ergon has ≥1 selected guild (default)
+   all  = AND — ergon has ALL selected guilds (handoff/crossover finder)
+   only = ONE — ergon is single-guild AND that guild is selected (pure-guild erga) */
+.erg-mode-toggle {
+  display: inline-flex; gap: 0;
+  margin-bottom: 6px;
+  border: 0.5px solid var(--brass); border-radius: 3px;
+  overflow: hidden;
+}
+.erg-mode {
+  background: var(--parch-mid); color: var(--oak-mid);
+  border: none; padding: 3px 10px;
+  font-size: 10px; font-family: var(--font-mono);
+  letter-spacing: 0.04em; cursor: pointer;
+  border-right: 0.5px solid var(--brass);
+}
+.erg-mode:last-child { border-right: none; }
+.erg-mode:hover { background: var(--parch-card); }
+.erg-mode.active { background: var(--oak); color: var(--parch); }
+
+/* Guild chips — archetype-colored stripe on the left */
+.erg-chip-guild {
+  padding-left: 4px;
+  border-left-width: 3px; border-left-style: solid;
+}
+.erg-chip-guild[data-v="fermentation"]  { border-left-color: var(--g-ferm); }
+.erg-chip-guild[data-v="methanogen"]    { border-left-color: var(--g-meth); }
+.erg-chip-guild[data-v="sulfur-reducer"]{ border-left-color: var(--g-sulf); }
+.erg-chip-guild[data-v="butyrate"]      { border-left-color: var(--g-but); }
+.erg-chip-guild[data-v="mucin"]         { border-left-color: var(--g-muc); }
+.erg-chip-guild[data-v="opportunist"]   { border-left-color: var(--g-opp); }
+
+/* ── CARDS ───────────────────────────────────────────────────────────────── */
+/* KEEL: 3.5-card window — keeps the reader panel visible below the stack. */
+.erg-cards-wrap { max-height: 452px; overflow-y: auto; }
+.erg-card {
+  background: var(--parch-card);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 4px; padding: 11px 15px 10px;
+  cursor: pointer; position: relative;
+  border-left-width: 4px;
+  min-height: 118px; display: flex; flex-direction: column;
+  margin-bottom: 8px; transition: background 0.1s;
+}
+.erg-card:hover { background: #F9EED5; }
+.erg-card.focused { background: var(--parch-mid); border-color: var(--oak-light); }
+.erg-card[data-conf="strong"]   { border-left-color: var(--strong-bar); }
+.erg-card[data-conf="moderate"] { border-left-color: var(--mod-bar); }
+.erg-card[data-conf="emerging"] { border-left-color: var(--emerg-bar); }
+
+.erg-card-actions { position: absolute; top: 9px; right: 12px; display: flex; gap: 4px; }
+.erg-icon {
+  width: 26px; height: 26px;
+  border: 0.5px solid var(--brass); background: var(--parch-mid);
+  border-radius: 3px; display: inline-flex;
+  align-items: center; justify-content: center;
+  cursor: pointer; font-size: 13px; line-height: 1;
+  color: var(--oak-mid); font-family: var(--font-mono);
+}
+.erg-icon:hover { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+
+.erg-card-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-bottom: 4px; padding-right: 64px;
+}
+.erg-card-id {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--oak-faint); white-space: nowrap; letter-spacing: 0.04em;
+}
+.erg-card-title {
+  font-size: 13px; font-weight: 500; line-height: 1.35; color: var(--oak);
+}
+/* KEEL: card quote uses the ±1 framing convention — sentence before the claim,
+   the claim itself, and the sentence after. Display clamps at 3 lines; full
+   pericope renders in the reader verbatim. Claim sentence is marked **bold**
+   in source and rendered via <strong>. */
+.erg-card-quote {
+  font-size: 11px; color: var(--oak-mid);
+  line-height: 1.5; margin: 4px 0 8px; flex: 1;
+  font-style: italic; font-family: var(--font-sans);
+  border-left: 2px solid var(--brass-light); padding-left: 8px;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.erg-card-quote strong, .erg-reader-quote strong {
+  font-style: normal; color: var(--oak); font-weight: 600;
+}
+.erg-card-bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  flex-wrap: wrap;
+}
+.erg-card-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+
+/* ── TAGS ────────────────────────────────────────────────────────────────── */
+.erg-tag {
+  display: inline-flex; align-items: center;
+  padding: 1px 7px; border-radius: 3px;
+  font-size: 10px; font-weight: 500;
+  font-family: var(--font-mono); letter-spacing: 0.02em;
+  border: 0.5px solid transparent;
+}
+.erg-tag-strong   { background: var(--strong-bg); color: var(--strong-fg); border-color: var(--strong-bar); }
+.erg-tag-moderate { background: var(--mod-bg); color: var(--mod-fg); border-color: var(--mod-bar); }
+.erg-tag-emerging { background: var(--emerg-bg); color: var(--emerg-fg); border-color: var(--emerg-bar); }
+
+.erg-tag-desk { font-size: 9px; padding: 1px 6px; }
+.erg-tag-desk-SYM  { background: var(--sym-bg); color: var(--sym-fg); border-color: var(--sym-bd); }
+.erg-tag-desk-BIO  { background: var(--bio-bg); color: var(--bio-fg); border-color: var(--bio-bd); }
+.erg-tag-desk-NUT  { background: var(--nut-bg); color: var(--nut-fg); border-color: var(--nut-bd); }
+.erg-tag-desk-MECH { background: var(--mech-bg); color: var(--mech-fg); border-color: var(--mech-bd); }
+.erg-tag-desk-MEAS { background: var(--meas-bg); color: var(--meas-fg); border-color: var(--meas-bd); }
+
+.erg-tag-guild { font-size: 9px; padding: 1px 5px 1px 3px; border-left-width: 3px; }
+.erg-tag-guild[data-g="fermentation"]  { border-left-color: var(--g-ferm); background: #F5E6D2; color: #5A4020; }
+.erg-tag-guild[data-g="methanogen"]    { border-left-color: var(--g-meth); background: #DFE6EE; color: #2C405A; }
+.erg-tag-guild[data-g="sulfur-reducer"]{ border-left-color: var(--g-sulf); background: #EED9D9; color: #5A2828; }
+.erg-tag-guild[data-g="butyrate"]      { border-left-color: var(--g-but); background: #DEE8D8; color: #2E4A26; }
+.erg-tag-guild[data-g="mucin"]         { border-left-color: var(--g-muc); background: #E4E0DA; color: #3A352C; }
+.erg-tag-guild[data-g="opportunist"]   { border-left-color: var(--g-opp); background: #F0DCC4; color: #5A3614; }
+
+.erg-tag-flag { background: var(--flag-bg); color: var(--flag-fg); border-color: var(--flag-bd); font-size: 10px; }
+.erg-tag-echo { background: var(--echo-bg); color: var(--echo-fg); border-color: var(--echo-bd); font-size: 10px; }
+.erg-tag-origin { background: var(--parch-mid); color: var(--oak-light); border-color: var(--brass-mid); font-size: 9px; }
+
+/* ── REVIEW-WORTHY SIGNAL ────────────────────────────────────────────────── */
+/* KEEL: Inverse of confidence + methodology debt.
+   Base: emerging=0.9, moderate=0.4, strong=0.1
+   +0.20 if echo && untraced
+   +0.15 if methodology flag present
+   +0.15 if coi-industry
+   +0.10 if review-only (source_tier secondary)
+   +0.10 if duplicate-suspect
+   Clamp 0–1. Higher = Custodian should look. NOT "urgency." */
+.erg-signal {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--oak-faint);
+  font-family: var(--font-mono); white-space: nowrap;
+}
+.erg-signal-bar {
+  width: 42px; height: 4px;
+  background: var(--brass-light); border-radius: 2px;
+  overflow: hidden; border: 0.5px solid var(--brass-mid);
+}
+.erg-signal-fill { height: 100%; background: var(--oak-light); border-radius: 2px; }
+
+/* ── READER PANEL ────────────────────────────────────────────────────────── */
+.erg-reader {
+  background: var(--parch-mid);
+  border: 0.5px solid var(--brass);
+  border-radius: 4px; padding: 18px 22px;
+  font-size: 13px; line-height: 1.6; color: var(--oak);
+  max-height: 640px; overflow-y: auto;
+}
+.erg-reader.hidden { display: none; }
+.erg-reader h4 { font-size: 16px; font-weight: 500; margin: 0 0 2px; line-height: 1.3; }
+.erg-reader-sub {
+  font-size: 11px; color: var(--oak-faint);
+  font-family: var(--font-mono); margin-bottom: 14px; letter-spacing: 0.04em;
+}
+.erg-reader-sec { margin-top: 14px; }
+.erg-reader-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--oak-faint); margin-bottom: 4px;
+  font-family: var(--font-mono); font-weight: 500;
+}
+.erg-reader-quote {
+  font-size: 13px; line-height: 1.7; color: var(--oak);
+  font-style: italic; border-left: 3px solid var(--brass);
+  padding: 6px 0 6px 12px; background: var(--parch-warm);
+  white-space: pre-wrap;
+}
+.erg-reader-claim {
+  font-size: 13px; line-height: 1.7; color: var(--oak);
+}
+.erg-reader-flag {
+  font-size: 11px; background: var(--parch-warm);
+  padding: 6px 10px; border-radius: 3px;
+  margin-bottom: 4px; border-left: 3px solid var(--brass);
+}
+.erg-reader-flag.echo { border-left-color: var(--echo-bd); background: var(--echo-bg); color: var(--echo-fg); }
+.erg-kv {
+  display: grid;
+  grid-template-columns: 150px minmax(0,1fr);
+  row-gap: 4px; column-gap: 10px; font-size: 12px;
+}
+.erg-kv dt { color: var(--oak-light); font-family: var(--font-mono); font-size: 11px; }
+.erg-kv dd { margin: 0; color: var(--oak); font-family: var(--font-mono); font-size: 11px; word-break: break-word; }
+.erg-reader-actions { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+
+.erg-btn {
+  height: 32px; padding: 0 14px;
+  background: var(--parch-mid); border: 0.5px solid var(--brass);
+  border-radius: 3px; font-size: 12px; color: var(--oak);
+  cursor: pointer; font-family: var(--font-mono); letter-spacing: 0.02em;
+}
+.erg-btn:hover { background: var(--parch-card); border-color: var(--oak-light); }
+.erg-btn.primary { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-btn.primary:hover { background: var(--oak-mid); }
+.erg-btn.brass { background: #A88652; color: var(--parch); border-color: #7A5A35; }
+.erg-btn.brass:hover { background: var(--brass); }
+.erg-btn.active { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── CHAIN BUILDER ───────────────────────────────────────────────────────── */
+.erg-bottom { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+.erg-thread {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px; padding: 13px 15px;
+}
+.erg-thread-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.erg-thread-verdict {
+  font-size: 10px; font-family: var(--font-mono);
+  padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em;
+  border: 0.5px solid var(--brass-mid); background: var(--parch-mid);
+  color: var(--oak-light);
+}
+.erg-thread-verdict.gold  { background: #E9D89A; color: #5A3E08; border-color: #A88040; }
+.erg-thread-verdict.loose { background: #D8D5CD; color: #3A352C; border-color: #8A847A; }
+.erg-thread-verdict.broken{ background: var(--echo-bg); color: var(--echo-fg); border-color: var(--echo-bd); }
+
+.erg-thread-bobbins {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.erg-bobbin {
+  background: var(--parch-mid);
+  border: 1px dashed var(--brass-mid);
+  border-radius: 3px; padding: 8px 6px;
+  min-height: 72px;
+  display: flex; flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  position: relative;
+}
+.erg-bobbin-label {
+  font-family: var(--font-mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--oak-faint); text-align: center;
+  margin-bottom: 2px;
+}
+.erg-bobbin.filled { border-style: solid; background: var(--parch-card); }
+.erg-bobbin.filled[data-desk="SYM"]  { border-color: var(--sym-bd); }
+.erg-bobbin.filled[data-desk="BIO"]  { border-color: var(--bio-bd); }
+.erg-bobbin.filled[data-desk="NUT"]  { border-color: var(--nut-bd); }
+.erg-bobbin.filled[data-desk="MECH"] { border-color: var(--mech-bd); }
+.erg-bobbin.filled[data-desk="MEAS"] { border-color: var(--meas-bd); }
+
+.erg-bobbin-ergon-id {
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--oak-faint); letter-spacing: 0.04em;
+}
+.erg-bobbin-title {
+  font-size: 10px; line-height: 1.3; color: var(--oak);
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.erg-bobbin-conf {
+  font-size: 9px; font-family: var(--font-mono);
+  margin-top: auto; color: var(--oak-light);
+}
+.erg-bobbin-remove {
+  position: absolute; top: 2px; right: 3px;
+  font-size: 12px; color: var(--oak-faint);
+  cursor: pointer; padding: 0 3px; line-height: 1;
+}
+.erg-bobbin-remove:hover { color: var(--oak); }
+.erg-bobbin-empty {
+  color: var(--oak-faint); font-style: italic;
+  text-align: center; margin: auto 0;
+  font-size: 10px; font-family: var(--font-mono);
+}
+/* KEEL: empty slot is clickable — activates the desk filter for that slot. */
+.erg-bobbin.empty-clickable { cursor: pointer; }
+.erg-bobbin.empty-clickable:hover {
+  background: var(--parch-card);
+  border-color: var(--oak-light);
+  border-style: solid;
+}
+.erg-bobbin.empty-clickable:hover .erg-bobbin-empty {
+  color: var(--oak-mid); font-style: normal;
+}
+
+.erg-actions-panel {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px; padding: 13px 15px;
+}
+
+.erg-empty {
+  color: var(--oak-faint); font-size: 12px;
+  font-style: italic; padding: 16px 0;
+  text-align: center; font-family: var(--font-mono);
+}
+
+/* ── TABLE (alternative view) ────────────────────────────────────────────── */
+.erg-table-wrap {
+  max-height: 452px; overflow-y: auto;
+  border: 0.5px solid var(--brass-mid); border-radius: 3px;
+}
+.erg-table-wrap.hidden, .erg-cards-wrap.hidden { display: none; }
+.erg-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 11px; font-family: var(--font-mono);
+}
+.erg-table thead th {
+  background: var(--parch-warm);
+  padding: 7px 10px; text-align: left;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--oak-faint);
+  border-bottom: 0.5px solid var(--brass-mid);
+  white-space: nowrap;
+  position: sticky; top: 0;
+}
+.erg-table tbody tr {
+  border-bottom: 0.5px solid var(--brass-light);
+  cursor: pointer;
+}
+.erg-table tbody tr:hover { background: var(--parch-card); }
+.erg-table tbody tr.focused { background: var(--parch-mid); }
+.erg-table td { padding: 7px 10px; vertical-align: top; color: var(--oak); }
+.erg-table td.td-id { color: var(--oak-faint); white-space: nowrap; }
+.erg-table td.td-title { max-width: 320px; }
+
+.erg-view-toggle { display: flex; gap: 4px; }
+
+/* ── SKETCH BADGE ────────────────────────────────────────────────────────── */
+/* Reviewer-facing signal that this is a schema/UX sketch, not a live catalog. */
+.erg-sketch-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px;
+  background: #EBD4A8; color: #5A3506;
+  border: 0.5px solid #BA8F4A; border-radius: 3px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500;
+}
+.erg-sketch-badge::before {
+  content: "◌"; font-size: 11px; opacity: 0.8;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.erg-footer {
+  max-width: 1460px; margin: 16px auto 0;
+  padding: 14px 18px 22px;
+  border-top: 0.5px solid var(--brass-light);
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--oak-faint); letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+.erg-footer-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 20px; flex-wrap: wrap;
+}
+.erg-footer-copy { color: var(--oak-light); }
+.erg-footer-copy strong { color: var(--oak); font-weight: 500; }
+.erg-footer-disclaim {
+  margin-top: 6px; font-size: 9.5px;
+  color: var(--oak-faint); max-width: 900px; line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<div class="erg-shell">
+
+  <!-- ── FILTER RAIL ─────────────────────────────────────────────────────── -->
+  <aside class="erg-rail">
+    <h3>aerine <em>ergastorion</em></h3>
+    <input type="text" class="erg-search" placeholder="search catalogue…" id="erg-search"/>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Desk</div>
+      <button class="erg-chip active" data-f="desk" data-v="all">all <span class="erg-chip-ct" id="ct-desk-all"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="SYM">SYM <span class="erg-chip-ct" id="ct-desk-SYM"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="MEAS">MEAS <span class="erg-chip-ct" id="ct-desk-MEAS"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="BIO">BIO <span class="erg-chip-ct" id="ct-desk-BIO"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="MECH">MECH <span class="erg-chip-ct" id="ct-desk-MECH"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="NUT">NUT <span class="erg-chip-ct" id="ct-desk-NUT"></span></button>
+    </div>
+
+    <!-- Guilds are multi-select with boolean mode. Click to add, click again to remove. -->
+    <div class="erg-fgroup" id="rail-guild">
+      <div class="erg-flabel">Guild (multi)</div>
+      <div class="erg-mode-toggle" id="guild-mode-toggle">
+        <button class="erg-mode active" data-mode="OR" title="any of selected — union">any</button>
+        <button class="erg-mode" data-mode="AND" title="all of selected — intersection, handoff finder">all</button>
+        <button class="erg-mode" data-mode="ONE" title="single-guild erga from the selected set">only</button>
+      </div>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="fermentation">workers <span class="erg-chip-ct" id="ct-g-fermentation"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="methanogen">minimalists <span class="erg-chip-ct" id="ct-g-methanogen"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="sulfur-reducer">bullies <span class="erg-chip-ct" id="ct-g-sulfur-reducer"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="butyrate">healers <span class="erg-chip-ct" id="ct-g-butyrate"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="mucin">architects <span class="erg-chip-ct" id="ct-g-mucin"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="opportunist">locusts <span class="erg-chip-ct" id="ct-g-opportunist"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Confidence</div>
+      <button class="erg-chip" data-f="confidence" data-v="strong">strong <span class="erg-chip-ct" id="ct-c-strong"></span></button>
+      <button class="erg-chip" data-f="confidence" data-v="moderate">moderate <span class="erg-chip-ct" id="ct-c-moderate"></span></button>
+      <button class="erg-chip" data-f="confidence" data-v="emerging">emerging <span class="erg-chip-ct" id="ct-c-emerging"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Data Origin</div>
+      <button class="erg-chip" data-f="origin" data-v="primary">primary <span class="erg-chip-ct" id="ct-o-primary"></span></button>
+      <button class="erg-chip" data-f="origin" data-v="synthesis">synthesis <span class="erg-chip-ct" id="ct-o-synthesis"></span></button>
+      <button class="erg-chip" data-f="origin" data-v="echo">echo <span class="erg-chip-ct" id="ct-o-echo"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Source Tier</div>
+      <button class="erg-chip" data-f="tier" data-v="primary">primary <span class="erg-chip-ct" id="ct-t-primary"></span></button>
+      <button class="erg-chip" data-f="tier" data-v="secondary">secondary <span class="erg-chip-ct" id="ct-t-secondary"></span></button>
+      <button class="erg-chip" data-f="tier" data-v="crowd-report">crowd-report <span class="erg-chip-ct" id="ct-t-crowd-report"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Methodology Flag</div>
+      <button class="erg-chip" data-f="mflag" data-v="animal-only">animal-only <span class="erg-chip-ct" id="ct-m-animal-only"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="in-vitro-only">in vitro only <span class="erg-chip-ct" id="ct-m-in-vitro-only"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="n-under-threshold">small n <span class="erg-chip-ct" id="ct-m-n-under-threshold"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="echo-unresolved">echo unresolved <span class="erg-chip-ct" id="ct-m-echo-unresolved"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="coi-industry">COI industry <span class="erg-chip-ct" id="ct-m-coi-industry"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="crowd-self-report">crowd self-report <span class="erg-chip-ct" id="ct-m-crowd-self-report"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="selection-bias">selection bias <span class="erg-chip-ct" id="ct-m-selection-bias"></span></button>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ────────────────────────────────────────────────────────────── -->
+  <div class="erg-main">
+
+    <div class="erg-header">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span class="erg-wordmark">aerine <span>·</span> ergastorion</span>
+        <span class="erg-sketch-badge" title="Schema and UX sketch. Sample erga are illustrative; citations and quotes are representative, not verified extractions.">sketch · illustrative data</span>
+        <span class="erg-batch-banner" id="erg-batch-banner">loading…</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="erg-count" id="erg-count"></span>
+        <div class="erg-view-toggle">
+          <button class="erg-btn active" id="btn-cards" onclick="setView('cards')">cards</button>
+          <button class="erg-btn" id="btn-table" onclick="setView('table')">table</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="erg-cards-wrap" id="erg-cards-wrap">
+      <div id="erg-cards"></div>
+    </div>
+
+    <div class="erg-table-wrap hidden" id="erg-table-wrap">
+      <table class="erg-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Claim</th>
+            <th>Desk</th>
+            <th>Guilds</th>
+            <th>Conf.</th>
+            <th>Origin</th>
+            <th>Tier</th>
+            <th>Flags</th>
+            <th>Review</th>
+          </tr>
+        </thead>
+        <tbody id="erg-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="erg-reader" class="erg-reader hidden"></div>
+
+    <!-- ── BOTTOM: CHAIN BUILDER + ACTIONS ─────────────────────────────── -->
+    <div class="erg-bottom">
+      <div class="erg-thread">
+        <div class="erg-thread-header">
+          <span class="erg-wordmark" style="font-size:12px;">thread builder <span style="color:var(--oak-faint);font-size:10px;">· ariadne</span></span>
+          <span class="erg-thread-verdict" id="thread-verdict">no thread yet</span>
+        </div>
+        <!-- KEEL: slot order is the canonical chain order. SYM → MEAS → BIO → MECH → NUT. -->
+        <div class="erg-thread-bobbins" id="thread-bobbins">
+          <div class="erg-bobbin" data-desk="SYM"><div class="erg-bobbin-label">SYM</div><div class="erg-bobbin-empty">add SYM ergon</div></div>
+          <div class="erg-bobbin" data-desk="MEAS"><div class="erg-bobbin-label">MEAS</div><div class="erg-bobbin-empty">add MEAS ergon</div></div>
+          <div class="erg-bobbin" data-desk="BIO"><div class="erg-bobbin-label">BIO</div><div class="erg-bobbin-empty">add BIO ergon</div></div>
+          <div class="erg-bobbin" data-desk="MECH"><div class="erg-bobbin-label">MECH</div><div class="erg-bobbin-empty">add MECH ergon</div></div>
+          <div class="erg-bobbin" data-desk="NUT"><div class="erg-bobbin-label">NUT</div><div class="erg-bobbin-empty">add NUT ergon</div></div>
+        </div>
+      </div>
+
+      <div class="erg-actions-panel">
+        <div class="erg-flabel" style="margin-bottom:10px;">exports</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <button class="erg-btn primary" id="btn-gold" onclick="exportGoldenThread()">golden thread ↓</button>
+          <button class="erg-btn brass" onclick="exportCustodianQueue()">custodian queue ↓</button>
+          <button class="erg-btn" onclick="exportSeedDigest()">seed digest ↓</button>
+          <button class="erg-btn" onclick="exportWolfpackScout()" title="concept-analyze selected scope, build a targeted web-search briefing">wolfpack scout ↓</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="erg-footer">
+  <div class="erg-footer-row">
+    <div class="erg-footer-copy">
+      © 2026 <strong>AEXTech Holdings</strong> · Aerine Ergastorion — Browser v1 sketch
+    </div>
+    <div class="erg-footer-copy">
+      Confidential — pre-publication review artifact
+    </div>
+  </div>
+  <div class="erg-footer-disclaim">
+    Illustrative data notice: the sixteen erga shown are representative of the ergastorion's schema and extraction conventions, not verified extractions from the cited sources. Author names, journal references, and claim structures are used to demonstrate the catalog's behavior; specific quoted passages, numeric values, and page references were composed for this sketch and should not be cited as evidence. The production system is populated only with extractions traceable to verified source text under the Collector's operating procedure.
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    This artifact is a schema and user-experience demonstration and does not constitute medical, clinical, or nutritional advice.
+  </div>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// KEEL NOTES — Aerine Ergastorion Browser v1 sketch
+//
+// SCHEMA (per ergon):
+//   ergon_id          e.g. "erg-MEAS-001-V1"
+//   canonical_name    one-sentence testable claim
+//   source_excerpt    structured pericope (see FRAMING CONVENTION below):
+//                       { lead_in, claim_text, follow_on, location }
+//   desk              SYM | BIO | NUT | MECH | MEAS  (one primary)
+//   guilds            array, ≥1, from the six-guild taxonomy
+//   confidence        strong | moderate | emerging
+//   data_origin       primary | synthesis | echo
+//   source_tier       primary | secondary | crowd-report
+//   seeds             array ≥2
+//   source_paper      citation string
+//   source_year
+//   methodology_flags array: animal-only, in-vitro-only, n-under-threshold,
+//                            echo-unresolved, coi-industry, duplicate-suspect,
+//                            crowd-self-report, selection-bias
+//   chain_hints       freeform: provenance debts, lateral-desk notes
+//
+// FRAMING CONVENTION (±1 / pericope):
+//   source_excerpt is STRUCTURED so report-shape drives display-shape:
+//     lead_in     — sentence(s) IMMEDIATELY PRECEDING the claim in source.
+//                   "" if the claim is a paragraph opener (note in chain_hints).
+//     claim_text  — the load-bearing sentence the canonical_name is derived from.
+//                   Required. Must be directly quotable from source.
+//     follow_on   — sentence(s) IMMEDIATELY FOLLOWING the claim in source.
+//                   "" if the claim is a paragraph closer.
+//     location    — optional string: "p. 12, para. 3" or "Fig 2 caption".
+//   This prevents cherry-picking by preserving surrounding context at the
+//   data layer — not as formatting, but as structure. The renderer uses this
+//   to display the claim_text in full weight with lead_in/follow_on muted.
+//   A missing lead_in/follow_on is an honest empty, not a display omission.
+//
+// GUILD BOOLEAN MODE (rail):
+//   any  (OR)  — ergon has ≥1 of the selected guilds [default]
+//   all  (AND) — ergon has ALL of the selected guilds (handoff/crossover finder)
+//   only (ONE) — ergon has exactly one guild AND it is in the selected set
+//                (surfaces "pure" single-guild erga)
+//
+// REVIEW-WORTHY SCORE (derived, not stored):
+//   Base: emerging=0.9, moderate=0.4, strong=0.1
+//   +0.20 if data_origin=echo AND flags contain echo-unresolved
+//   +0.15 if any methodology_flags
+//   +0.15 if coi-industry in flags
+//   +0.10 if source_tier=secondary OR crowd-report
+//   +0.10 if duplicate-suspect in flags
+//   clamp 0–1. Label "review" in UI. Higher = Custodian should look.
+//
+// GOLDEN THREAD CONTRACT (formerly "golden chain"):
+//   Fixed order: SYM → MEAS → BIO → MECH → NUT
+//   Each slot: one ergon whose primary desk matches the slot.
+//   Metaphor: Ariadne's thread — a traced reasoning path through the labyrinth
+//   from what the user notices down to what they could try.
+//   Verdict:
+//     GOLDEN  — all five filled, all confidence ∈ {strong, moderate},
+//               no echo-unresolved flags.  Aerine may speak confidently.
+//     LOOSE   — all five filled, but ≥1 is emerging OR has echo-unresolved.
+//               Complete but provisional — "something to pick at" to tighten.
+//               Aerine must hedge when using it.
+//     BROKEN  — any slot empty.  Not exportable.
+//   Export disabled unless all five slots filled.
+//
+// SLOT CLICK: empty thread slots are clickable and activate the corresponding
+//   desk filter ONLY — other active filters (guild, confidence, tier, etc.)
+//   are PRESERVED. The remaining card set is the candidate set for that slot
+//   under the user's current query. Do not clear or override other filters.
+//
+// GUILDS (archetype → canonical):
+//   workers      → fermentation
+//   minimalists  → methanogen
+//   bullies      → sulfur-reducer
+//   healers      → butyrate
+//   architects   → mucin
+//   locusts      → opportunist
+//
+// CROWD-REPORT TIER:
+//   User-reported symptom data (e.g. reddit scrapes, community survey analysis).
+//   Always accompanied by crowd-self-report and usually selection-bias flags.
+//   Never strong confidence; always emerging or (rarely) moderate.
+//   Honest label, not a dismissal — vocal self-reporters are a real population.
+//
+// WOLFPACK SCOUT (outbound coverage-gap finder):
+//   Complements the custodian queue. Custodian looks INWARD (what's sketchy
+//   in the catalog); Wolfpack looks OUTWARD (what's beyond the catalog).
+//
+//   Input scope (in priority order):
+//     1. Active thread compilation (≥1 bobbin filled) → hunt adjacent to this thread
+//     2. Narrowed filter set (any non-default filter active) → hunt over this slice
+//     3. Otherwise → prompt user for a scope string
+//
+//   Concept extraction:
+//     Collect seeds + canonical_name tokens + guild labels from in-scope erga.
+//     Frequency-rank; take top 3–4 as target terms. A "wolfpack" is 3–4
+//     searches hunting related but not identical terms.
+//
+//   Search posture: NARROW on terms, WIDE on sources. The query is specific;
+//     the source domain is not restricted to PubMed — also reviews, preprints,
+//     .gov, .edu, quality blogs. The wolfpack finds leads, not evidence.
+//
+//   Match tiers against existing erga:
+//     confirmed — DOI or exact paper-title match → reinforces existing ergon
+//     probable  — seed overlap + author/year overlap → flag for adjudication
+//     no-match  — novel paper → new-item-candidate, Linda's extraction queue
+//
+//   Architectural note: The wolfpack agent is the ONLY component with open-web
+//   access. Custodian and the extraction pipeline remain tools-disabled. The
+//   wolfpack's briefing feeds the closed pipeline; it does not write to the
+//   fact layer directly. Same separation as grIPhon's dibbler.
+//
+//   Stale-scope signal: each run timestamps itself per scope. Scopes unscanned
+//   for >N weeks surface as custodian-queue signals.
+//
+//   This sketch emits the BRIEFING only. Actual search execution is a backend
+//   concern; the briefing is the contract between UI and backend.
+//
+// SAMPLE DATA: 16 illustrative erga covering all 5 desks and all 6 guilds,
+// including one crowd-report SYM demo. Quotes are representative — real erga
+// need verified direct quotes with true ±1 framing from the source PDF.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BATCH_META = {
+  batch: "sketch-02",
+  session_date: "2026-04-17",
+  note: "Sketch batch — 16 illustrative erga, structured source_excerpt schema. Real extraction pass still pending."
+};
+
+const ERGA = [
+  {
+    ergon_id: "erg-MEAS-001-V1",
+    canonical_name: "Elevated breath CH4 baseline (>10 ppm) is associated with slower intestinal transit time in humans.",
+    source_excerpt: {
+      lead_in: "Methane status was defined dichotomously using a 10 ppm threshold on fasting breath samples.",
+      claim_text: "Subjects with breath methane >10 ppm at baseline exhibited significantly prolonged whole-gut transit times compared to methane-negative controls (p<0.01).",
+      follow_on: "The association persisted after adjustment for age, sex, and BMI, though effect attenuation suggests partial confounding.",
+      location: "p. 423, §3.1"
+    },
+    desk: "MEAS",
+    guilds: ["methanogen"],
+    confidence: "moderate",
+    data_origin: "synthesis",
+    source_tier: "secondary",
+    seeds: ["CH4 baseline", "transit time", "methanogen signature"],
+    source_paper: "Triantafyllou et al. — narrative review, J Neurogastroenterol Motil 2014",
+    source_year: 2014,
+    methodology_flags: [],
+    chain_hints: "Narrative review. Primary studies cited include Pimentel 2006, Kunkel 2011. Trace to Pimentel for n>100 data."
+  },
+  {
+    ergon_id: "erg-BIO-001-V1",
+    canonical_name: "Methanobrevibacter smithii consumes H2 + CO2 to produce CH4 at a stoichiometric ratio of 4H2 : 1CH4.",
+    source_excerpt: {
+      lead_in: "Among gut archaea, hydrogenotrophic methanogens represent a small but metabolically distinctive group.",
+      claim_text: "M. smithii catalyzes the hydrogenotrophic reduction of CO2 to methane with fixed stoichiometry: 4H2 + CO2 → CH4 + 2H2O.",
+      follow_on: "This tight stoichiometric coupling links methane output directly to upstream fermentative hydrogen supply.",
+      location: "p. 10013, §4 discussion"
+    },
+    desk: "BIO",
+    guilds: ["methanogen", "fermentation"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["hydrogenotrophic methanogenesis", "M. smithii", "CH4 stoichiometry"],
+    source_paper: "Samuel & Gordon, PNAS 2006",
+    source_year: 2006,
+    methodology_flags: [],
+    chain_hints: "Secondary desk: MECH (reaction chemistry). Cross-feeding link to fermentation guild via H2 supply."
+  },
+  {
+    ergon_id: "erg-MECH-001-V1",
+    canonical_name: "Intraluminal methane slows small intestinal transit via reduced peristaltic amplitude in animal models.",
+    source_excerpt: {
+      lead_in: "To isolate methane's effect from co-produced fermentation products, isolated ileal segments were perfused with a controlled gas mixture.",
+      claim_text: "Infusion of methane into the guinea pig ileum reduced peristaltic amplitude by 59% (p<0.01, n=8) without affecting frequency.",
+      follow_on: "The effect was dose-dependent and reversible upon washout, supporting a direct modulatory role rather than an artifact of displacement.",
+      location: "p. G1091, fig 3"
+    },
+    desk: "MECH",
+    guilds: ["methanogen"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["methane motility", "peristaltic amplitude", "guinea pig ileum"],
+    source_paper: "Pimentel et al., Am J Physiol 2006",
+    source_year: 2006,
+    methodology_flags: ["animal-only"],
+    chain_hints: "Human correlation exists (MEAS-001) but mechanism is from guinea pig. Flag animal-only when citing for human mechanism."
+  },
+  {
+    ergon_id: "erg-NUT-001-V1",
+    canonical_name: "Resistant starch type 2 (RS2) increases fecal butyrate concentration by 40–60% in healthy adults.",
+    source_excerpt: {
+      lead_in: "Thirty healthy adults completed a crossover trial with 3-week RS2 and placebo phases separated by a 2-week washout.",
+      claim_text: "Consumption of 40 g/day RS2 for 3 weeks increased fecal butyrate concentration from 12.1 to 19.4 mmol/kg (p<0.001, n=30).",
+      follow_on: "Acetate and propionate increases were proportionally smaller, consistent with selective stimulation of butyrogenic fermentation pathways.",
+      location: "p. e01188, table 2"
+    },
+    desk: "NUT",
+    guilds: ["fermentation", "butyrate"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["resistant starch", "butyrate production", "RS2 intervention"],
+    source_paper: "Baxter et al., mBio 2019",
+    source_year: 2019,
+    methodology_flags: [],
+    chain_hints: "Crossover RCT. Strong for fecal butyrate; weaker inference for breath signatures — not a direct MEAS link."
+  },
+  {
+    ergon_id: "erg-SYM-001-V1",
+    canonical_name: "Self-reported 'sluggish/backed-up' sensation shows weak positive correlation with elevated CH4 baseline in IBS-C cohorts.",
+    source_excerpt: {
+      lead_in: "Symptom scores were collected via validated Bristol Stool Form questionnaire immediately before breath sampling.",
+      claim_text: "In a pilot cohort (n=24), IBS-C patients with CH4 >10 ppm reported higher Bristol Stool Form sluggishness scores (r=0.42, p=0.04).",
+      follow_on: "Given the small sample and borderline p-value, replication in a larger cohort is warranted before clinical inference.",
+      location: "p. 1087, §3.2"
+    },
+    desk: "SYM",
+    guilds: ["methanogen"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["subjective transit", "bloating perception", "IBS-C methane"],
+    source_paper: "Chatterjee et al., Dig Dis Sci 2007 (pilot)",
+    source_year: 2007,
+    methodology_flags: ["n-under-threshold"],
+    chain_hints: "Pilot cohort only, r=0.42 is weak. Needs replication before moderate. Candidate SYM link for methanogen thread."
+  },
+  {
+    ergon_id: "erg-MEAS-002-V1",
+    canonical_name: "Post-protein-meal H2S elevation ≥2 ppm above baseline is characteristic of sulfur-reducing-bacteria-dominant profiles.",
+    source_excerpt: {
+      lead_in: "A 40-gram standardized protein meal was selected to provoke reliable SRB substrate delivery.",
+      claim_text: "Subjects with high fecal Desulfovibrio abundance showed postprandial breath H2S excursions of 2.1–4.3 ppm following a 40g protein challenge, versus <0.5 ppm in low-SRB controls (n=42).",
+      follow_on: "Peak H2S consistently preceded peak H2 in high-SRB subjects, supporting competitive hydrogen utilization by sulfate reducers.",
+      location: "p. e1901816, fig 2A"
+    },
+    desk: "MEAS",
+    guilds: ["sulfur-reducer"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["H2S spike", "protein challenge", "SRB profile"],
+    source_paper: "Murphy et al., Gut Microbes 2021",
+    source_year: 2021,
+    methodology_flags: [],
+    chain_hints: "Single study, n=42, good methodology. Upgrade to strong if replicated."
+  },
+  {
+    ergon_id: "erg-BIO-002-V1",
+    canonical_name: "Desulfovibrio spp. outcompete methanogens for H2 under sulfate-rich conditions due to higher substrate affinity.",
+    source_excerpt: {
+      lead_in: "Kinetic measurements of hydrogen consumption were performed across a range of H2 partial pressures in enrichment cultures.",
+      claim_text: "Sulfate-reducing bacteria exhibit a lower Km for hydrogen (~1 µM) than hydrogenotrophic methanogens (~10 µM), permitting preferential H2 utilization when sulfate is non-limiting.",
+      follow_on: "This affinity advantage inverts when sulfate becomes limiting, as in long sulfate-sparse intervals such as fasting.",
+      location: "p. 193, table 1"
+    },
+    desk: "BIO",
+    guilds: ["sulfur-reducer", "methanogen"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["hydrogen competition", "H2 affinity", "SRB vs methanogen"],
+    source_paper: "Lovley & Klug, Appl Environ Microbiol 1983",
+    source_year: 1983,
+    methodology_flags: [],
+    chain_hints: "Well-replicated microbial ecology finding. Applies across ecosystems — gut, sediment, rumen."
+  },
+  {
+    ergon_id: "erg-MECH-002-V1",
+    canonical_name: "Butyrate is the primary energy substrate for colonocytes, supplying 60–70% of their ATP.",
+    source_excerpt: {
+      lead_in: "Epithelial substrate preference was assessed by oxidative rate measurements using radiolabeled precursors.",
+      claim_text: "Colonocyte β-oxidation of butyrate accounts for approximately 70% of their energy requirements, with the remainder derived from acetate and amino acids.",
+      follow_on: "This substrate hierarchy is unusual among mammalian epithelia and makes colonic tissue uniquely dependent on microbial metabolic output.",
+      location: "p. 427, §discussion"
+    },
+    desk: "MECH",
+    guilds: ["butyrate", "mucin"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["colonocyte fuel", "butyrate β-oxidation", "SCFA metabolism"],
+    source_paper: "Roediger, Gastroenterology 1982",
+    source_year: 1982,
+    methodology_flags: [],
+    chain_hints: "Foundational. Replicated many times since. Ties butyrate guild to mucin guild via barrier energetics."
+  },
+  {
+    ergon_id: "erg-NUT-002-V1",
+    canonical_name: "Polyphenol-rich berry extracts suppress Desulfovibrio growth in in vitro fecal fermentation.",
+    source_excerpt: {
+      lead_in: "Freshly collected fecal slurries (n=8 donors) were incubated anaerobically with graded polyphenol doses.",
+      claim_text: "Incubation of fecal slurries with blueberry polyphenol extract (500 mg/L) reduced Desulfovibrio 16S copy number by 1.8 log over 24 h.",
+      follow_on: "Effects on butyrate-producers were neutral or mildly positive in the same samples, suggesting a selective rather than broadly antimicrobial action.",
+      location: "p. 62, fig 4B"
+    },
+    desk: "NUT",
+    guilds: ["sulfur-reducer"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["polyphenols", "berry extract", "sulfur-reducer suppression"],
+    source_paper: "Tzounis et al., Am J Clin Nutr 2011",
+    source_year: 2011,
+    methodology_flags: ["in-vitro-only"],
+    chain_hints: "In vitro only. No human dose-response data. Cannot recommend a polyphenol intake on this alone."
+  },
+  {
+    ergon_id: "erg-SYM-002-V1",
+    canonical_name: "Bloating intensity correlates with rate of gas production, not total gas volume.",
+    source_excerpt: {
+      lead_in: "Real-time abdominal MRI was used to quantify intraluminal gas volume and rate of change during a standardized fiber challenge.",
+      claim_text: "Perceived abdominal distension correlated with dV/dt of intraluminal gas (r=0.61) but not with integrated gas volume (r=0.14, n.s.) in MRI-monitored subjects.",
+      follow_on: "This decouples the subjective experience of bloating from the absolute quantity of gas produced, implicating rate-dependent mechanoreceptor signaling.",
+      location: "p. 1403, fig 5"
+    },
+    desk: "SYM",
+    guilds: ["fermentation", "opportunist"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["bloating kinetics", "distension perception", "gas rate"],
+    source_paper: "Serra et al., Gastroenterology 2010",
+    source_year: 2010,
+    methodology_flags: [],
+    chain_hints: "Implies curve shape matters more than peak height. Directly feeds MEAS-003 framing."
+  },
+  {
+    ergon_id: "erg-MEAS-003-V1",
+    canonical_name: "Smoother post-meal H2 curves (lower variance) indicate efficient hydrogen handoff between fermentation and downstream consumer guilds.",
+    source_excerpt: {
+      lead_in: "Several recent clinical reviews have proposed curve-shape analytics as a complement to absolute-peak breath testing.",
+      claim_text: "Efficient cross-feeding is characterized by a single rounded H2 peak with rapid return to baseline, whereas multiple chaotic peaks suggest disrupted consumer dynamics.",
+      follow_on: "Quantitative thresholds for 'chaotic' vs. 'smooth' have not been standardized across laboratories.",
+      location: "p. 789, §2.3"
+    },
+    desk: "MEAS",
+    guilds: ["fermentation", "methanogen", "butyrate"],
+    confidence: "emerging",
+    data_origin: "echo",
+    source_tier: "secondary",
+    seeds: ["H2 curve smoothness", "hydrogen handoff", "cross-feeding signature"],
+    source_paper: "Rezaie (review) — interpretation synthesized across multiple clinical reviews",
+    source_year: 2023,
+    methodology_flags: ["echo-unresolved"],
+    chain_hints: "PROVENANCE DEBT: claim appears in multiple narrative reviews but primary data on 'smoothness as cross-feeding index' not located. Must trace before upgrading confidence."
+  },
+  {
+    ergon_id: "erg-MECH-003-V1",
+    canonical_name: "H2S at concentrations >100 µM inhibits mitochondrial butyrate oxidation in colonocytes.",
+    source_excerpt: {
+      lead_in: "Isolated rat colonocytes were incubated with graded sulfide concentrations under controlled oxygen tension.",
+      claim_text: "Sulfide concentrations above 100 µM produced dose-dependent inhibition of butyrate oxidation in isolated rat colonocytes, with complete inhibition at 500 µM.",
+      follow_on: "Inhibition was fully reversible on sulfide washout and rescued by exogenous thiosulfate, implicating sulfide's effect on mitochondrial electron transport rather than substrate depletion.",
+      location: "p. 802, fig 1"
+    },
+    desk: "MECH",
+    guilds: ["sulfur-reducer", "butyrate"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["H2S toxicity", "butyrate oxidation", "mitochondrial inhibition"],
+    source_paper: "Roediger et al., Gastroenterology 1993",
+    source_year: 1993,
+    methodology_flags: ["in-vitro-only"],
+    chain_hints: "Isolated colonocytes, rat. Luminal H2S concentrations in vivo are debated — effective exposure likely lower. Mechanistic link between sulfur guild and butyrate guild is real but dose-dependency in vivo is open."
+  },
+  {
+    ergon_id: "erg-NUT-003-V1",
+    canonical_name: "Dietary microbiota-accessible carbohydrate (MAC) intake below 15 g/day is associated with reduced mucin-degrading bacterial diversity.",
+    source_excerpt: {
+      lead_in: "Gnotobiotic mice were colonized with a 14-member synthetic human-derived community and fed diets differing only in accessible carbohydrate content.",
+      claim_text: "Low-MAC diets (<15 g/day) resulted in compensatory mucin foraging and a 40% reduction in mucin-layer thickness in gnotobiotic mice, reversible on reintroduction of MAC.",
+      follow_on: "Thinning correlated with increased susceptibility to enteric pathogen colonization, suggesting the barrier effect is downstream of MAC availability rather than intrinsic.",
+      location: "p. 1344, fig 3A-C"
+    },
+    desk: "NUT",
+    guilds: ["mucin", "fermentation"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["MAC intake", "mucin thickness", "dietary fiber deficiency"],
+    source_paper: "Desai et al., Cell 2016",
+    source_year: 2016,
+    methodology_flags: ["animal-only"],
+    chain_hints: "Gnotobiotic mouse model. Strong mechanism, but human MAC-mucin quantification threshold is extrapolated. Flag animal-only."
+  },
+  {
+    ergon_id: "erg-BIO-003-V1",
+    canonical_name: "Akkermansia muciniphila degrades mucin glycans and produces acetate/propionate as byproducts, supporting cross-feeding.",
+    source_excerpt: {
+      lead_in: "A novel Verrucomicrobia isolate was cultured from human fecal material under strictly anaerobic conditions.",
+      claim_text: "A. muciniphila utilizes mucin as sole carbon and nitrogen source in vitro, producing acetate, propionate, and 1,2-propanediol as principal fermentation products.",
+      follow_on: "The 1,2-propanediol output is notable as a cross-feeding substrate for downstream bacteria that convert it to propionate via the Roseburia-type pathway.",
+      location: "p. 1472, §phenotypic characteristics"
+    },
+    desk: "BIO",
+    guilds: ["mucin", "fermentation"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["Akkermansia", "mucin fermentation", "cross-feeding byproducts"],
+    source_paper: "Derrien et al., Int J Syst Evol Microbiol 2004",
+    source_year: 2004,
+    methodology_flags: [],
+    chain_hints: "Foundational for the mucin guild. Connects mucin degradation to downstream butyrate-producers that feed on acetate/propionate intermediates."
+  },
+  {
+    ergon_id: "erg-SYM-003-V1",
+    canonical_name: "VOC chaos score (post-meal breath volatile variance) correlates with self-reported GI symptom flare episodes.",
+    source_excerpt: {
+      lead_in: "A single-subject protocol was used to evaluate intra-individual variability against self-reported symptom days.",
+      claim_text: "In a single-subject longitudinal study (n=1, 90 days), days scored as GI flares showed a 2.3× increase in VOC variance versus asymptomatic days.",
+      follow_on: "Per-person baseline establishment is required before VOC variance can be interpreted across subjects, as absolute variance differs substantially between individuals.",
+      location: "Aeris internal doc, §pilot obs"
+    },
+    desk: "SYM",
+    guilds: ["opportunist"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["VOC variance", "symptom flare correlate", "opportunist fingerprint"],
+    source_paper: "Aeris internal pilot — personal-N=1 study",
+    source_year: 2025,
+    methodology_flags: ["n-under-threshold", "coi-industry"],
+    chain_hints: "Single subject, internal. Explicitly underpowered and COI-flagged. Placeholder SYM for opportunist thread until multi-subject data exists."
+  },
+  {
+    ergon_id: "erg-SYM-004-V1",
+    canonical_name: "Among self-reporting IMO-symptomatic online community members, 4.6% attributed symptom improvement to increased oatmeal intake.",
+    source_excerpt: {
+      lead_in: "Corpus: 1,247 reddit comments from r/SIBO and r/ibs posted Feb–Oct 2025, filtered to those using 'IMO' or 'methane' and describing a dietary change.",
+      claim_text: "Of the 1,247 filtered comments, 57 (4.6%) explicitly linked reduction of sluggish/bloated symptoms to increased oatmeal or beta-glucan-rich food intake; 312 comments mentioned oatmeal without a symptom claim (baseline mention rate 25.0%).",
+      follow_on: "Selection was automated by keyword regex and manually adjudicated by two reviewers (κ=0.78); the absence of dose, duration, and symptom-severity fields limits this to a community-prevalence signal rather than an intervention estimate.",
+      location: "Ergatai crowd run, 2026-04-15"
+    },
+    desk: "SYM",
+    guilds: ["methanogen", "fermentation"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "crowd-report",
+    seeds: ["crowd oatmeal IMO", "self-reported methane improvement", "community dietary attribution"],
+    source_paper: "Ergatai crowd extract — r/SIBO + r/ibs scrape Feb–Oct 2025",
+    source_year: 2025,
+    methodology_flags: ["crowd-self-report", "selection-bias", "n-under-threshold"],
+    chain_hints: "Community prevalence only — NOT an effect-size estimate. Population is vocal self-reporters, not the general IMO-affected population. Complements (does not replace) clinical evidence. Do not upgrade past emerging without a controlled trial cross-reference. Aerine uses this ONLY as 'others in communities report X' — never as 'X works'."
+  }
+];
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+const state = {
+  view: "cards",
+  filters: {
+    desk: "all",
+    guild: [],
+    guildMode: "OR",       // OR (any) | AND (all) | ONE (only — single-guild erga)
+    confidence: null,
+    origin: null,
+    tier: null,
+    mflag: null
+  },
+  search: "",
+  openId: null,
+  thread: { SYM: null, MEAS: null, BIO: null, MECH: null, NUT: null }
+};
+
+// ── EXCERPT RENDERING ───────────────────────────────────────────────────────
+// KEEL: report-shape drives display-shape. source_excerpt is structured
+// ({lead_in, claim_text, follow_on, location}); excerptHTML renders the
+// claim_text in <strong> with muted lead/follow around it. Empty lead/follow
+// render as nothing — honest absence, not fabricated context.
+function excerptHTML(e) {
+  const x = e.source_excerpt;
+  if (!x || !x.claim_text) return "";
+  const parts = [];
+  if (x.lead_in) parts.push(x.lead_in);
+  parts.push(`<strong>${x.claim_text}</strong>`);
+  if (x.follow_on) parts.push(x.follow_on);
+  return parts.join(" ");
+}
+function excerptPlain(e) {
+  const x = e.source_excerpt;
+  if (!x) return "";
+  return [x.lead_in || "", x.claim_text || "", x.follow_on || ""].filter(Boolean).join(" ");
+}
+
+// ── DERIVED: REVIEW-WORTHY SCORE ────────────────────────────────────────────
+function reviewScore(e) {
+  const base = e.confidence === "emerging" ? 0.9 : e.confidence === "moderate" ? 0.4 : 0.1;
+  let s = base;
+  const flags = e.methodology_flags || [];
+  if (e.data_origin === "echo" && flags.includes("echo-unresolved")) s += 0.20;
+  if (flags.length) s += 0.15;
+  if (flags.includes("coi-industry")) s += 0.15;
+  if (e.source_tier === "secondary") s += 0.10;
+  if (flags.includes("duplicate-suspect")) s += 0.10;
+  return Math.max(0, Math.min(1, s));
+}
+
+// ── FILTER ──────────────────────────────────────────────────────────────────
+function matches(e) {
+  const f = state.filters;
+  if (f.desk !== "all" && e.desk !== f.desk) return false;
+  if (f.guild.length) {
+    // KEEL: guild boolean mode — OR (any), AND (all-of-selected), ONE (exactly one AND in selection)
+    if (f.guildMode === "OR") {
+      if (!f.guild.some(g => e.guilds.includes(g))) return false;
+    } else if (f.guildMode === "AND") {
+      if (!f.guild.every(g => e.guilds.includes(g))) return false;
+    } else if (f.guildMode === "ONE") {
+      if (e.guilds.length !== 1) return false;
+      if (!f.guild.includes(e.guilds[0])) return false;
+    }
+  }
+  if (f.confidence && e.confidence !== f.confidence) return false;
+  if (f.origin && e.data_origin !== f.origin) return false;
+  if (f.tier && e.source_tier !== f.tier) return false;
+  if (f.mflag && !(e.methodology_flags || []).includes(f.mflag)) return false;
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const hay = [e.canonical_name, excerptPlain(e), e.ergon_id, e.desk, e.guilds.join(" "), (e.seeds||[]).join(" "), e.source_paper].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+function filtered() { return ERGA.filter(matches); }
+
+// ── DOM REFS ────────────────────────────────────────────────────────────────
+const countEl   = document.getElementById("erg-count");
+const bannerEl  = document.getElementById("erg-batch-banner");
+const cardsWrap = document.getElementById("erg-cards-wrap");
+const cardsEl   = document.getElementById("erg-cards");
+const tableWrap = document.getElementById("erg-table-wrap");
+const tbodyEl   = document.getElementById("erg-tbody");
+const readerEl  = document.getElementById("erg-reader");
+const searchEl  = document.getElementById("erg-search");
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+function init() {
+  bannerEl.textContent = `batch ${BATCH_META.batch} · ${ERGA.length} erga · ${BATCH_META.session_date}`;
+  wireChips();
+  updateCounts();
+  renderAll();
+}
+
+function wireChips() {
+  document.querySelectorAll(".erg-chip[data-f]").forEach(btn => {
+    btn.addEventListener("click", () => handleChip(btn));
+  });
+  // Guild boolean-mode toggle
+  document.querySelectorAll("#guild-mode-toggle .erg-mode").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#guild-mode-toggle .erg-mode").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.filters.guildMode = btn.dataset.mode;
+      renderAll();
+    });
+  });
+}
+
+function updateCounts() {
+  const all = ERGA;
+  document.getElementById("ct-desk-all").textContent = all.length;
+  ["SYM","MEAS","BIO","MECH","NUT"].forEach(d =>
+    document.getElementById("ct-desk-"+d).textContent = all.filter(e => e.desk === d).length);
+  ["fermentation","methanogen","sulfur-reducer","butyrate","mucin","opportunist"].forEach(g =>
+    document.getElementById("ct-g-"+g).textContent = all.filter(e => e.guilds.includes(g)).length);
+  ["strong","moderate","emerging"].forEach(c =>
+    document.getElementById("ct-c-"+c).textContent = all.filter(e => e.confidence === c).length);
+  ["primary","synthesis","echo"].forEach(o =>
+    document.getElementById("ct-o-"+o).textContent = all.filter(e => e.data_origin === o).length);
+  ["primary","secondary","crowd-report"].forEach(t =>
+    document.getElementById("ct-t-"+t).textContent = all.filter(e => e.source_tier === t).length);
+  ["animal-only","in-vitro-only","n-under-threshold","echo-unresolved","coi-industry","crowd-self-report","selection-bias"].forEach(m =>
+    document.getElementById("ct-m-"+m).textContent = all.filter(e => (e.methodology_flags||[]).includes(m)).length);
+}
+
+function handleChip(btn) {
+  const f = btn.dataset.f, v = btn.dataset.v;
+  if (f === "desk") {
+    document.querySelectorAll('.erg-chip[data-f="desk"]').forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.filters.desk = v;
+  } else if (f === "guild") {
+    // multi-select
+    const i = state.filters.guild.indexOf(v);
+    if (i >= 0) { state.filters.guild.splice(i,1); btn.classList.remove("active"); }
+    else { state.filters.guild.push(v); btn.classList.add("active"); }
+  } else {
+    const isActive = state.filters[f] === v;
+    document.querySelectorAll(`.erg-chip[data-f="${f}"]`).forEach(b => b.classList.remove("active"));
+    state.filters[f] = isActive ? null : v;
+    if (!isActive) btn.classList.add("active");
+  }
+  renderAll();
+}
+
+// ── VIEW TOGGLE ─────────────────────────────────────────────────────────────
+window.setView = function(v) {
+  state.view = v;
+  cardsWrap.classList.toggle("hidden", v !== "cards");
+  tableWrap.classList.toggle("hidden", v !== "table");
+  document.getElementById("btn-cards").classList.toggle("active", v === "cards");
+  document.getElementById("btn-table").classList.toggle("active", v === "table");
+  renderAll();
+};
+
+// ── RENDER CARDS ────────────────────────────────────────────────────────────
+function flagIcons(e) {
+  const icons = [];
+  (e.methodology_flags || []).forEach(f => {
+    const cls = f === "echo-unresolved" ? "erg-tag-echo" : "erg-tag-flag";
+    icons.push(`<span class="erg-tag ${cls}" title="${f}">${f}</span>`);
+  });
+  return icons.join("");
+}
+
+function guildTags(e) {
+  return e.guilds.map(g => `<span class="erg-tag erg-tag-guild" data-g="${g}">${g}</span>`).join("");
+}
+
+function renderCards() {
+  const list = filtered();
+  countEl.textContent = list.length + " ergon" + (list.length !== 1 ? "a" : "");
+  if (!list.length) { cardsEl.innerHTML = '<div class="erg-empty">No erga match current filters.</div>'; return; }
+  cardsEl.innerHTML = list.map(e => {
+    const r = reviewScore(e);
+    const focused = state.openId === e.ergon_id;
+    const inChain = state.thread[e.desk] === e.ergon_id;
+    return `<div class="erg-card${focused?" focused":""}" data-conf="${e.confidence}" data-id="${e.ergon_id}">
+      <div class="erg-card-actions">
+        <button class="erg-icon" data-action="chain" data-id="${e.ergon_id}" title="add to chain (slot ${e.desk})">${inChain?"✓":"+"}</button>
+        <button class="erg-icon" data-action="open" data-id="${e.ergon_id}" title="open">›</button>
+      </div>
+      <div class="erg-card-head">
+        <div class="erg-card-title">${e.canonical_name}</div>
+        <span class="erg-card-id">${e.ergon_id}</span>
+      </div>
+      <div class="erg-card-quote">${excerptHTML(e)}</div>
+      <div class="erg-card-bottom">
+        <div class="erg-card-meta">
+          <span class="erg-tag erg-tag-${e.confidence}">${e.confidence}</span>
+          <span class="erg-tag erg-tag-desk erg-tag-desk-${e.desk}">${e.desk}</span>
+          ${guildTags(e)}
+          <span class="erg-tag erg-tag-origin">${e.data_origin}·${e.source_tier}</span>
+          ${flagIcons(e)}
+        </div>
+        <div class="erg-signal">
+          <span style="opacity:0.7">review</span>
+          <div class="erg-signal-bar"><div class="erg-signal-fill" style="width:${Math.round(r*100)}%"></div></div>
+          <span>${(r*100).toFixed(0)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderTable() {
+  const list = filtered();
+  if (!list.length) { tbodyEl.innerHTML = `<tr><td colspan="9"><div class="erg-empty">No erga match current filters.</div></td></tr>`; return; }
+  tbodyEl.innerHTML = list.map(e => {
+    const r = reviewScore(e);
+    return `<tr data-id="${e.ergon_id}" class="${state.openId===e.ergon_id?"focused":""}">
+      <td class="td-id">${e.ergon_id}</td>
+      <td class="td-title">${e.canonical_name}</td>
+      <td><span class="erg-tag erg-tag-desk erg-tag-desk-${e.desk}">${e.desk}</span></td>
+      <td>${guildTags(e)}</td>
+      <td><span class="erg-tag erg-tag-${e.confidence}">${e.confidence}</span></td>
+      <td>${e.data_origin}</td>
+      <td>${e.source_tier}</td>
+      <td>${(e.methodology_flags||[]).join(" · ")||"—"}</td>
+      <td>
+        <div class="erg-signal">
+          <div class="erg-signal-bar"><div class="erg-signal-fill" style="width:${Math.round(r*100)}%"></div></div>
+          <span style="font-size:10px">${(r*100).toFixed(0)}</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+  tbodyEl.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => { state.openId = tr.dataset.id; renderAll(); });
+  });
+}
+
+// ── READER ──────────────────────────────────────────────────────────────────
+function renderReader() {
+  if (!state.openId) { readerEl.classList.add("hidden"); return; }
+  const e = ERGA.find(x => x.ergon_id === state.openId);
+  if (!e) { readerEl.classList.add("hidden"); return; }
+  readerEl.classList.remove("hidden");
+  const flags = e.methodology_flags || [];
+  const r = reviewScore(e);
+  const inChain = state.thread[e.desk] === e.ergon_id;
+  readerEl.innerHTML = `
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+      <h4>${e.canonical_name}</h4>
+      <button class="erg-icon" onclick="closeReader()">×</button>
+    </div>
+    <div class="erg-reader-sub">${e.ergon_id} · ${e.source_paper} (${e.source_year})${e.source_excerpt && e.source_excerpt.location ? " · " + e.source_excerpt.location : ""}</div>
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Source Excerpt (pericope — ±1 framing)</div>
+      <div class="erg-reader-quote">${excerptHTML(e)}</div>
+    </div>
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Claim (canonical)</div>
+      <div class="erg-reader-claim">${e.canonical_name}</div>
+    </div>
+
+    ${flags.length ? `<div class="erg-reader-sec">
+      <div class="erg-reader-label">Methodology Flags</div>
+      ${flags.map(f => `<div class="erg-reader-flag ${f === 'echo-unresolved' ? 'echo' : ''}">${f}</div>`).join("")}
+    </div>` : ""}
+
+    ${e.chain_hints ? `<div class="erg-reader-sec">
+      <div class="erg-reader-label">Chain Hints</div>
+      <div class="erg-reader-claim" style="font-family:var(--font-mono);font-size:11px;">${e.chain_hints}</div>
+    </div>` : ""}
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Metadata</div>
+      <dl class="erg-kv">
+        <dt>ergon_id</dt><dd>${e.ergon_id}</dd>
+        <dt>desk</dt><dd>${e.desk}</dd>
+        <dt>guilds</dt><dd>${e.guilds.join(", ")}</dd>
+        <dt>confidence</dt><dd>${e.confidence}</dd>
+        <dt>data_origin</dt><dd>${e.data_origin}</dd>
+        <dt>source_tier</dt><dd>${e.source_tier}</dd>
+        <dt>seeds</dt><dd>${(e.seeds||[]).join(", ")}</dd>
+        <dt>review score</dt><dd>${(r*100).toFixed(0)} / 100</dd>
+      </dl>
+    </div>
+
+    <div class="erg-reader-actions">
+      <button class="erg-btn primary" onclick="toggleThread('${e.ergon_id}')">${inChain ? "remove from chain" : "add to chain (" + e.desk + " slot)"}</button>
+    </div>`;
+}
+
+window.closeReader = function() { state.openId = null; renderAll(); };
+
+// ── CLICK HANDLERS ──────────────────────────────────────────────────────────
+cardsEl.addEventListener("click", ev => {
+  const btn = ev.target.closest("[data-action]");
+  if (btn) {
+    ev.stopPropagation();
+    const id = btn.dataset.id;
+    if (btn.dataset.action === "chain") toggleThread(id);
+    else if (btn.dataset.action === "open") { state.openId = id; renderAll(); }
+    return;
+  }
+  const card = ev.target.closest(".erg-card");
+  if (card) { state.openId = card.dataset.id; renderAll(); }
+});
+
+// ── CHAIN BUILDER ───────────────────────────────────────────────────────────
+window.toggleThread = function(id) {
+  const e = ERGA.find(x => x.ergon_id === id);
+  if (!e) return;
+  if (state.thread[e.desk] === id) state.thread[e.desk] = null;
+  else state.thread[e.desk] = id;  // overwrites previous ergon in that desk
+  renderAll();
+};
+
+function renderThread() {
+  const verdictEl = document.getElementById("thread-verdict");
+  const slots = ["SYM","MEAS","BIO","MECH","NUT"];
+  const slotEls = document.querySelectorAll("#thread-bobbins .erg-bobbin");
+
+  slotEls.forEach(el => {
+    const desk = el.dataset.desk;
+    const id = state.thread[desk];
+    el.classList.toggle("filled", !!id);
+    el.classList.toggle("empty-clickable", !id);
+    if (id) {
+      const e = ERGA.find(x => x.ergon_id === id);
+      el.innerHTML = `
+        <div class="erg-bobbin-label">${desk}</div>
+        <span class="erg-bobbin-remove" onclick="toggleThread('${id}')">×</span>
+        <div class="erg-bobbin-ergon-id">${e.ergon_id}</div>
+        <div class="erg-bobbin-title">${e.canonical_name}</div>
+        <div class="erg-bobbin-conf">${e.confidence}${(e.methodology_flags||[]).includes("echo-unresolved") ? " · echo!" : ""}</div>
+      `;
+    } else {
+      el.innerHTML = `<div class="erg-bobbin-label">${desk}</div><div class="erg-bobbin-empty">find ${desk} ergon →</div>`;
+    }
+  });
+
+  // Verdict
+  const filled = slots.every(d => state.thread[d]);
+  const goldBtn = document.getElementById("btn-gold");
+  if (!filled) {
+    const count = slots.filter(d => state.thread[d]).length;
+    verdictEl.textContent = count === 0 ? "no thread yet" : `${count}/5 — broken thread`;
+    verdictEl.className = "erg-thread-verdict" + (count > 0 ? " broken" : "");
+    goldBtn.disabled = true;
+    return;
+  }
+  const items = slots.map(d => ERGA.find(x => x.ergon_id === state.thread[d]));
+  const anyEmerging = items.some(e => e.confidence === "emerging");
+  const anyEchoUnresolved = items.some(e => (e.methodology_flags||[]).includes("echo-unresolved"));
+  if (anyEmerging || anyEchoUnresolved) {
+    verdictEl.textContent = "loose thread — something to pick at";
+    verdictEl.className = "erg-thread-verdict loose";
+  } else {
+    verdictEl.textContent = "golden thread — exportable";
+    verdictEl.className = "erg-thread-verdict gold";
+  }
+  goldBtn.disabled = false;
+}
+
+// KEEL: empty-slot click → activate desk filter for that slot.
+document.getElementById("thread-bobbins").addEventListener("click", ev => {
+  const slot = ev.target.closest(".erg-bobbin");
+  if (!slot || !slot.classList.contains("empty-clickable")) return;
+  // don't fire when clicking the remove × (slot is filled) — guarded by empty-clickable check
+  const desk = slot.dataset.desk;
+  state.filters.desk = desk;
+  document.querySelectorAll('.erg-chip[data-f="desk"]').forEach(b => {
+    b.classList.toggle("active", b.dataset.v === desk);
+  });
+  renderAll();
+  // scroll cards back into view
+  document.getElementById("erg-cards-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+// ── EXPORTS ─────────────────────────────────────────────────────────────────
+window.exportGoldenThread = function() {
+  const slots = ["SYM","MEAS","BIO","MECH","NUT"];
+  const items = slots.map(d => ERGA.find(x => x.ergon_id === state.thread[d])).filter(Boolean);
+  if (items.length !== 5) { alert("Fill all five slots before exporting."); return; }
+  const anyEmerging = items.some(e => e.confidence === "emerging");
+  const anyEchoUnresolved = items.some(e => (e.methodology_flags||[]).includes("echo-unresolved"));
+  const verdict = (anyEmerging || anyEchoUnresolved) ? "loose" : "golden";
+  const out = {
+    export_type: "golden_thread",
+    verdict,
+    generated_at: new Date().toISOString(),
+    chain_order: "SYM → MEAS → BIO → MECH → NUT",
+    links: items.map(e => ({
+      slot: e.desk,
+      ergon_id: e.ergon_id,
+      claim: e.canonical_name,
+      source_excerpt: e.source_excerpt,
+      confidence: e.confidence,
+      data_origin: e.data_origin,
+      source_tier: e.source_tier,
+      guilds: e.guilds,
+      methodology_flags: e.methodology_flags || [],
+      source_paper: e.source_paper
+    })),
+    provenance_debts: items
+      .filter(e => e.chain_hints && (e.data_origin === "echo" || e.source_tier === "secondary"))
+      .map(e => ({ ergon_id: e.ergon_id, hint: e.chain_hints }))
+  };
+  downloadJSON(out, `golden_thread_${verdict}_${Date.now()}.json`);
+};
+
+window.exportCustodianQueue = function() {
+  const sorted = [...ERGA].sort((a,b) => reviewScore(b) - reviewScore(a));
+  const queue = sorted.filter(e => reviewScore(e) >= 0.5).map(e => ({
+    ergon_id: e.ergon_id,
+    claim: e.canonical_name,
+    review_score: Math.round(reviewScore(e)*100),
+    confidence: e.confidence,
+    data_origin: e.data_origin,
+    source_tier: e.source_tier,
+    methodology_flags: e.methodology_flags || [],
+    chain_hints: e.chain_hints || null
+  }));
+  const out = {
+    export_type: "custodian_queue",
+    generated_at: new Date().toISOString(),
+    threshold: 0.5,
+    total_in_queue: queue.length,
+    total_erga: ERGA.length,
+    erga: queue
+  };
+  downloadJSON(out, `custodian_queue_${Date.now()}.json`);
+};
+
+window.exportSeedDigest = function() {
+  const seed = prompt("Enter seed term (e.g. 'H2S spike', 'CH4 baseline', 'butyrate production'):");
+  if (!seed) return;
+  const q = seed.toLowerCase();
+  const hits = ERGA.filter(e =>
+    (e.seeds || []).some(s => s.toLowerCase().includes(q)) ||
+    e.canonical_name.toLowerCase().includes(q) ||
+    excerptPlain(e).toLowerCase().includes(q)
+  );
+  if (!hits.length) { alert(`No erga match seed "${seed}".`); return; }
+  const byDesk = {};
+  ["SYM","MEAS","BIO","MECH","NUT"].forEach(d => {
+    byDesk[d] = hits.filter(e => e.desk === d).map(e => ({
+      ergon_id: e.ergon_id,
+      claim: e.canonical_name,
+      confidence: e.confidence,
+      guilds: e.guilds
+    }));
+  });
+  const out = {
+    export_type: "seed_digest",
+    seed_term: seed,
+    generated_at: new Date().toISOString(),
+    total_hits: hits.length,
+    by_desk: byDesk
+  };
+  downloadJSON(out, `seed_digest_${seed.replace(/\s+/g,"_")}_${Date.now()}.json`);
+};
+
+// ── WOLFPACK SCOUT ──────────────────────────────────────────────────────────
+// KEEL: outbound coverage-gap finder. Emits a briefing JSON describing what
+// a real search backend should hunt. Does NOT perform the search here — the
+// briefing is the contract between this UI and whatever backend executes.
+
+// Small stoplist to keep concept extraction from surfacing junk tokens.
+const WOLFPACK_STOP = new Set([
+  "the","a","an","and","or","of","in","on","at","to","from","for","with","by",
+  "is","are","was","were","be","been","being","has","have","had","do","does","did",
+  "this","that","these","those","such","as","not","no","than","then","thus","also",
+  "may","can","will","would","could","should","between","among","across",
+  "study","studies","subjects","cohort","results","finding","findings"
+]);
+
+function extractConcepts(erga, k) {
+  // Concept tokens come from: seeds (weighted 3x), canonical_name (1x),
+  // claim_text (1x), guilds (2x), desk (1x). Top-k by frequency.
+  const freq = new Map();
+  const bump = (tok, w) => {
+    const t = tok.toLowerCase().replace(/[^\w\-]/g, "").trim();
+    if (t.length < 3 || WOLFPACK_STOP.has(t) || /^\d+$/.test(t)) return;
+    freq.set(t, (freq.get(t) || 0) + w);
+  };
+  erga.forEach(e => {
+    (e.seeds || []).forEach(s => s.split(/\s+/).forEach(w => bump(w, 3)));
+    (e.canonical_name || "").split(/\s+/).forEach(w => bump(w, 1));
+    (e.source_excerpt?.claim_text || "").split(/\s+/).forEach(w => bump(w, 1));
+    (e.guilds || []).forEach(g => bump(g, 2));
+    if (e.desk) bump(e.desk, 1);
+  });
+  return [...freq.entries()].sort((a,b) => b[1] - a[1]).slice(0, k).map(([t]) => t);
+}
+
+window.exportWolfpackScout = function() {
+  // Determine scope
+  const threadFilled = Object.values(state.thread).filter(Boolean);
+  let scope, scopeErga, scopeLabel;
+
+  if (threadFilled.length > 0) {
+    scopeErga = threadFilled.map(id => ERGA.find(e => e.ergon_id === id)).filter(Boolean);
+    scope = {
+      type: "thread-compilation",
+      description: `active thread (${scopeErga.length}/5 bobbins filled): ` +
+        Object.entries(state.thread).filter(([,v])=>v).map(([d,v])=>`${d}=${v}`).join(", "),
+      ergon_ids: scopeErga.map(e => e.ergon_id)
+    };
+    scopeLabel = "thread";
+  } else {
+    const f = state.filters;
+    const narrowed = (f.desk !== "all") || f.guild.length || f.confidence || f.origin || f.tier || f.mflag || state.search;
+    if (narrowed) {
+      scopeErga = filtered();
+      scope = {
+        type: "filter-set",
+        description: "current filter set: " + JSON.stringify({
+          desk: f.desk, guild: f.guild, guildMode: f.guildMode,
+          confidence: f.confidence, origin: f.origin, tier: f.tier,
+          mflag: f.mflag, search: state.search || null
+        }),
+        ergon_ids: scopeErga.map(e => e.ergon_id)
+      };
+      scopeLabel = "filter";
+    } else {
+      const custom = prompt("Scope is empty. Enter a custom scope description for the wolfpack (e.g. 'sulfur-reducer metabolism in IBS'):");
+      if (!custom) return;
+      scopeErga = [];
+      scope = { type: "custom", description: custom, ergon_ids: [] };
+      scopeLabel = "custom";
+    }
+  }
+
+  // Concept extraction
+  const terms = scopeErga.length
+    ? extractConcepts(scopeErga, 4)
+    : scope.description.split(/\s+/).slice(0, 4).map(t => t.toLowerCase().replace(/[^\w\-]/g, ""));
+
+  // Build 3-4 search strategies — each wolfpack member hunts one term with
+  // controlled source-breadth. Queries combine the focal term with one
+  // adjacent term to stay scoped but not too narrow.
+  const strategies = terms.map((term, i) => ({
+    pack_member: `wolf-${i + 1}`,
+    focal_term: term,
+    suggested_query: `"${term}"` + (terms[(i + 1) % terms.length] !== term ? ` "${terms[(i + 1) % terms.length]}"` : "") + " gut microbiome",
+    source_breadth: "wide (PubMed, preprints, reviews, .edu, .gov; exclude low-quality SEO blogs)",
+    recency_window: "prefer results from last 24 months; surface older only if highly cited"
+  }));
+
+  const briefing = {
+    export_type: "wolfpack_briefing",
+    generated_at: new Date().toISOString(),
+    scope,
+    concept_terms: terms,
+    search_strategies: strategies,
+
+    // KEEL: the backend executes the strategies and returns results shaped
+    // like this. Match classification is performed by the backend against
+    // the current ergastorion snapshot.
+    expected_return_schema: {
+      wolfpack_id: "uuid",
+      completed_at: "ISO timestamp",
+      results: [{
+        wolf: "wolf-N",
+        query: "string",
+        hit: {
+          title: "string",
+          authors: ["..."],
+          year: 2026,
+          doi: "string or null",
+          venue: "string",
+          url: "string",
+          snippet: "string"
+        },
+        match_tier: "confirmed | probable | no-match",
+        matched_ergon_id: "erg-XXX-NNN-V1 or null",
+        match_evidence: "e.g. DOI match / seed overlap (butyrate, colonocyte)",
+        proposed_desk: "SYM | BIO | NUT | MECH | MEAS (for no-match)",
+        proposed_seeds: ["..."],
+        linda_todo: "if no-match: extraction candidate; if probable: adjudicate"
+      }]
+    },
+
+    // Custodian integration
+    stale_scope_policy: "Record this run under scope.description. Flag scope stale after 12 weeks without re-run.",
+
+    // Architectural reminder for whoever wires this up
+    architectural_note: "Wolfpack is the sole component with open-web access. Briefing is read-only to the ergastorion; no direct writes to the fact layer. Results feed the standard extraction pipeline with Linda's adjudication."
+  };
+
+  downloadJSON(briefing, `wolfpack_briefing_${scopeLabel}_${Date.now()}.json`);
+};
+
+function downloadJSON(obj, filename) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+}
+
+// ── RENDER ALL ──────────────────────────────────────────────────────────────
+function renderAll() {
+  renderCards();
+  renderTable();
+  renderReader();
+  renderThread();
+}
+
+searchEl.addEventListener("input", ev => { state.search = ev.target.value; renderAll(); });
+
+init();
+</script>
+</body>
+</html>
