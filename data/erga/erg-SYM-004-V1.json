@@ -1,0 +1,55 @@
+{
+  "ergon_id": "erg-SYM-004-V1",
+  "type": "fact",
+  "desk": "symptom",
+  "assertion": "In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).",
+  "subject": {
+    "type": "gas",
+    "name": "breath methane"
+  },
+  "object": {
+    "type": "symptom",
+    "name": "constipation severity"
+  },
+  "relationship": "correlates_with",
+  "qualifiers": {
+    "magnitude": "R=0.577, P=0.019",
+    "conditions": "IMO-positive (CH4 >= 10 ppm)",
+    "population": "n=22 IMO-positive",
+    "model": "human cross-sectional"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "primary",
+    "ref": "MAST2025 Gas-biome match",
+    "doi": "10.1007/s10620-025-09156-y",
+    "location": "results, CH4 section",
+    "data_origin": "primary",
+    "original_text": "CH4 levels in IMO-positive subjects correlated with greater constipation severity (P=0.019)."
+  },
+  "confidence": "strong",
+  "guilds": [
+    "methane"
+  ],
+  "seeds": [
+    "methane",
+    "constipation",
+    "imo",
+    "breath_testing"
+  ],
+  "integrity": {
+    "claim_fingerprint": "sha256:e96cd05144555fa4",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.0,
+    "coi_flag": false,
+    "methodology_flags": [],
+    "review_worthy": 0.0
+  },
+  "chain_hints": [],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}

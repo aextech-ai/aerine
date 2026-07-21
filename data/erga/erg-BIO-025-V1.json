@@ -1,0 +1,77 @@
+{
+  "ergon_id": "erg-BIO-025-V1",
+  "type": "fact",
+  "desk": "biology",
+  "assertion": "Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).",
+  "subject": {
+    "type": "organism",
+    "name": "Escherichia coli and Klebsiella species",
+    "aliases": [
+      "E. coli BL21(DE3)",
+      "E. coli K-12",
+      "K. pneumoniae",
+      "K. aerogenes KCTC 2190",
+      "Enterobacteriaceae"
+    ]
+  },
+  "object": {
+    "type": "effect",
+    "name": "SIBO microbiome dominance",
+    "aliases": [
+      "duodenal bacterial overgrowth",
+      "SIBO microbial composition"
+    ]
+  },
+  "relationship": "dominates",
+  "qualifiers": {
+    "magnitude": "40.24% of duodenal bacteria in SIBO vs 5.6% in non-SIBO; Enterobacteriaceae log₂ FC=2.43 (adjusted P=2.66E-7); E. coli FC=6.55 (P=4.8E-4), K. pneumoniae FC=12.43 (P=9.4E-12), K. aerogenes FC=24.76 (P=4.3E-11), Enterobacter FC=22.11 (P=7.1E-8)",
+    "conditions": "duodenal aspirate via double-lumen sterile catheter; 16S rRNA (n=483 with culture) confirmed by shotgun metagenomics (n=38)",
+    "population": "505 adults undergoing EGD; 385 non-SIBO (<10³ CFU/mL), 98 SIBO (≥10³ CFU/mL) on MAC",
+    "model": "human prospective cross-sectional (REIMAGINE study)"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "primary",
+    "ref": "Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing",
+    "doi": "10.1016/j.cgh.2023.06.001",
+    "location": "Results — Specific Coliform Strains section, p.266; Discussion p.268",
+    "original_text": "Duodenal RA of specific Enterobacteriaceae species were increased in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including Escherichia coli (FC, 6.55; adjusted P = 4.8E-4), Klebsiella pneumoniae (FC, 12.43; adjusted P = 9.4E-12), Klebsiella aerogenes (FC, 24.76; adjusted P = 4.3E-11)... This remarkably specific group of microbes account for 40.24% of duodenal bacteria in SIBO subjects, compared with 5.6% in non-SIBO subjects.",
+    "data_origin": "primary"
+  },
+  "confidence": "strong",
+  "guilds": [
+    "opportunist"
+  ],
+  "seeds": [
+    "sibo",
+    "e_coli",
+    "klebsiella",
+    "enterobacteriaceae",
+    "duodenal_microbiome",
+    "bacterial_overgrowth",
+    "shotgun_sequencing",
+    "strain_level"
+  ],
+  "integrity": {
+    "claim_fingerprint": "ecoli_klebsiella|dominates|sibo microbiome",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.1,
+    "coi_flag": true,
+    "coi_detail": "Pimentel lab (Cedars-Sinai MAST). Study funded by institutional funds. Pimentel has consulting relationships with multiple GI pharma companies.",
+    "methodology_flags": [],
+    "review_worthy": 0.25
+  },
+  "chain_hints": [
+    "CRITICAL BIO: First strain-level identification of SIBO-dominant organisms in a large cohort",
+    "Only 4 strains/species account for majority of overgrowth — remarkably specific",
+    "E. coli BL21(DE3) and K-12 were hardly detectable in non-SIBO — these are not commensals drifting upward but true invaders",
+    "Connects to SYM-009 (strain-symptom correlations from same study)",
+    "Connects to MECH-023/024 (metabolic pathways enriched by these organisms)"
+  ],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}

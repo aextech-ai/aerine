@@ -1,0 +1,86 @@
+{
+  "ergon_id": "erg-SYM-009-V1",
+  "type": "fact",
+  "desk": "symptom",
+  "assertion": "In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.",
+  "subject": {
+    "type": "organism",
+    "name": "E. coli and K. aerogenes strains",
+    "aliases": [
+      "E. coli BL21(DE3)",
+      "E. coli K-12 W3110",
+      "K. aerogenes KCTC 2190",
+      "SIBO coliforms"
+    ]
+  },
+  "object": {
+    "type": "symptom",
+    "name": "GI symptom severity profiles",
+    "aliases": [
+      "abdominal pain",
+      "diarrhea",
+      "bloating",
+      "excess gas",
+      "urgency"
+    ]
+  },
+  "relationship": "correlates_with",
+  "qualifiers": {
+    "magnitude": "Spearman r values 0.110-0.374 across strain-symptom pairs; see assertion for full matrix; all reported P<.05",
+    "conditions": "shotgun metagenomic sequencing of duodenal aspirates; symptom severity measured by VAS 0-100; SIBO defined as >=10^3 CFU/mL on MAC",
+    "population": "n=28 subjects with shotgun data (N=17 SIBO >=10^3, N=11 non-SIBO <10^3); mean age 61+/-16y",
+    "model": "human prospective cross-sectional (REIMAGINE study shotgun subset)"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "primary",
+    "ref": "Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing",
+    "doi": "10.1016/j.cgh.2023.06.001",
+    "location": "Results — Specific Coliform Strains section, p.266; Table 2, p.267; Discussion p.268",
+    "original_text": "only specific E coli strains, with genomic similarities to E coli BL21(DE3) and E coli strain K-12 substrain W3110, correlated with abdominal pain (Spearman r = 0.284, P = .049; and Spearman r = 0.337, P = .02, respectively), and diarrhea (Spearman r = 0.321, P = .030; and Spearman r = 0.298, P = .04, respectively); a specific K aerogenes strain, with genomic similarities to K aerogenes KCTC 2190, correlated with abdominal pain (Spearman r = 0.374; P = .013), diarrhea (Spearman r = 0.305; P = .038), and excess gas (Spearman r = 0.286; P = .048)... Escherichia is associated with bloating and diarrhea, whereas Klebsiella has a greater association with abdominal pain",
+    "data_origin": "primary"
+  },
+  "confidence": "emerging",
+  "guilds": [
+    "opportunist"
+  ],
+  "seeds": [
+    "sibo",
+    "e_coli",
+    "klebsiella",
+    "abdominal_pain",
+    "diarrhea",
+    "bloating",
+    "excess_gas",
+    "urgency",
+    "strain_level",
+    "symptom_correlation",
+    "visceral_hypersensitivity"
+  ],
+  "integrity": {
+    "claim_fingerprint": "ecoli_klebsiella_strains|correlate_with|gi_symptom_profiles",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.3,
+    "coi_flag": true,
+    "coi_detail": "Pimentel lab. Small shotgun subset (n=28) limits statistical power. Multiple comparisons across many strain-symptom pairs increase false discovery risk.",
+    "methodology_note": "Shotgun subset is small (n=28). Correlations are modest (r=0.11-0.37). Multiple strain-symptom comparisons were performed; FDR correction status for these specific correlations is unclear from text. Cross-sectional design cannot establish causality.",
+    "methodology_flags": [
+      "n-under-threshold"
+    ],
+    "review_worthy": 0.6
+  },
+  "chain_hints": [
+    "FIRST SYM-DESK ERGON FROM SIBO STRAIN-LEVEL DATA — addresses SYM desk stagnation",
+    "K. aerogenes linked to visceral hypersensitivity via histamine production (ref 22 in paper — consistent with recent studies)",
+    "Distinct symptom fingerprints per strain suggests different pathogenic mechanisms",
+    "Connects to BIO-025 (same strains dominating SIBO microbiome)",
+    "Connects to MECH-023 (sulfate reduction pathways) and MECH-024 (sugar fermentation pathways) — the metabolic basis for these symptoms",
+    "Small n for shotgun — confidence appropriately set to emerging despite primary data"
+  ],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}

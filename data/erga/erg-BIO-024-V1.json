@@ -1,0 +1,75 @@
+{
+  "ergon_id": "erg-BIO-024-V1",
+  "type": "fact",
+  "desk": "biology",
+  "assertion": "Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).",
+  "subject": {
+    "type": "organism",
+    "name": "Prevotella",
+    "aliases": [
+      "Prevotella copri",
+      "P/B ratio",
+      "Prevotella enterotype"
+    ]
+  },
+  "object": {
+    "type": "effect",
+    "name": "weight loss response to fiber",
+    "aliases": [
+      "diet-microbiome interaction",
+      "personalized nutrition response"
+    ]
+  },
+  "relationship": "modulates",
+  "qualifiers": {
+    "magnitude": "high-P: ~2 kg greater weight loss on WG vs RW; 0-P: 1 kg loss on WG (P=0.009) vs 0.63 kg gain on RW; waist circumference: −4.7 vs +0.8 cm (P<0.05) in low-P group",
+    "conditions": "ad libitum whole grain wheat/rye products replacing refined wheat for 6 weeks",
+    "duration": "6 weeks",
+    "population": "healthy overweight adults aged 30-65, n=75",
+    "model": "human RCT (3-arm: WG wheat, WG rye, refined wheat)"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "tertiary",
+    "ref": "ASN Prevotella abundance and weight loss",
+    "doi": "10.1093/jn/nxz248",
+    "location": "commentary on Christensen et al. 2019 (doi: 10.1093/jn/149.12.2174)",
+    "original_text": "High-P subjects lost nearly 2 kg more on the WG diet when compared with RG, whereas low-P subjects remained weight-stable. 0-P participants experienced a 1 kg loss in body weight with WG consumption (P = 0.009).",
+    "data_origin": "echo"
+  },
+  "confidence": "emerging",
+  "guilds": [
+    "fermentation"
+  ],
+  "seeds": [
+    "prevotella",
+    "whole_grain",
+    "fiber",
+    "weight_loss",
+    "individual_variation",
+    "personalized_nutrition",
+    "enterotype"
+  ],
+  "integrity": {
+    "claim_fingerprint": "prevotella|modulates|weight_loss_on_fiber",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.35,
+    "coi_flag": false,
+    "coi_detail": "Commentary author CMW is paid advisory board member for Ardent Mills LLC. Primary study (Christensen et al.) had no funding disclosed.",
+    "methodology_flags": [
+      "echo-unresolved"
+    ],
+    "review_worthy": 0.65
+  },
+  "chain_hints": [
+    "Echo from Christensen et al. 2019 RCT — needs tracing to primary source for confidence upgrade",
+    "Prevotella and Bacteroides may compete for same functional niche (fiber degradation)",
+    "Supports personalized nutrition based on microbiome composition"
+  ],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}
