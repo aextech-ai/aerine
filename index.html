@@ -340,7 +340,8 @@ body {
 .erg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ── CHAIN BUILDER ───────────────────────────────────────────────────────── */
-.erg-bottom { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+.erg-bottom { display: grid; grid-template-columns: 1.5fr 0.8fr 1.7fr; gap: 12px; align-items: start; }
+@media (max-width: 1100px){ .erg-bottom { grid-template-columns: 1fr; } }
 .erg-thread {
   background: var(--parch-warm);
   border: 0.5px solid var(--brass-mid);
@@ -640,6 +641,20 @@ body {
           <button class="erg-btn" onclick="exportWolfpackScout()" title="concept-analyze selected scope, build a targeted web-search briefing">wolfpack scout ↓</button>
         </div>
       </div>
+
+      <!-- ── TALK TO AERINE (the barfly / persona layer) ─────────────────── -->
+      <div class="aer-chat" id="aer-chat">
+        <div class="aer-chat-head">
+          <span class="erg-wordmark" style="font-size:12px;">talk to <span style="color:var(--sym-fg);">aerine</span></span>
+          <span class="aer-chat-sub">helps you research — never diagnoses</span>
+        </div>
+        <div class="aer-log" id="aer-log"></div>
+        <div class="aer-suggest" id="aer-suggest"></div>
+        <form class="aer-input-row" id="aer-form" autocomplete="off">
+          <input type="text" class="aer-input" id="aer-input" placeholder="ask about your gut — e.g. bloating and SIBO, or does fiber help?" />
+          <button class="erg-btn primary" type="submit" id="aer-send">ask</button>
+        </form>
+      </div>
     </div>
 
   </div>
@@ -648,18 +663,63 @@ body {
 <footer class="erg-footer">
   <div class="erg-footer-row">
     <div class="erg-footer-copy">
-      © 2026 <strong>AEXTech Holdings</strong> · Aerine Ergastorion — Browser v1 sketch
+      © 2026 <strong>AEXTech Holdings</strong> · Aerine — gut-health research assistant (v0 prototype)
     </div>
     <div class="erg-footer-copy">
       Confidential — pre-publication review artifact
     </div>
   </div>
   <div class="erg-footer-disclaim">
-    Illustrative data notice: the sixteen erga shown are representative of the ergastorion's schema and extraction conventions, not verified extractions from the cited sources. Author names, journal references, and claim structures are used to demonstrate the catalog's behavior; specific quoted passages, numeric values, and page references were composed for this sketch and should not be cited as evidence. The production system is populated only with extractions traceable to verified source text under the Collector's operating procedure.
+    Seed corpus: this prototype is loaded with a small real subset of the Aerine ergastorion — erga extracted from published sources under the Collector's procedure, each carrying its verbatim source passage, DOI, and provenance. It is a <strong>seed slice, not the full corpus</strong>; many gut-health topics are not yet covered, and Aerine will say so plainly when a question outruns what she can trace.
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    This artifact is a schema and user-experience demonstration and does not constitute medical, clinical, or nutritional advice.
+    Aerine <strong>helps you research; she does not diagnose</strong>. Nothing here is medical, clinical, or nutritional advice. Confidence tiers and the golden/loose/broken verdict describe the strength of the evidence chain, not a recommendation to act.
   </div>
 </footer>
+
+<!-- Real ergastorion corpus (seed subset), injected from data/erga.json by build.py.
+     Kept as a data island so the page is self-contained and works from file:// with no fetch. -->
+<script id="aerine-corpus" type="application/json">[{"ergon_id":"erg-BIO-024-V1","type":"fact","desk":"biology","assertion":"Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).","subject":{"type":"organism","name":"Prevotella","aliases":["Prevotella copri","P/B ratio","Prevotella enterotype"]},"object":{"type":"effect","name":"weight loss response to fiber","aliases":["diet-microbiome interaction","personalized nutrition response"]},"relationship":"modulates","qualifiers":{"magnitude":"high-P: ~2 kg greater weight loss on WG vs RW; 0-P: 1 kg loss on WG (P=0.009) vs 0.63 kg gain on RW; waist circumference: −4.7 vs +0.8 cm (P<0.05) in low-P group","conditions":"ad libitum whole grain wheat/rye products replacing refined wheat for 6 weeks","duration":"6 weeks","population":"healthy overweight adults aged 30-65, n=75","model":"human RCT (3-arm: WG wheat, WG rye, refined wheat)"},"provenance":{"source_type":"journal_article","source_tier":"tertiary","ref":"ASN Prevotella abundance and weight loss","doi":"10.1093/jn/nxz248","location":"commentary on Christensen et al. 2019 (doi: 10.1093/jn/149.12.2174)","original_text":"High-P subjects lost nearly 2 kg more on the WG diet when compared with RG, whereas low-P subjects remained weight-stable. 0-P participants experienced a 1 kg loss in body weight with WG consumption (P = 0.009).","data_origin":"echo"},"confidence":"emerging","guilds":["fermentation"],"seeds":["prevotella","whole_grain","fiber","weight_loss","individual_variation","personalized_nutrition","enterotype"],"integrity":{"claim_fingerprint":"prevotella|modulates|weight_loss_on_fiber","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.35,"coi_flag":false,"coi_detail":"Commentary author CMW is paid advisory board member for Ardent Mills LLC. Primary study (Christensen et al.) had no funding disclosed.","methodology_flags":["echo-unresolved"],"review_worthy":0.65},"chain_hints":["Echo from Christensen et al. 2019 RCT — needs tracing to primary source for confidence upgrade","Prevotella and Bacteroides may compete for same functional niche (fiber degradation)","Supports personalized nutrition based on microbiome composition"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-BIO-025-V1","type":"fact","desk":"biology","assertion":"Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).","subject":{"type":"organism","name":"Escherichia coli and Klebsiella species","aliases":["E. coli BL21(DE3)","E. coli K-12","K. pneumoniae","K. aerogenes KCTC 2190","Enterobacteriaceae"]},"object":{"type":"effect","name":"SIBO microbiome dominance","aliases":["duodenal bacterial overgrowth","SIBO microbial composition"]},"relationship":"dominates","qualifiers":{"magnitude":"40.24% of duodenal bacteria in SIBO vs 5.6% in non-SIBO; Enterobacteriaceae log₂ FC=2.43 (adjusted P=2.66E-7); E. coli FC=6.55 (P=4.8E-4), K. pneumoniae FC=12.43 (P=9.4E-12), K. aerogenes FC=24.76 (P=4.3E-11), Enterobacter FC=22.11 (P=7.1E-8)","conditions":"duodenal aspirate via double-lumen sterile catheter; 16S rRNA (n=483 with culture) confirmed by shotgun metagenomics (n=38)","population":"505 adults undergoing EGD; 385 non-SIBO (<10³ CFU/mL), 98 SIBO (≥10³ CFU/mL) on MAC","model":"human prospective cross-sectional (REIMAGINE study)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Specific Coliform Strains section, p.266; Discussion p.268","original_text":"Duodenal RA of specific Enterobacteriaceae species were increased in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including Escherichia coli (FC, 6.55; adjusted P = 4.8E-4), Klebsiella pneumoniae (FC, 12.43; adjusted P = 9.4E-12), Klebsiella aerogenes (FC, 24.76; adjusted P = 4.3E-11)... This remarkably specific group of microbes account for 40.24% of duodenal bacteria in SIBO subjects, compared with 5.6% in non-SIBO subjects.","data_origin":"primary"},"confidence":"strong","guilds":["opportunist"],"seeds":["sibo","e_coli","klebsiella","enterobacteriaceae","duodenal_microbiome","bacterial_overgrowth","shotgun_sequencing","strain_level"],"integrity":{"claim_fingerprint":"ecoli_klebsiella|dominates|sibo microbiome","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.1,"coi_flag":true,"coi_detail":"Pimentel lab (Cedars-Sinai MAST). Study funded by institutional funds. Pimentel has consulting relationships with multiple GI pharma companies.","methodology_flags":[],"review_worthy":0.25},"chain_hints":["CRITICAL BIO: First strain-level identification of SIBO-dominant organisms in a large cohort","Only 4 strains/species account for majority of overgrowth — remarkably specific","E. coli BL21(DE3) and K-12 were hardly detectable in non-SIBO — these are not commensals drifting upward but true invaders","Connects to SYM-009 (strain-symptom correlations from same study)","Connects to MECH-023/024 (metabolic pathways enriched by these organisms)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MEAS-014-V1","type":"fact","desk":"measurement","assertion":"Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).","subject":{"type":"measurement_context","name":"exhaled breath gas composition and sensor operating environment","aliases":["breath matrix","breath biomarkers","breath analysis","breathomics","exhaled breath"]},"object":{"type":"measurement_challenge","name":"detection requirements and engineering challenges for breath gas sensors","aliases":["breath sensor requirements","gas detection limits","sensor selectivity","ppb detection"]},"relationship":"defines_requirements_for","qualifiers":{"magnitude":"~3000 known breath compounds; biomarkers at ppb (10^-9); matrix at 31-35°C, 65-89% RH; GC-MS achieves sub-ppb but is non-portable; electrochemical sensors reach ppb range with miniaturization","conditions":"Review of breath sensing field as of 2025; operating parameters for exhaled breath at body temperature with full humidity saturation","population":"General human breath composition","model":"review/editorial synthesis"},"provenance":{"source_type":"journal_article","source_tier":"secondary","ref":"Kang H, Jung H-T. Breath Analysis: An ACS Sensors Special Issue. ACS Sens 2025;10:1505-1506. Supplemented by: Fernández-Lodeiro A, Constantinou M, Panteli C, Agapiou A, Andreou C. Breath Analysis via Surface Enhanced Raman Spectroscopy. ACS Sens 2025;10:602-621","doi":"10.1021/acssensors.5c00717","location":"Kang & Jung p.1505 (operating parameters, gas-disease associations, 5 challenges); Fernández-Lodeiro p.602-603 (VOC detection technologies, ~3000 compounds, H2S mention)","original_text":"Target biomarker gases typically exist in parts-per-billion (ppb) concentrations within exhaled breath at 31-35 °C, 65-89% relative humidity (RH), and in the presence of numerous interfering gases. This makes detection akin to finding a needle in a haystack.","data_origin":"synthesis"},"confidence":"moderate","guilds":["methane","sulfur","fermentation"],"seeds":["breath_testing","ppb","gas_sensor","humidity","temperature","selectivity","sensitivity","gc_ms","electrochemical_sensor","electronic_nose","sers","voc","breath_biomarker","h2s_detection","methane_detection","hydrogen_detection","ammonia"],"integrity":{"claim_fingerprint":"breath_environment|defines_requirements_for|gas_sensor_design","corroborations":2,"corroboration_refs":["Wang C, Sahay P. Breath Analysis Using Laser Spectroscopic Techniques. Sensors 2009;9:8230-8262","Güntner AT et al. Breath Sensors for Health Monitoring. ACS Sens 2019;4:268-280"],"conflicts":[],"slop_score":0.3,"coi_flag":false,"coi_detail":"Editorial and review from academic researchers. No industry funding noted.","methodology_note":"Sources are an editorial and a review paper. Neither contains original experimental measurements. The operating parameters are well-established consensus. For Irene, this ergon defines the problem space.","methodology_flags":[],"review_worthy":0.4},"chain_hints":[{"from_desk":"measurement","to_desk":"biology","via_seed":"methane_detection","target_ergon":null,"note":"Methane detection at ppb in breath connects to all methane guild erga. MEAS-011 (diagnostic accuracy) depends on sensors achieving these detection limits."},"The 65-89% RH operating range is critical context for all breath measurement erga. Any sensor performance claims (MEAS-008 through MEAS-013) should be evaluated against whether they were tested under these conditions.","The editorial explicitly notes methane→colorectal cancer association — this connects breath methane to a disease endpoint beyond the GI motility effects captured in MECH-005, MECH-032, SYM-011."],"version":1,"created_at":"2026-03-31","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MECH-023-V1","type":"fact","desk":"mechanism","assertion":"Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).","subject":{"type":"pathway","name":"assimilatory sulfate reduction","aliases":["sulfate reduction pathway I","sulfate reduction pathway III","sulfate reduction pathway IV","sulfate assimilation","cysteine biosynthesis"]},"object":{"type":"gas","name":"hydrogen sulfide production in SIBO","aliases":["H2S in SIBO","SIBO sulfide pathway","breath H2S"]},"relationship":"enhances","qualifiers":{"magnitude":"Pathway I FC=1.541 (P=8.25E-10); III FC=1.6575 (P=2.87E-11); IV FC=1.115 (P=.020825); sulfate assimilation/cysteine biosynthesis FC=1.14 (P=1.00E-07); diarrhea correlation: pathway I r=0.193 P=.031, pathway III r=0.190 P=.033","conditions":"duodenal aspirate; functional profiles from 16S data via MetaCyc Pathway Database; SIBO defined as ≥10³ CFU/mL on MAC","population":"505 adults undergoing EGD (REIMAGINE study)","model":"human prospective cross-sectional with predicted functional profiling"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Gas Production Pathways section, p.266","original_text":"Assimilatory sulfate reduction pathways (I, III, and IV) were enriched in subjects with ≥10³ CFU/mL on MAC vs those with <10³ CFU/mL (FC, 1.541; adjusted P = 8.25E-10; FC, 1.6575; adjusted P = 2.87E-11; and FC, 1.115; adjusted P = .020825, respectively), as was the sulfate assimilation and cysteine biosynthesis superpathway (FC, 1.14-fold; adjusted P = 1.00E-07). Furthermore, assimilatory pathways I and III correlated with diarrhea (Spearman r = 0.193; P = .031; Spearman r = 0.190; P = .033).","data_origin":"primary"},"confidence":"moderate","guilds":["sulfur","opportunist"],"seeds":["sibo","h2s","sulfate_reduction","assimilatory_sulfate_reduction","diarrhea","duodenal_microbiome","metabolic_pathway","cysteine_biosynthesis"],"integrity":{"claim_fingerprint":"assimilatory_sulfate_reduction|enhanced_in|sibo","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"Pimentel lab (Cedars-Sinai MAST). Functional profiles are predicted from 16S (PICRUSt-style), not directly measured — inherent limitation.","methodology_note":"Functional pathways predicted from 16S rRNA data, not directly measured via shotgun metagenomics for the full cohort. Shotgun data (n=38) confirmed enrichment of sugar degradation and pyruvate fermentation pathways.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["KEY: These are ASSIMILATORY sulfate reduction pathways — distinct from DISSIMILATORY sulfate reduction (MECH-004/006/022)","Assimilatory pathways incorporate sulfate into amino acids (cysteine) rather than using sulfate as terminal electron acceptor","Both assimilatory and dissimilatory pathways can produce H2S, but by different mechanisms","Connects to MECH-004/006 (Desulfovibrio dissimilatory SRB pathway) — SIBO may involve different H2S production mechanism","Diarrhea correlation (r~0.19) is modest but significant — symptom link established","Supports breath H2S as a SIBO biomarker via mechanistic pathway enrichment"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MECH-024-V1","type":"fact","desk":"mechanism","assertion":"Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.","subject":{"type":"pathway","name":"sugar pyruvate fermentation","aliases":["mixed acid fermentation","pyruvate fermentation","carbohydrate fermentation","aerobic pyruvate cleavage"]},"object":{"type":"gas","name":"hydrogen production in SIBO","aliases":["H2 production","breath hydrogen","fermentative H2"]},"relationship":"enhances","qualifiers":{"magnitude":"12 sugar pyruvate fermentation pathways enriched (FC>1.1, P<.05); pyruvate→cytochrome bd/bo oxidase FC=1.48 (P=2.09E-09); succinate→cytochrome bd/bo oxidase FC=1.13 (P=.01); diarrhea r=0.252 P=.0034, bloating r=0.185 P=.025 (for pyruvate→electron transfer); bloating r=0.300 P=.0006, abdominal pain r=0.194 P=.0189 (for succinate→electron transfer)","conditions":"duodenal aspirate; functional profiles from 16S and shotgun data via MetaCyc; SIBO ≥10³ CFU/mL on MAC","population":"505 adults (16S) and 38 subjects (shotgun) from REIMAGINE study","model":"human prospective cross-sectional with predicted and measured functional profiling"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Gas Production Pathways section, p.266","original_text":"Twelve sugar pyruvate fermentation pathways were enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL (FC, >1.1; adjusted P < .05), as was mixed acid fermentation (FC, 1.2; adjusted P = 2.18E-25). Aerobic cleavage of pyruvate was enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC, 1.48; adjusted P = 2.09E-09), which correlated with diarrhea (Spearman r = 0.252; P = .0034), bloating (Spearman r = 0.185; P = .025), and urgency (Spearman r = 0.205; P = .0146)","data_origin":"primary"},"confidence":"moderate","guilds":["fermentation","opportunist"],"seeds":["sibo","h2","hydrogen","pyruvate_fermentation","sugar_fermentation","mixed_acid_fermentation","diarrhea","bloating","urgency","enterobacteriaceae","breath_test"],"integrity":{"claim_fingerprint":"sugar_pyruvate_fermentation|enhanced_in|sibo h2 production","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"Pimentel lab. 16S-based functional predictions confirmed by shotgun in subset (n=38).","methodology_note":"Primary functional analysis from 16S predicted profiles (MetaCyc). Shotgun metagenomics (n=38) confirmed enrichment of sugar degradation, aerobic respiration, and pyruvate fermentation pathways, lending additional confidence.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["KEY MECH: Establishes H2 production mechanism in SIBO — not just fermentation in general but specific pyruvate pathways","Supports breath hydrogen testing for SIBO by identifying the metabolic source of H2 in duodenal microbiome","Paper argues H2 derives from small intestine (not rapid transit to colon) — addresses longstanding debate","Connects to MECH-023 (H2S pathways in same subjects) — SIBO produces both H2 AND H2S via distinct pathway enrichment","Connects to BIO-025 (Enterobacteriaceae species driving these pathways)","Connects to existing fermentation guild erga (MECH-009/010 butyrate cross-feeding)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-NUT-021-V1","type":"fact","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","subject":{"type":"nutrient","name":"soluble fiber (polydextrose and soluble corn fiber)","aliases":["PDX","SCF","polydextrose","soluble corn fiber","poorly digested fiber","prebiotic fiber"]},"object":{"type":"effect","name":"Bacteroidetes:Firmicutes ratio shift with butyrate producer depletion","aliases":["B:F ratio","Parabacteroides enrichment","Eubacterium depletion","microbiome restructuring"]},"relationship":"causes","qualifiers":{"magnitude":"B:F shift: Firmicutes 68%→56/55% (P<0.001), Bacteroidetes 25%→36/38% (P<0.001); Parabacteroides 1.66%→6.83/7.94% (P<0.001); Eubacterium 11.2%→6.31/5.94% (P<0.001); Roseburia 3.80%→2.33/2.40% (P<0.05); Dorea 1.32%→0.81/0.82% (P<0.05); Butanoate metabolism −15-20% (P=0.001, q=0.004); B:F~fiber r=0.45, P=0.003; B:F~BMI r=0.06, P=0.64 (NS)","conditions":"Double-blind, placebo-controlled, 3-period crossover; 21 g/d supplemental fiber; 21 days per period; whole-genome shotgun 454 pyrosequencing; KEGG functional annotation","population":"21 healthy adult men, age 27.5±4.33y, BMI 27.0±4.02","model":"human RCT (crossover, 3-period)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Holscher HD, Caporaso JG, Hooda S, Brulc JM, Fahey GC, Swanson KS. Fiber supplementation influences phylogenetic structure and functional capacity of the human intestinal microbiome. Am J Clin Nutr 2015;101:55-64","doi":"10.3945/ajcn.114.092064","location":"Results — Tables 2-3; Figures 1-3; Discussion p.61-63","original_text":"The abundance of the Firmicutes phylum was lower (P < 0.001) when men consumed polydextrose (56%) and SCF (55%) than when they consumed NFC (68%)... Within carbohydrate metabolism, butanoate metabolism was depleted 15% and 20% with polydextrose and SCF.","data_origin":"primary"},"confidence":"moderate","guilds":["fermentation","butyrate"],"seeds":["fiber","polydextrose","soluble_corn_fiber","bacteroidetes_firmicutes_ratio","parabacteroides","eubacterium","roseburia","butyrate","butanoate_metabolism","dietary_fiber"],"integrity":{"claim_fingerprint":"soluble_fiber|causes|bf_ratio_shift","corroborations":1,"corroboration_refs":["Boler et al. 2011 — same RCT, 16S amplicon: similar taxonomic shifts"],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"JMB (co-author) is an employee of General Mills Inc. Study supported in part by General Mills. However, the finding that butyrate producers DECREASED argues against a purely promotional narrative.","methodology_note":"Well-designed crossover RCT. n=21 modest but crossover design increases power. The PARADOX of butyrate producer depletion despite prebiotic fiber is the most important finding.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["PARADOX: Fiber supplementation DEPLETED butyrate producers (Eubacterium, Roseburia, Dorea) and butanoate metabolism genes. This contradicts simple 'fiber feeds good bacteria' narratives.","Connects to BIO-026 (P. dorei in psyllium nonresponders) — same genus responding to fiber","Connects to NUT-017 (low-FODMAP → Bifidobacterium reduction) — fiber effects on microbiome are not uniformly beneficial","For Irene: fiber supplementation has complex, not uniformly positive, effects. 'Eat more fiber' is oversimplified.","The amino acid metabolism enrichment may connect to MECH-022 (protein fermentation → H2S)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-SYM-004-V1","type":"fact","desk":"symptom","assertion":"In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).","subject":{"type":"gas","name":"breath methane"},"object":{"type":"symptom","name":"constipation severity"},"relationship":"correlates_with","qualifiers":{"magnitude":"R=0.577, P=0.019","conditions":"IMO-positive (CH4 >= 10 ppm)","population":"n=22 IMO-positive","model":"human cross-sectional"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"MAST2025 Gas-biome match","doi":"10.1007/s10620-025-09156-y","location":"results, CH4 section","data_origin":"primary","original_text":"CH4 levels in IMO-positive subjects correlated with greater constipation severity (P=0.019)."},"confidence":"strong","guilds":["methane"],"seeds":["methane","constipation","imo","breath_testing"],"integrity":{"claim_fingerprint":"sha256:e96cd05144555fa4","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.0,"coi_flag":false,"methodology_flags":[],"review_worthy":0.0},"chain_hints":[],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-SYM-009-V1","type":"fact","desk":"symptom","assertion":"In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.","subject":{"type":"organism","name":"E. coli and K. aerogenes strains","aliases":["E. coli BL21(DE3)","E. coli K-12 W3110","K. aerogenes KCTC 2190","SIBO coliforms"]},"object":{"type":"symptom","name":"GI symptom severity profiles","aliases":["abdominal pain","diarrhea","bloating","excess gas","urgency"]},"relationship":"correlates_with","qualifiers":{"magnitude":"Spearman r values 0.110-0.374 across strain-symptom pairs; see assertion for full matrix; all reported P<.05","conditions":"shotgun metagenomic sequencing of duodenal aspirates; symptom severity measured by VAS 0-100; SIBO defined as >=10^3 CFU/mL on MAC","population":"n=28 subjects with shotgun data (N=17 SIBO >=10^3, N=11 non-SIBO <10^3); mean age 61+/-16y","model":"human prospective cross-sectional (REIMAGINE study shotgun subset)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Specific Coliform Strains section, p.266; Table 2, p.267; Discussion p.268","original_text":"only specific E coli strains, with genomic similarities to E coli BL21(DE3) and E coli strain K-12 substrain W3110, correlated with abdominal pain (Spearman r = 0.284, P = .049; and Spearman r = 0.337, P = .02, respectively), and diarrhea (Spearman r = 0.321, P = .030; and Spearman r = 0.298, P = .04, respectively); a specific K aerogenes strain, with genomic similarities to K aerogenes KCTC 2190, correlated with abdominal pain (Spearman r = 0.374; P = .013), diarrhea (Spearman r = 0.305; P = .038), and excess gas (Spearman r = 0.286; P = .048)... Escherichia is associated with bloating and diarrhea, whereas Klebsiella has a greater association with abdominal pain","data_origin":"primary"},"confidence":"emerging","guilds":["opportunist"],"seeds":["sibo","e_coli","klebsiella","abdominal_pain","diarrhea","bloating","excess_gas","urgency","strain_level","symptom_correlation","visceral_hypersensitivity"],"integrity":{"claim_fingerprint":"ecoli_klebsiella_strains|correlate_with|gi_symptom_profiles","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.3,"coi_flag":true,"coi_detail":"Pimentel lab. Small shotgun subset (n=28) limits statistical power. Multiple comparisons across many strain-symptom pairs increase false discovery risk.","methodology_note":"Shotgun subset is small (n=28). Correlations are modest (r=0.11-0.37). Multiple strain-symptom comparisons were performed; FDR correction status for these specific correlations is unclear from text. Cross-sectional design cannot establish causality.","methodology_flags":["n-under-threshold"],"review_worthy":0.6},"chain_hints":["FIRST SYM-DESK ERGON FROM SIBO STRAIN-LEVEL DATA — addresses SYM desk stagnation","K. aerogenes linked to visceral hypersensitivity via histamine production (ref 22 in paper — consistent with recent studies)","Distinct symptom fingerprints per strain suggests different pathogenic mechanisms","Connects to BIO-025 (same strains dominating SIBO microbiome)","Connects to MECH-023 (sulfate reduction pathways) and MECH-024 (sugar fermentation pathways) — the metabolic basis for these symptoms","Small n for shotgun — confidence appropriately set to emerging despite primary data"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"}]</script>
+
+<style id="aerine-chat-css">
+/* ── TALK TO AERINE — persona/chat layer ─────────────────────────────────── */
+.aer-chat { background: var(--parch-warm); border: 0.5px solid var(--brass-mid); border-radius: 3px; padding: 13px 15px; display: flex; flex-direction: column; min-height: 320px; max-height: 560px; }
+.aer-chat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 9px; border-bottom: 0.5px solid var(--brass-mid); padding-bottom: 8px; }
+.aer-chat-sub { font-size: 10px; font-family: var(--font-mono); color: var(--oak-faint); }
+.aer-log { flex: 1 1 auto; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+.aer-msg { font-size: 13px; line-height: 1.5; }
+.aer-msg.user { align-self: flex-end; max-width: 85%; background: var(--oak); color: var(--parch); padding: 7px 11px; border-radius: 3px; }
+.aer-msg.aerine { align-self: flex-start; max-width: 96%; }
+.aer-msg.aerine .aer-who { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--sym-fg); margin-bottom: 3px; }
+.aer-verdict-line { font-family: var(--font-mono); font-size: 10px; margin: 6px 0 2px; display: inline-block; padding: 1px 7px; border-radius: 3px; border: 0.5px solid var(--brass-mid); }
+.aer-verdict-line.gold { background:#E9D89A; color:#5A3E08; border-color:#A88040; }
+.aer-verdict-line.loose { background:#D8D5CD; color:#3A352C; border-color:#8A847A; }
+.aer-verdict-line.broken { background:var(--echo-bg); color:var(--echo-fg); border-color:var(--echo-bd); }
+.aer-chain { display: flex; flex-wrap: wrap; gap: 4px; margin: 7px 0; }
+.aer-link { font-family: var(--font-mono); font-size: 10px; padding: 2px 6px; border-radius: 3px; border: 0.5px solid var(--brass-mid); background: var(--parch-mid); cursor: pointer; color: var(--oak); }
+.aer-link:hover { background: var(--parch-card); }
+.aer-link .lk-desk { color: var(--oak-faint); }
+.aer-link.miss { border-style: dashed; opacity: 0.75; cursor: default; background: transparent; }
+.aer-cites { margin-top: 6px; display: flex; flex-direction: column; gap: 5px; }
+.aer-cite { font-size: 11px; border-left: 2px solid var(--brass-mid); padding: 2px 0 2px 8px; }
+.aer-cite .c-claim { color: var(--oak); }
+.aer-cite .c-quote { color: var(--oak-mid); font-style: italic; }
+.aer-cite .c-meta { font-family: var(--font-mono); font-size: 9.5px; color: var(--oak-faint); margin-top: 2px; }
+.aer-cite a { color: var(--sym-fg); text-decoration: none; border-bottom: 0.5px dotted var(--sym-bd); }
+.aer-cite a:hover { border-bottom-style: solid; }
+.aer-tag { font-family: var(--font-mono); font-size: 9px; padding: 0 4px; border-radius: 2px; margin-left: 4px; }
+.aer-tag.strong { background: var(--strong-bg); color: var(--strong-fg); }
+.aer-tag.moderate { background: var(--mod-bg); color: var(--mod-fg); }
+.aer-tag.emerging { background: var(--emerg-bg); color: var(--emerg-fg); }
+.aer-tag.coi { background: var(--flag-bg); color: var(--flag-fg); }
+.aer-tag.echo { background: var(--echo-bg); color: var(--echo-fg); }
+.aer-suggest { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 6px; }
+.aer-chip { font-size: 11px; padding: 3px 8px; border-radius: 3px; border: 0.5px solid var(--brass-mid); background: var(--parch-mid); cursor: pointer; color: var(--oak-mid); }
+.aer-chip:hover { background: var(--parch-card); }
+.aer-input-row { display: flex; gap: 6px; margin-top: auto; padding-top: 8px; }
+.aer-input { flex: 1; font-family: var(--font-sans); font-size: 13px; padding: 7px 9px; border: 0.5px solid var(--brass-mid); border-radius: 3px; background: var(--parch); color: var(--oak); }
+.aer-input:focus { outline: none; border-color: var(--oak-faint); }
+.aer-mode { font-family: var(--font-mono); font-size: 9px; color: var(--oak-faint); }
+</style>
 
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
@@ -790,7 +850,7 @@ const BATCH_META = {
   note: "Sketch batch — 16 illustrative erga, structured source_excerpt schema. Real extraction pass still pending."
 };
 
-const ERGA = [
+const ERGA_ILLUSTRATIVE = [
   {
     ergon_id: "erg-MEAS-001-V1",
     canonical_name: "Elevated breath CH4 baseline (>10 ppm) is associated with slower intestinal transit time in humans.",
@@ -1112,6 +1172,56 @@ const ERGA = [
     chain_hints: "Community prevalence only — NOT an effect-size estimate. Population is vocal self-reporters, not the general IMO-affected population. Complements (does not replace) clinical evidence. Do not upgrade past emerging without a controlled trial cross-reference. Aerine uses this ONLY as 'others in communities report X' — never as 'X works'."
   }
 ];
+
+// ── REAL ERGASTORION CORPUS (seed subset) ────────────────────────────────────
+// Aerine v0 runs on the real corpus embedded in <script id="aerine-corpus">
+// (injected from data/erga.json by build.py). The illustrative array above is
+// retained as ERGA_ILLUSTRATIVE and used only if the corpus island is empty.
+const DESK_ABBR = { symptom:"SYM", measurement:"MEAS", biology:"BIO", mechanism:"MECH", nutrition:"NUT" };
+
+function loadAerineCorpus() {
+  try {
+    const el = document.getElementById("aerine-corpus");
+    const arr = JSON.parse((el && el.textContent || "[]").trim());
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) { console.warn("Aerine corpus parse failed:", e); return []; }
+}
+
+// Map a real ergon (subject/relationship/object + provenance{doi,original_text} + integrity)
+// into the shape the ergastorion browser's renderers expect — without losing the rich
+// provenance the persona layer needs (that stays on the raw object, kept in RAW_BY_ID).
+function normalizeErgon(r) {
+  const prov = r.provenance || {};
+  const integ = r.integrity || {};
+  const flags = (integ.methodology_flags || []).slice();
+  if (integ.coi_flag && !flags.includes("coi-industry")) flags.push("coi-industry");
+  const yr = (prov.ref && (prov.ref.match(/\b(19|20)\d{2}\b/) || [])[0]) || r.created_at && r.created_at.slice(0,4) || null;
+  return {
+    ergon_id: r.ergon_id,
+    canonical_name: r.assertion,
+    source_excerpt: {
+      lead_in: "",
+      claim_text: prov.original_text || r.assertion,
+      follow_on: "",
+      location: prov.location || ""
+    },
+    desk: DESK_ABBR[r.desk] || (r.desk || "").toUpperCase(),
+    guilds: r.guilds || [],
+    confidence: r.confidence,
+    data_origin: prov.data_origin || "primary",
+    source_tier: prov.source_tier || "primary",
+    seeds: r.seeds || [],
+    source_paper: prov.ref || "",
+    source_year: yr ? Number(yr) : null,
+    methodology_flags: flags,
+    chain_hints: (r.chain_hints || []).map(h => typeof h === "string" ? h : (h.note || JSON.stringify(h))).join(" · ")
+  };
+}
+
+const AERINE_RAW = loadAerineCorpus();
+const RAW_BY_ID = {};
+AERINE_RAW.forEach(r => { RAW_BY_ID[r.ergon_id] = r; });
+const ERGA = AERINE_RAW.length ? AERINE_RAW.map(normalizeErgon) : ERGA_ILLUSTRATIVE;
 
 // ── STATE ───────────────────────────────────────────────────────────────────
 const state = {
@@ -1720,6 +1830,182 @@ function renderAll() {
 }
 
 searchEl.addEventListener("input", ev => { state.search = ev.target.value; renderAll(); });
+
+// ═════════════════════════════════════════════════════════════════════════════
+// TALK TO AERINE — the persona / barfly layer (v0, template-Aerine, no LLM)
+//
+// Aerine's promise: she reasons over the ergastorion on a GOLDEN THREAD
+// (SYM→MEAS→BIO→MECH→NUT), speaks only as confidently as the chain earns, and
+// exposes every claim down to its verbatim source passage and paper link. This
+// module is the deterministic MVP responder (per IRENE spec §7.4 — "the MVP is
+// not an LLM"); the transport seam `aerineRespond()` is where a worker-proxied /
+// BYOK LLM engine drops in later (the "bring the Diddja engine home" step).
+// ═════════════════════════════════════════════════════════════════════════════
+(function AerineModule(){
+  const DESK_ORDER = ["SYM","MEAS","BIO","MECH","NUT"];
+  const DESK_ASKS = {
+    SYM:  "what you'd feel",
+    MEAS: "what a breath reading would show",
+    BIO:  "which microbes are involved",
+    MECH: "the mechanism — why it happens",
+    NUT:  "what you could try (diet/lifestyle)"
+  };
+  const raw = AERINE_RAW;
+  if (!raw.length) return; // no real corpus → leave the browser as-is
+  const deskOf = r => DESK_ABBR[r.desk] || (r.desk||"").toUpperCase();
+  const shortId = id => { const m=/erg-([A-Z]+)-(\d+)/.exec(id||""); return m?`${m[1]}-${m[2]}`:id; };
+
+  // ── cross-reference graph (explicit chain_hints ID refs) ──────────────────
+  const present = {}; raw.forEach(r => present[shortId(r.ergon_id)] = r.ergon_id);
+  function refsOf(r){
+    const text = (r.chain_hints||[]).map(h => typeof h==="string"?h:JSON.stringify(h)).join(" ");
+    const out = new Set();
+    (text.match(/\b[A-Z]{2,4}-\d+(?:\/\d+)*/g)||[]).forEach(tok=>{
+      const pre = tok.split("-")[0];
+      tok.replace(/^[A-Z]+-/,"").split("/").forEach(n=>{
+        const key = `${pre}-${String(parseInt(n,10)).padStart(3,"0")}`;
+        if(present[key] && present[key]!==r.ergon_id) out.add(present[key]);
+      });
+    });
+    return out;
+  }
+  const REFS = {}; raw.forEach(r => REFS[r.ergon_id] = refsOf(r));
+  const linked = (a,b) => REFS[a] && (REFS[a].has(b) || (REFS[b]&&REFS[b].has(a)));
+  const seedsOf = r => new Set((r.seeds||[]).map(s=>s.toLowerCase()));
+  const overlap = (a,b) => { const A=seedsOf(a),B=seedsOf(b); let n=0; A.forEach(s=>{if(B.has(s))n++;}); return n; };
+
+  function tokens(q){ return (q.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(w=>w.length>2); }
+  function relevance(r, toks){
+    const hay = [r.assertion, (r.seeds||[]).join(" "), (r.guilds||[]).join(" "),
+                 r.subject&&r.subject.name, r.object&&r.object.name,
+                 r.subject&&(r.subject.aliases||[]).join(" "), r.object&&(r.object.aliases||[]).join(" ")]
+                 .filter(Boolean).join(" ").toLowerCase();
+    let s=0; toks.forEach(t=>{ if(hay.includes(t)) s += (r.seeds||[]).some(sd=>sd.toLowerCase().includes(t))?2:1; });
+    return s;
+  }
+
+  // ── assemble one golden thread for a query ────────────────────────────────
+  function assemble(toks){
+    const scored = raw.map(r=>({r, s:relevance(r,toks)})).sort((a,b)=>b.s-a.s);
+    const seed = (scored[0] && scored[0].s>0) ? scored[0].r : null;
+    if(!seed) return { thread:{}, seed:null };
+    const thread = {}; thread[deskOf(seed)] = seed;
+    for(const desk of DESK_ORDER){
+      if(thread[desk]) continue;
+      const cands = raw.filter(r=>deskOf(r)===desk);
+      let best=null, bestScore=0;
+      for(const c of cands){
+        // connection to anything already on the thread (explicit edge) is the strong signal;
+        // shared seeds is the weak signal; query relevance breaks ties.
+        let conn=0, seedShare=0;
+        for(const d in thread){ if(linked(c.ergon_id, thread[d].ergon_id)) conn+=3; seedShare += overlap(c, thread[d]); }
+        const score = conn*10 + seedShare*2 + relevance(c,toks);
+        if(score>bestScore){ bestScore=score; best=c; }
+      }
+      if(best && bestScore>=2) thread[desk]=best; // only place a link that genuinely belongs
+    }
+    return { thread, seed };
+  }
+
+  function verdict(thread){
+    const filled = DESK_ORDER.filter(d=>thread[d]);
+    const n = filled.length;
+    const anyEmerging = filled.some(d=>thread[d].confidence==="emerging");
+    const anyEcho = filled.some(d=>((thread[d].integrity||{}).methodology_flags||[]).includes("echo-unresolved"));
+    let v;
+    if(n>=5) v = (anyEmerging||anyEcho) ? "loose" : "gold";
+    else if(n>=4) v = "loose";
+    else if(n>=3) v = "loose";
+    else v = "broken";
+    return { filled, n, v, anyEmerging, anyEcho };
+  }
+
+  // ── exposure: every claim links to its ergon + the paper ──────────────────
+  function paperLinks(r){
+    const doi = (r.provenance||{}).doi;
+    const ref = (r.provenance||{}).ref || "";
+    const parts = [];
+    if(doi) parts.push(`<a href="https://doi.org/${encodeURIComponent(doi)}" target="_blank" rel="noopener">doi.org/${doi} ↗</a>`);
+    const q = encodeURIComponent(doi || ref);
+    if(q) parts.push(`<a href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener">find free copy ↗</a>`);
+    return parts.join(" · ");
+  }
+  function citeHTML(r){
+    const prov = r.provenance||{}, integ = r.integrity||{};
+    const tags = [];
+    tags.push(`<span class="aer-tag ${r.confidence}">${r.confidence}</span>`);
+    if(integ.coi_flag) tags.push(`<span class="aer-tag coi" title="${(integ.coi_detail||'industry conflict of interest').replace(/"/g,'&quot;')}">COI</span>`);
+    if((integ.methodology_flags||[]).includes("echo-unresolved")) tags.push(`<span class="aer-tag echo" title="provenance debt — traced to a secondary source, not yet the primary">echo-unresolved</span>`);
+    return `<div class="aer-cite">
+      <div class="c-claim"><strong>${shortId(r.ergon_id)}</strong> ${escapeHtml(r.assertion)} ${tags.join(" ")}</div>
+      ${prov.original_text?`<div class="c-quote">“${escapeHtml(prov.original_text)}”</div>`:""}
+      <div class="c-meta">${escapeHtml(prov.ref||"")}${prov.location?" — "+escapeHtml(prov.location):""} · ${paperLinks(r)}</div>
+    </div>`;
+  }
+  function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+  function chainHTML(thread){
+    return `<div class="aer-chain">` + DESK_ORDER.map(d=>{
+      if(thread[d]) return `<span class="aer-link" data-id="${thread[d].ergon_id}" title="open this ergon"><span class="lk-desk">${d}</span> ${shortId(thread[d].ergon_id)}</span>`;
+      return `<span class="aer-link miss"><span class="lk-desk">${d}</span> — ${DESK_ASKS[d]}</span>`;
+    }).join("") + `</div>`;
+  }
+
+  // ── the ladder: Aerine's voice by rung (warm, dry, never prescriptive) ─────
+  function compose(q, thread, vd){
+    const filled = vd.filled, missing = DESK_ORDER.filter(d=>!thread[d]);
+    const cites = filled.map(d=>citeHTML(thread[d])).join("");
+    let lead;
+    if(vd.n>=5 && vd.v==="gold"){
+      lead = `Good news — I can follow this one end to end, from what you feel all the way to what you could look at. That's a golden thread, so I'll say it plainly.`;
+    } else if(vd.n>=5){
+      lead = `I can connect all five links, but two things keep it from being airtight: ${vd.anyEmerging?"some of it is still emerging evidence":""}${vd.anyEmerging&&vd.anyEcho?", and ":""}${vd.anyEcho?"one link is an unresolved echo I haven't traced to its primary source yet":""}. So — a real thread, honestly held loosely.`;
+    } else if(vd.n===4){
+      lead = `I've got four of the five links solid. The one I'm missing is <strong>${missing[0]}</strong> — ${DESK_ASKS[missing[0]]}. Here's the chain I can show you, and exactly where it thins out.`;
+    } else if(vd.n===3){
+      lead = `There's a thread forming here, but I'm missing two links (${missing.join(" and ")}), so treat this as a hypothesis, not a finding. Here's what I can actually trace:`;
+    } else if(vd.n===2){
+      lead = `I can only see fragments so far — not enough to draw a line you should trust. To trace it properly I'd want ${DESK_ASKS[missing[0]]}. Can you tell me a bit more about that? Meanwhile, here's what I do have:`;
+    } else if(vd.n===1){
+      const only = thread[filled[0]];
+      lead = `I can tell you one thing honestly, and only one: ${escapeHtml(only.assertion)} But I can't connect it into a full chain for your question yet — the rest of the links aren't in what I can trace.`;
+    } else {
+      lead = `I'm going to be straight with you: I don't have evidence I can trace on that yet. That's not a dodge — it's the most useful thing I can say. I'd rather tell you the shelf is empty than make something up. If it's a common question, it's exactly the kind of gap my Custodian goes hunting for next.`;
+    }
+    const honesty = filled.some(d=>(thread[d].integrity||{}).coi_flag)
+      ? `<div class="c-meta" style="margin-top:6px;">A note on trust: at least one study below carries an industry conflict-of-interest flag — I've marked it. It doesn't make the finding wrong; it means read it with an eyebrow raised.</div>` : "";
+    const verdictChip = `<span class="aer-verdict-line ${vd.v}">${vd.v==="gold"?"golden thread":vd.v==="loose"?`loose thread · ${vd.n}/5 links`:`no full thread · ${vd.n}/5 links`}</span>`;
+    return `<div class="aer-who">aerine</div><div>${lead}</div>${verdictChip}${chainHTML(thread)}${cites?`<div class="aer-cites">${cites}</div>`:""}${honesty}
+      <div class="c-meta" style="margin-top:7px;">Aerine helps you research — she doesn't diagnose. Tap any ergon above to see the full record.</div>`;
+  }
+
+  // Transport seam: swap this for a worker-proxied / BYOK LLM call later.
+  function aerineRespond(q){
+    const { thread, seed } = assemble(tokens(q));
+    if(!seed){ return `<div class="aer-who">aerine</div><div>I don't have anything I can trace on that one yet — my seed corpus is a small slice (SIBO, methane/constipation, fiber and the microbes behind them). Try one of those, and watch me show my work.</div>`; }
+    return compose(q, thread, verdict(thread));
+  }
+
+  // ── DOM wiring ────────────────────────────────────────────────────────────
+  const logEl = document.getElementById("aer-log");
+  const formEl = document.getElementById("aer-form");
+  const inputEl = document.getElementById("aer-input");
+  const suggEl = document.getElementById("aer-suggest");
+  function addMsg(html, who){ const d=document.createElement("div"); d.className="aer-msg "+who; d.innerHTML=html; logEl.appendChild(d); logEl.scrollTop=logEl.scrollHeight; return d; }
+  function ask(q){ if(!q.trim())return; addMsg(escapeHtml(q),"user"); setTimeout(()=>addMsg(aerineRespond(q),"aerine"),120); }
+
+  logEl.addEventListener("click", ev=>{
+    const lk = ev.target.closest(".aer-link[data-id]"); if(!lk)return;
+    const id = lk.getAttribute("data-id");
+    if(typeof state!=="undefined"){ state.openId=id; if(typeof renderReader==="function") renderReader(); }
+    const rd = document.getElementById("erg-reader"); if(rd) rd.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+  formEl.addEventListener("submit", ev=>{ ev.preventDefault(); const q=inputEl.value; inputEl.value=""; ask(q); });
+  const SUGGEST = ["I have bloating — could it be SIBO?","Does fiber actually help my gut?","Why am I constipated? (methane?)","What does breath hydrogen tell you?"];
+  SUGGEST.forEach(s=>{ const c=document.createElement("span"); c.className="aer-chip"; c.textContent=s; c.onclick=()=>ask(s); suggEl.appendChild(c); });
+
+  addMsg(`<div class="aer-who">aerine</div><div>Hi — I'm Aerine. Your gut is talking; let's listen. Ask me something and I'll trace it through the evidence on a golden thread — and show you every study behind what I say, down to the paper. Fair warning: I only speak as confidently as the evidence earns, and I'll tell you when I don't know.</div>`,"aerine");
+})();
 
 init();
 </script>

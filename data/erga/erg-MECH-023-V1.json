@@ -1,0 +1,81 @@
+{
+  "ergon_id": "erg-MECH-023-V1",
+  "type": "fact",
+  "desk": "mechanism",
+  "assertion": "Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).",
+  "subject": {
+    "type": "pathway",
+    "name": "assimilatory sulfate reduction",
+    "aliases": [
+      "sulfate reduction pathway I",
+      "sulfate reduction pathway III",
+      "sulfate reduction pathway IV",
+      "sulfate assimilation",
+      "cysteine biosynthesis"
+    ]
+  },
+  "object": {
+    "type": "gas",
+    "name": "hydrogen sulfide production in SIBO",
+    "aliases": [
+      "H2S in SIBO",
+      "SIBO sulfide pathway",
+      "breath H2S"
+    ]
+  },
+  "relationship": "enhances",
+  "qualifiers": {
+    "magnitude": "Pathway I FC=1.541 (P=8.25E-10); III FC=1.6575 (P=2.87E-11); IV FC=1.115 (P=.020825); sulfate assimilation/cysteine biosynthesis FC=1.14 (P=1.00E-07); diarrhea correlation: pathway I r=0.193 P=.031, pathway III r=0.190 P=.033",
+    "conditions": "duodenal aspirate; functional profiles from 16S data via MetaCyc Pathway Database; SIBO defined as ≥10³ CFU/mL on MAC",
+    "population": "505 adults undergoing EGD (REIMAGINE study)",
+    "model": "human prospective cross-sectional with predicted functional profiling"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "primary",
+    "ref": "Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing",
+    "doi": "10.1016/j.cgh.2023.06.001",
+    "location": "Results — Gas Production Pathways section, p.266",
+    "original_text": "Assimilatory sulfate reduction pathways (I, III, and IV) were enriched in subjects with ≥10³ CFU/mL on MAC vs those with <10³ CFU/mL (FC, 1.541; adjusted P = 8.25E-10; FC, 1.6575; adjusted P = 2.87E-11; and FC, 1.115; adjusted P = .020825, respectively), as was the sulfate assimilation and cysteine biosynthesis superpathway (FC, 1.14-fold; adjusted P = 1.00E-07). Furthermore, assimilatory pathways I and III correlated with diarrhea (Spearman r = 0.193; P = .031; Spearman r = 0.190; P = .033).",
+    "data_origin": "primary"
+  },
+  "confidence": "moderate",
+  "guilds": [
+    "sulfur",
+    "opportunist"
+  ],
+  "seeds": [
+    "sibo",
+    "h2s",
+    "sulfate_reduction",
+    "assimilatory_sulfate_reduction",
+    "diarrhea",
+    "duodenal_microbiome",
+    "metabolic_pathway",
+    "cysteine_biosynthesis"
+  ],
+  "integrity": {
+    "claim_fingerprint": "assimilatory_sulfate_reduction|enhanced_in|sibo",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.2,
+    "coi_flag": true,
+    "coi_detail": "Pimentel lab (Cedars-Sinai MAST). Functional profiles are predicted from 16S (PICRUSt-style), not directly measured — inherent limitation.",
+    "methodology_note": "Functional pathways predicted from 16S rRNA data, not directly measured via shotgun metagenomics for the full cohort. Shotgun data (n=38) confirmed enrichment of sugar degradation and pyruvate fermentation pathways.",
+    "methodology_flags": [],
+    "review_worthy": 0.35
+  },
+  "chain_hints": [
+    "KEY: These are ASSIMILATORY sulfate reduction pathways — distinct from DISSIMILATORY sulfate reduction (MECH-004/006/022)",
+    "Assimilatory pathways incorporate sulfate into amino acids (cysteine) rather than using sulfate as terminal electron acceptor",
+    "Both assimilatory and dissimilatory pathways can produce H2S, but by different mechanisms",
+    "Connects to MECH-004/006 (Desulfovibrio dissimilatory SRB pathway) — SIBO may involve different H2S production mechanism",
+    "Diarrhea correlation (r~0.19) is modest but significant — symptom link established",
+    "Supports breath H2S as a SIBO biomarker via mechanistic pathway enrichment"
+  ],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}

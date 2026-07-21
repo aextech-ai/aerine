@@ -1,0 +1,98 @@
+{
+  "ergon_id": "erg-MEAS-014-V1",
+  "type": "fact",
+  "desk": "measurement",
+  "assertion": "Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).",
+  "subject": {
+    "type": "measurement_context",
+    "name": "exhaled breath gas composition and sensor operating environment",
+    "aliases": [
+      "breath matrix",
+      "breath biomarkers",
+      "breath analysis",
+      "breathomics",
+      "exhaled breath"
+    ]
+  },
+  "object": {
+    "type": "measurement_challenge",
+    "name": "detection requirements and engineering challenges for breath gas sensors",
+    "aliases": [
+      "breath sensor requirements",
+      "gas detection limits",
+      "sensor selectivity",
+      "ppb detection"
+    ]
+  },
+  "relationship": "defines_requirements_for",
+  "qualifiers": {
+    "magnitude": "~3000 known breath compounds; biomarkers at ppb (10^-9); matrix at 31-35°C, 65-89% RH; GC-MS achieves sub-ppb but is non-portable; electrochemical sensors reach ppb range with miniaturization",
+    "conditions": "Review of breath sensing field as of 2025; operating parameters for exhaled breath at body temperature with full humidity saturation",
+    "population": "General human breath composition",
+    "model": "review/editorial synthesis"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "secondary",
+    "ref": "Kang H, Jung H-T. Breath Analysis: An ACS Sensors Special Issue. ACS Sens 2025;10:1505-1506. Supplemented by: Fernández-Lodeiro A, Constantinou M, Panteli C, Agapiou A, Andreou C. Breath Analysis via Surface Enhanced Raman Spectroscopy. ACS Sens 2025;10:602-621",
+    "doi": "10.1021/acssensors.5c00717",
+    "location": "Kang & Jung p.1505 (operating parameters, gas-disease associations, 5 challenges); Fernández-Lodeiro p.602-603 (VOC detection technologies, ~3000 compounds, H2S mention)",
+    "original_text": "Target biomarker gases typically exist in parts-per-billion (ppb) concentrations within exhaled breath at 31-35 °C, 65-89% relative humidity (RH), and in the presence of numerous interfering gases. This makes detection akin to finding a needle in a haystack.",
+    "data_origin": "synthesis"
+  },
+  "confidence": "moderate",
+  "guilds": [
+    "methane",
+    "sulfur",
+    "fermentation"
+  ],
+  "seeds": [
+    "breath_testing",
+    "ppb",
+    "gas_sensor",
+    "humidity",
+    "temperature",
+    "selectivity",
+    "sensitivity",
+    "gc_ms",
+    "electrochemical_sensor",
+    "electronic_nose",
+    "sers",
+    "voc",
+    "breath_biomarker",
+    "h2s_detection",
+    "methane_detection",
+    "hydrogen_detection",
+    "ammonia"
+  ],
+  "integrity": {
+    "claim_fingerprint": "breath_environment|defines_requirements_for|gas_sensor_design",
+    "corroborations": 2,
+    "corroboration_refs": [
+      "Wang C, Sahay P. Breath Analysis Using Laser Spectroscopic Techniques. Sensors 2009;9:8230-8262",
+      "Güntner AT et al. Breath Sensors for Health Monitoring. ACS Sens 2019;4:268-280"
+    ],
+    "conflicts": [],
+    "slop_score": 0.3,
+    "coi_flag": false,
+    "coi_detail": "Editorial and review from academic researchers. No industry funding noted.",
+    "methodology_note": "Sources are an editorial and a review paper. Neither contains original experimental measurements. The operating parameters are well-established consensus. For Irene, this ergon defines the problem space.",
+    "methodology_flags": [],
+    "review_worthy": 0.4
+  },
+  "chain_hints": [
+    {
+      "from_desk": "measurement",
+      "to_desk": "biology",
+      "via_seed": "methane_detection",
+      "target_ergon": null,
+      "note": "Methane detection at ppb in breath connects to all methane guild erga. MEAS-011 (diagnostic accuracy) depends on sensors achieving these detection limits."
+    },
+    "The 65-89% RH operating range is critical context for all breath measurement erga. Any sensor performance claims (MEAS-008 through MEAS-013) should be evaluated against whether they were tested under these conditions.",
+    "The editorial explicitly notes methane→colorectal cancer association — this connects breath methane to a disease endpoint beyond the GI motility effects captured in MECH-005, MECH-032, SYM-011."
+  ],
+  "version": 1,
+  "created_at": "2026-03-31",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}

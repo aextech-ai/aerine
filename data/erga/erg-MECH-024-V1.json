@@ -1,0 +1,83 @@
+{
+  "ergon_id": "erg-MECH-024-V1",
+  "type": "fact",
+  "desk": "mechanism",
+  "assertion": "Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.",
+  "subject": {
+    "type": "pathway",
+    "name": "sugar pyruvate fermentation",
+    "aliases": [
+      "mixed acid fermentation",
+      "pyruvate fermentation",
+      "carbohydrate fermentation",
+      "aerobic pyruvate cleavage"
+    ]
+  },
+  "object": {
+    "type": "gas",
+    "name": "hydrogen production in SIBO",
+    "aliases": [
+      "H2 production",
+      "breath hydrogen",
+      "fermentative H2"
+    ]
+  },
+  "relationship": "enhances",
+  "qualifiers": {
+    "magnitude": "12 sugar pyruvate fermentation pathways enriched (FC>1.1, P<.05); pyruvate→cytochrome bd/bo oxidase FC=1.48 (P=2.09E-09); succinate→cytochrome bd/bo oxidase FC=1.13 (P=.01); diarrhea r=0.252 P=.0034, bloating r=0.185 P=.025 (for pyruvate→electron transfer); bloating r=0.300 P=.0006, abdominal pain r=0.194 P=.0189 (for succinate→electron transfer)",
+    "conditions": "duodenal aspirate; functional profiles from 16S and shotgun data via MetaCyc; SIBO ≥10³ CFU/mL on MAC",
+    "population": "505 adults (16S) and 38 subjects (shotgun) from REIMAGINE study",
+    "model": "human prospective cross-sectional with predicted and measured functional profiling"
+  },
+  "provenance": {
+    "source_type": "journal_article",
+    "source_tier": "primary",
+    "ref": "Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing",
+    "doi": "10.1016/j.cgh.2023.06.001",
+    "location": "Results — Gas Production Pathways section, p.266",
+    "original_text": "Twelve sugar pyruvate fermentation pathways were enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL (FC, >1.1; adjusted P < .05), as was mixed acid fermentation (FC, 1.2; adjusted P = 2.18E-25). Aerobic cleavage of pyruvate was enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC, 1.48; adjusted P = 2.09E-09), which correlated with diarrhea (Spearman r = 0.252; P = .0034), bloating (Spearman r = 0.185; P = .025), and urgency (Spearman r = 0.205; P = .0146)",
+    "data_origin": "primary"
+  },
+  "confidence": "moderate",
+  "guilds": [
+    "fermentation",
+    "opportunist"
+  ],
+  "seeds": [
+    "sibo",
+    "h2",
+    "hydrogen",
+    "pyruvate_fermentation",
+    "sugar_fermentation",
+    "mixed_acid_fermentation",
+    "diarrhea",
+    "bloating",
+    "urgency",
+    "enterobacteriaceae",
+    "breath_test"
+  ],
+  "integrity": {
+    "claim_fingerprint": "sugar_pyruvate_fermentation|enhanced_in|sibo h2 production",
+    "corroborations": 0,
+    "corroboration_refs": [],
+    "conflicts": [],
+    "slop_score": 0.2,
+    "coi_flag": true,
+    "coi_detail": "Pimentel lab. 16S-based functional predictions confirmed by shotgun in subset (n=38).",
+    "methodology_note": "Primary functional analysis from 16S predicted profiles (MetaCyc). Shotgun metagenomics (n=38) confirmed enrichment of sugar degradation, aerobic respiration, and pyruvate fermentation pathways, lending additional confidence.",
+    "methodology_flags": [],
+    "review_worthy": 0.35
+  },
+  "chain_hints": [
+    "KEY MECH: Establishes H2 production mechanism in SIBO — not just fermentation in general but specific pyruvate pathways",
+    "Supports breath hydrogen testing for SIBO by identifying the metabolic source of H2 in duodenal microbiome",
+    "Paper argues H2 derives from small intestine (not rapid transit to colon) — addresses longstanding debate",
+    "Connects to MECH-023 (H2S pathways in same subjects) — SIBO produces both H2 AND H2S via distinct pathway enrichment",
+    "Connects to BIO-025 (Enterobacteriaceae species driving these pathways)",
+    "Connects to existing fermentation guild erga (MECH-009/010 butyrate cross-feeding)"
+  ],
+  "version": 1,
+  "created_at": "2026-03-30",
+  "producer": "COLLECTOR-MANUAL",
+  "status": "validated"
+}
