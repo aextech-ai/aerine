@@ -1,0 +1,364 @@
+{
+  "_fixture": {
+    "slug": "agent-relay",
+    "line": "agent (user context relay)",
+    "params": [
+      "ibs",
+      "constipation",
+      "methane"
+    ],
+    "k": 3,
+    "generated_by": "engine/build-fixtures.mjs",
+    "index_content_digest": "sha256:9436cea0134cd91aed636df80b3022b47e96defc6f6429a59fdcb03b084e8960",
+    "source_digest": "sha256:02e1188546642e65ed51ba907e0735424db7e0d5f831a13f78811a2702a202cb",
+    "release": true,
+    "release_ruling": "D-17 (founder, 2026-09-21)"
+  },
+  "entry": [
+    {
+      "ergon_id": "erg-BIO-008-V1",
+      "desk": "biology",
+      "assertion": "Methanobrevibacter smithii is the predominant methanogen in the human duodenum, present in 63.64% of subjects; the entire Methanobacteriaceae family shows a 2.94-log2 fold increase in relative abundance in IMO subjects vs non-IMO.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-010-V1",
+      "desk": "biology",
+      "assertion": "Fecal abundance of Methanobrevibacter smithii decreased in 92% of subjects with detectable levels by end of trial; M. smithii RA correlated with average daily single methane measurements at baseline (r=0.627, P=.001), during PED (r=0.581, P=.007), and at reintroduction (r=0.489, P=.024).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-016-V1",
+      "desk": "biology",
+      "assertion": "Collinsella abundance is inversely associated with each dietary quality index and positively linked to inflammatory diseases including IBS, rheumatoid arthritis, diabetes, and colon cancer. Enterobacter and Escherichia-Shigella also show inverse associations with healthy eating indices.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-017-V1",
+      "desk": "biology",
+      "assertion": "High-fat diet significantly increased stool M. smithii levels in rats (1.69e5 at baseline to 3.06e5 copies/gram at day 52, P<0.001), and this increase correlated with decreased stool wet weight (R=-0.38, P=0.037), demonstrating that M. smithii drives a constipation-like phenotype in an animal model.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-018-V1",
+      "desk": "biology",
+      "assertion": "Lovastatin lactone treatment significantly reduced M. smithii levels in the distal small bowel (ileum) compared to both controls (P<0.0006) and lovastatin hydroxyacid-treated rats (P=0.0003), and lovastatin hydroxyacid resulted in looser stools (increased % wet weight, P=0.0246), indicating partial reversal of the constipation-like phenotype through methanogenesis inhibition.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-028-V1",
+      "desk": "biology",
+      "assertion": "IBS-C/CH4+ and IBS-D subjects harbor distinct gut microtypes identified by stool 16S rRNA sequencing. IBS-C/CH4+ is enriched in Methanobacteriaceae, Ruminococcaceae (FC=1.23, FDR P=0.009), and Christensenellaceae — families whose RAs correlate with each other and with Methanobacteriaceae RA. IBS-D is enriched in Fusobacteriaceae (FC=5.23, FDR P=3.75E-9), Pseudomonadaceae (FC=7.26, FDR P<0.00001), Spirochaetaceae (FC=5.94, FDR P=5.91E-9), and Bacteroidaceae (FC=1.81, FDR P=4.18E-3). 88% of IBS-C/CH4+ subjects had detectable stool M. smithii vs 18% of IBS-D (P<0.0001).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-030-V1",
+      "desk": "biology",
+      "assertion": "Aerobic 'disruptor taxa' in the duodenum — Klebsiella, Escherichia-Shigella, Enterococcus, Clostridium (C. perfringens by V4 classification), Romboutsia, Aeromonas, and Bacteroides — displace strict anaerobes (Porphyromonas, Leptotrichia, Prevotella, Neisseria) when present, creating a mutually exclusive ecological pattern. The disruptor taxa axis (PC2) correlates with patient-reported GI symptom scores: bloating, incomplete evacuation, and constipation showed the highest correlation, while urgency, excess gas, and diarrhea were weaker. Serum IL-8 showed a weak positive correlation with the disruptor taxa axis.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-043-V1",
+      "desk": "biology",
+      "assertion": "IBS-D/M patients separate into two distinct fecal volatile organic compound (VOC) metabotypes: IBS-P ('pathological'), characterised by elevated SCFAs and SCFA-esters (acetic acid, propanoic acid, butanoic acid, ethyl butanoate, propyl acetate, methyl pentanoate, propyl butanoate; all FDR q<0.1), and IBS-H ('healthy'), characterised by elevated organosulphurs and ketones (methyldisulfanylmethane q<0.01, methyltrisulfanylmethane q<0.01, methylsulfanylmethane q<0.05, butan-2-one q<0.05). 177 VOCs identified total. IBS-P metabotype corresponds to previously identified 'dysbiotic' microbial subtype enriched in diverse Firmicutes with carbohydrate/amino acid metabolism genes. Household controls co-habiting with IBS-P cases resembled IBS-P metabolome, and vice versa for IBS-H, suggesting shared environmental/dietary influence on metabotype.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-044-V1",
+      "desk": "biology",
+      "assertion": "AI-personalised diet (PD) significantly increased Faecalibacterium prausnitzii abundance (P<10^-4, paired t-test) while low-FODMAP diet did not (P>0.05) over 6 weeks in IBS patients. PD also significantly decreased Ruminococcaceae family abundance (P<10^-5), with no change in FODMAP group. Alpha diversity showed significant shifts in PD group but not FODMAP. Beta diversity (Bray-Curtis PERMANOVA) shifted significantly in both groups for IBS-C and IBS-M subtypes (P<0.05), with PD showing more pronounced shifts and lower P values. IBS-D subgroup did not achieve significant beta-diversity shifts in either group.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-046-V1",
+      "desk": "biology",
+      "assertion": "Methanobrevibacter smithii is the dominant human gut methanogen with 95.7% prevalence (16S rRNA + rpoB quantification in 700 fecal samples), encompassing 15 genotypes across 95 GenBank genomes (34 isolates, 61 MAGs) but only 4 complete genome sequences. M. smithii is an ancient human companion: aDNA detected in dental calculus 2,223-14,180 years old from Poland and Italy, with two ancient lineages diverging ~85,000 years ago. Acquisition begins in utero (meconial detection correlates with C-section, P=0.004) and via breast milk (detected in 5/13 colostrum samples, 37/127 milk samples by culture and qPCR). In the intestinal tract, M. smithii colonizes preferentially in the colon (pH 6.5-7) and cannot survive in the stomach (pH<3.5). It centres metabolism-driven microbial networks with Bacteroidaceae, Ruminococcaceae, Prevotella, Enterococcus, Escherichia, Enterobacter, Klebsiella. A symbiotic nanoarchaeon, Candidatus Nanopusillus phocaeensis, associates specifically with M. smithii, determining small and large cell variants with differential pathogenic capabilities.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-003-V1",
+      "desk": "measurement",
+      "assertion": "Fasting single-sample breath testing is sufficient to assess CH4 levels (methanogenesis is not dependent on carbohydrate ingestion) and appears sufficient to assess H2S production. IMO is defined as CH4 >= 10 ppm on fasting breath.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-005-V1",
+      "desk": "measurement",
+      "assertion": "Average daily single fasting methane measurements (SMMs) in IMO/SIBO patients dropped below 5 ppm by day 5 of PED (4.45±6.69 ppm) and 75% had SMM≤5 by the last PED day, validating daily home methane tracking as a treatment response monitoring tool.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-008-V1",
+      "desk": "measurement",
+      "assertion": "A low FODMAP diet does not alter total fecal SCFA concentration compared to control diets in IBS patients (meta-analysis: SMD −0.25, 95% CI −0.63 to 0.13, P=0.20, n=208 across 4 trials). Individual SCFAs (acetate, propionate, butyrate, valerate) and fecal pH also showed no significant differences.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-011-V1",
+      "desk": "measurement",
+      "assertion": "A single fasting exhaled methane measurement (SMM) ≥10 ppm diagnoses intestinal methanogen overgrowth (IMO) with 86.4% sensitivity and 100% specificity compared to the standard 2-hour lactulose breath test (n=12,183 unique subjects). SMM also validated against glucose breath test (n=733) with 81.3% sensitivity and 100% specificity. SMM correlates strongly with fecal Methanobrevibacter smithii DNA load (R=0.65, P<0.0001, n=28 qPCR-validated subjects). SMM is temporally stable over 14 weeks in untreated subjects (P=0.45 comparing baseline vs week 14 in placebo arm, n=20), supporting its use as a reliable single-timepoint diagnostic. Antibiotic treatment significantly decreases SMM within 2 days (P<0.0001).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MEAS-012-V1",
+      "desk": "measurement",
+      "assertion": "In IBS subjects, breath H2 AUC inversely correlates with breath CH4 AUC (R=-0.47, P<0.0001) and positively correlates with breath H2S AUC (R=0.22, P=0.045). No association was observed between breath H2S AUC and CH4 AUC (P=0.9). M. smithii absolute abundance in stool correlated positively with maximum breath CH4 (R=0.516, P<0.0001) and negatively with breath H2 at 105 min (R=-0.375, P=0.008) and 120 min (R=-0.332, P=0.02).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MEAS-018-V1",
+      "desk": "measurement",
+      "assertion": "Daily single fasting breath methane measurements (SMM) correlate with fecal Methanobrevibacter smithii abundance across all study phases: baseline (r=0.627, P=0.001, n=23), during PED (r=0.581, P=0.007, n=20), and during food reintroduction (r=0.489, P=0.024, n=21). Average daily SMMs in 24 IMO/IMO-SIBO patients dropped from 14.8 +/- 19.6 ppm at baseline to 4.0 +/- 5.7 ppm during PED (P<0.001) and 4.5 +/- 5.8 ppm at follow-up (P=0.042). 75% of subjects had SMM <=5 ppm by the fifth day of PED.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-019-V1",
+      "desk": "measurement",
+      "assertion": "Systematic review and meta-analysis of 4 cohort studies (266 IBS patients, 172 with SIBO) found that IBS patients with SIBO have a significantly higher response to antibiotic therapy compared to IBS patients without SIBO (RR for no improvement 0.65, 95% CI 0.49-0.85). Two studies used rifaximin, one used rifaximin + another antibiotic, and one used neomycin. SIBO was diagnosed by breath test or small bowel aspirate. All studies used Rome III criteria for IBS. The female distribution ranged from 19%-67%. Low heterogeneity was observed (P=0.37, I2=2%). This is the first systematic review and meta-analysis to show that SIBO-positive IBS patients have significantly higher antibiotic response rates.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-020-V1",
+      "desk": "measurement",
+      "assertion": "A 5-VOC fecal biomarker model (methylsulfanylmethane, methyldisulfanylmethane, methyltrisulfanylmethane, acetic acid, propanoic acid) predicted IBS microbial subtype (IBS-P vs IBS-H) with AUROC 0.797 (95% CI 0.78-0.94 sensitivity, 0.55-0.88 specificity), sensitivity 78.6%, specificity 71.4% using logistic regression with 10-fold cross-validation. The model combines 3 organosulphur VOCs (elevated in IBS-H) with 2 SCFAs (elevated in IBS-P). Notably, the discriminating VOCs span both metabotypes: organosulphurs as IBS-H markers and SCFAs as IBS-P markers, creating a push-pull classification.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-012-V1",
+      "desk": "mechanism",
+      "assertion": "Methane (CH₄) produced by M. smithii has been directly linked to slowing intestinal transit and augmenting small intestinal contractile activity, contributing to constipation. In contrast, H₂S acts as a smooth muscle relaxant through inhibition of L-type calcium channels and BKCa channels, promoting diarrhea. These divergent gas-mediated mechanisms explain the opposing stool phenotypes in IBS-C vs IBS-D.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-027-V1",
+      "desk": "mechanism",
+      "assertion": "Microbial metabolic pathway analysis (KEGG) reveals distinct enrichment patterns in IBS subtypes: IBS-C/CH4+ subjects show enrichment of methanogenesis modules and biosynthesis of F420 (a coenzyme essential for methane production), correlating with breath CH4 levels. IBS-D subjects show enrichment of sulfate reduction pathways and cysteine/methionine metabolism modules. H2-producing pathways including formate degradation correlate with breath H2 levels, validating that lactulose breath test H2 reflects gut microbial fermentation.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-029-V1",
+      "desk": "mechanism",
+      "assertion": "SIBO (≥10³ cfu/mL colonic-type bacteria in duodenal aspirate) creates an indigenous proinflammatory environment in the duodenum. Patients with SIBO and all three elevated duodenal cytokines (IL-1β, IL-6, TNF-α) had OR=3.47 (95% CI: 1.06-11.34, P=0.03). Klebsiella pneumoniae PCR copies in duodenal fluid correlated with elevated IL-6 (P=0.001) and TNF-α (P=0.010). M. smithii PCR copies correlated with elevated IL-1β (P=0.044). IBS was a strong independent predictor of SIBO (OR=8.96, 95% CI: 2.72-29.58, P<0.001); age ≥60 was also a risk factor (OR=16.26).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-030-V1",
+      "desk": "mechanism",
+      "assertion": "Campylobacter jejuni produces cytolethal distending toxin B (CdtB) which triggers molecular mimicry with host vinculin protein, producing anti-CdtB and anti-vinculin autoantibodies. Anti-vinculin antibodies damage interstitial cells of Cajal in the deep myenteric plexus (ICC-DMP), impairing intestinal motility. This motility impairment leads to small intestinal bacterial overgrowth (SIBO), which in turn produces IBS symptoms. The proposed sequence is: Campylobacter infection → CdtB release → anti-vinculin autoimmunity → ICC-DMP damage → dysmotility → SIBO → IBS. Animal models show antibiotic prophylaxis of C. jejuni-infected rats reduces PI-IBS phenotypes.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-032-V1",
+      "desk": "mechanism",
+      "assertion": "In a retrospective cohort of 1,126 subjects, those with detectable exhaled methane (CH4) had significantly lower resting heart rate than those without (73.0 vs 76.0 bpm, P=0.01). In a post hoc analysis of a randomized trial, a decrease in CH4 over 14 weeks was associated with an increase in heart rate (Δ=+6.5 bpm, P=0.0006). A biological gradient was observed: greater CH4 decrease correlated with greater HR increase (R=-0.31, P=0.03). This suggests a microbiome-neurocardiac axis in which intestinal methane production may influence the parasympathetic nervous system, particularly via the vagus nerve.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-035-V1",
+      "desk": "mechanism",
+      "assertion": "PED shifted hydrogen production from a small bowel fermentation pattern (early rise >=20 ppm within 90 min) to a colonic fermentation pattern (delayed rise). After PED, significant H2 reductions were observed at the 60-min (P=0.009), 75-min (P<0.001), 90-min (P=0.0017), 105-min (P=0.0076), and 120-min (P=0.01) timepoints but NOT at 0-45 min (P=0.14-0.96), indicating elimination of small intestinal bacterial substrate access while some colonic fermentation persists. Methane reductions were significant at ALL timepoints (P<0.0001 for 0-105 min, P=0.0003 at 120 min), consistent with global methanogen suppression rather than site-specific substrate reduction. Mean CH4 change after PED ranged from -18.5 to -22.4 ppm across all LBT timepoints.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-036-V1",
+      "desk": "mechanism",
+      "assertion": "Methane-positive subjects on lactulose breath test had a significantly elevated threshold for sensing defecation urge on anorectal manometry (109 +/- 2 +/- 45.6 mL) compared to methane-negative subjects (93.0 +/- 45.0 mL, P=0.004), even after controlling for baseline presenting diagnosis. This was true for both positive hydrogen (93.6 +/- 45.0 mL) and flat line (95.5 +/- 48.8 mL) groups. Methane-positive subjects also had a significantly lower volume threshold for defecation urge compared to non-methane groups when pooled together (P=0.004). No differences were seen in resting and squeeze anal sphincter pressures between methane-positive and other groups. n=365 subjects from linked breath test and anorectal manometry databases (1,201 anorectal manometry records linked to 16,703 breath tests, Oct 2007 to Apr 2013).",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-040-V1",
+      "desk": "mechanism",
+      "assertion": "Methane in human breath has both exogenous (microbial) and endogenous (non-microbial) sources. Exogenous production by gut methanogenic archaea (primarily M. smithii) via methylotrophic reduction of CO₂ with H₂ is the dominant source. Endogenous production occurs via oxidative demethylation of methyl-containing compounds (methionine, DMSO, trimethylamine, choline) driven by reactive oxygen species (ROS) through the Fenton reaction. In vitro, choline chloride was the most potent substrate (4-25 µM methane); isolated mitochondria and cultured endothelial cells produced measurable methane under oxidative stress (2 nmol/mg baseline, increased by NaN₃ and DNP). In vivo, NaN₃ administration elevated rat breath methane, and LPS (acute sepsis model) produced a 2-3 fold increase. However, estimated physiological endogenous production (~2 µM blood concentration) is small relative to microbial production. Systemically, methane-rich saline (MRS at 0.99 mM) shows anti-inflammatory (reduced TNFα, IL-6, IL-1β via PI3K-AKT-GSK-3B), anti-oxidative (reduced MDA, 8-OHdG), and anti-apoptotic (reduced caspase 3/9) effects across ischemia/reperfusion, inflammatory, and neuronal disease models. CRITICAL CAVEAT: MRS doses produce ~140 µM blood methane, which is ~70× the level expected from microbiome production alone, making clinical translation uncertain. Methane's effects on GI motility (59% transit increase in dogs, ileal contraction amplitude increase) and vagus nerve pathway (abolished by tetrodotoxin/atropine) are better established at physiological concentrations.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-004-V1",
+      "desk": "nutrition",
+      "assertion": "Two weeks of exclusive palatable elemental diet (PED) significantly reduced maximum exhaled methane levels from 41±35 to 12±15 ppm (P<.001) in subjects with IMO and/or SIBO, with 73% achieving LBT normalization.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-NUT-017-V1",
+      "desk": "nutrition",
+      "assertion": "A low FODMAP diet consistently reduces Bifidobacteria abundance in IBS patients, with lower levels observed both between-group (vs control diets) and within-group (vs baseline) across 7 of 9 included RCTs (n=403 total). This 'antibifidogenic' effect is the most consistent microbiome change from FODMAP restriction.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-NUT-026-V1",
+      "desk": "nutrition",
+      "assertion": "Exclusive 2-week palatable elemental diet (PED; mBiota Elemental — 6% fat from MCT, free amino acids as polypeptides/dipeptides, no allergens or food additives, eucaloric 300-cal packets) normalized lactulose breath tests in 73.3% of SIBO/IMO patients. Peak exhaled methane dropped from 40.8 +/- 35.0 to 12.4 +/- 15.0 ppm (P<0.001). Peak H2 rise by 90 min dropped from 42.8 +/- 42.5 to 11.8 +/- 11.2 ppm (P<0.001). Methane AUC (0-120 min) dropped from 258 +/- 212 to 72 +/- 93 ppm (P<0.001). H2 AUC (0-90 min) dropped from 136 +/- 122 to 68 +/- 78 ppm (P=0.001). LBT normalization rates by subtype: IMO 58%, SIBO 100%, IMO/SIBO 75%. Despite eucaloric design, significant weight loss occurred (70.4 to 67.0 kg post-PED, P<0.01) driven by fat loss (total body fat 20.4 to 19.0 kg, visceral fat area 42.8 to 39.9 cm2, both P<0.01), persisting after reintroduction.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-027-V1",
+      "desk": "nutrition",
+      "assertion": "Four-week low-FODMAP diet reduced fecal SCFA abundance by >50% specifically in IBS-P metabotype patients (n=18): acetic acid (p<0.0001, q<0.05), propanoic acid (p<0.0001, q<0.05), butanoic acid (p<0.05, q<0.1) all significantly reduced (Wilcoxon signed rank). Branched-chain SCFAs (2-methylpropanoic, 2-methylbutanoic, 3-methylbutanoic acid) also reduced but did not survive FDR correction. In IBS-H metabotype (n=21), NO significant changes in any SCFAs or branched-SCFAs after FODMAP restriction. After FODMAP reintroduction at week 16, IBS-P SCFA abundance recalibrated toward levels seen in IBS-H and healthy controls — not depleted, but normalised.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-028-V1",
+      "desk": "nutrition",
+      "assertion": "Microencapsulated sodium butyrate (300mg, colon-targeted pH-dependent release) combined with 5 probiotic strains (10^9 CFU total) and scFOS prebiotic (64mg) achieved comparable clinical efficacy to a prior trial using the same probiotic species at 10x higher dose (10^10 CFU) with higher scFOS (~1.9g/day) but WITHOUT butyrate. The addition of microencapsulated butyrate appeared to compensate for the reduced probiotic/prebiotic dose while maintaining IBS-AR and IBS-GIS effectiveness, and newly achieving IBS-AR significance at 4 weeks (prior study showed no IBS-AR effect). Butyrate was formulated using anionic methacrylate copolymer for targeted colonic delivery (EmergoPharm pH-dependent polymer), validated for colon release.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-NUT-029-V1",
+      "desk": "nutrition",
+      "assertion": "In a multicenter RCT (n=121), AI-personalised diet (ENBIOSIS platform, microbiome-based food scoring) and low-FODMAP diet produced comparable overall IBS-SSS reduction (PD -112.7 vs FODMAP -99.9, P=0.29 between groups). However, in IBS-D subtype specifically, PD achieved significantly greater improvement (IBS-SSS P=0.010, Cohen's d=0.81 large effect) while FODMAP did not reach significance (P=0.312). Both diets effective in IBS-C (both P<0.001) and IBS-M (both P<0.001). PD led to significant improvements in IBS-QOL across all subtypes; FODMAP only in IBS-C and IBS-D. PD also improved HADS anxiety (P<0.001) and depression (P=0.02). Dietary overlap between PD and FODMAP was moderate (Jaccard index 0.29).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-004-V1",
+      "desk": "symptom",
+      "assertion": "In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-005-V1",
+      "desk": "symptom",
+      "assertion": "H2S levels are proportional to diarrhea severity; H2S producers correlate with loose stool phenotype while methanogens correlate with constipation. The two phenotypes appear mutually exclusive depending on which gas producers dominate.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-006-V1",
+      "desk": "symptom",
+      "assertion": "PED significantly improved bloating (-43%, P<.001), distention (-40%, P<.001), flatulence (-42%, P<.001), abdominal discomfort (-30%, P=.02), and constipation (-25%, P=.036) during the 2-week diet phase compared to screening in IMO/SIBO subjects; 83% reported adequate global symptom relief.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-010-V1",
+      "desk": "symptom",
+      "assertion": "Antibiotic treatment of SIBO produces symptomatic improvement at 2.46x the rate of no treatment (RR=2.46, 95% CI 1.33-4.55, P=0.004; 6 studies, n=196). Pooled response rate: 49.5% on antibiotics vs 13.7% on placebo/no treatment (NNT=2.8). In IBS patients specifically, those with SIBO responded to antibiotics at 2.07x the rate of IBS patients without SIBO (RR=2.07, 95% CI 1.40-3.08, P=0.0003; 4 studies, n=266). SIBO eradication (negative post-treatment breath test) predicted 80% symptomatic response vs 27.5% in those who did not eradicate (RR=2.85, 95% CI 1.66-4.89, P=0.001). This supports a causal role for SIBO in GI symptoms, not merely correlation.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-011-V1",
+      "desk": "symptom",
+      "assertion": "Fasting exhaled methane >=10 ppm (IMO-positive) is associated with significantly higher constipation scores (5.65+/-3.47 vs 4.32+/-3.62, P=0.008), higher gas/bloating scores (6.27+/-2.77 vs 5.41+/-2.98, P=0.003), and LOWER diarrhea scores (3.68+/-3.49 vs 4.38+/-3.46, P=0.04) compared to methane-negative subjects (n=732). This confirms the methane-constipation link and the inverse methane-diarrhea relationship at the population level, consistent with methane's known effect of slowing gut transit.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-012-V1",
+      "desk": "symptom",
+      "assertion": "IBS-C/CH4+ subjects have significantly higher stool microbial alpha diversity (Shannon, Simpson, and Chao1 indices, all P<0.05) than IBS-D subjects. Alpha diversity indices correlate positively with breath CH4 AUC and negatively with breath H2S AUC. IBS-D subjects have significantly higher breath H2 AUC and H2S AUC, while IBS-C/CH4+ subjects have significantly higher breath CH4 at all timepoints (P<0.0001). No association was observed between breath H2S AUC and CH4 AUC (P=0.9).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-013-V1",
+      "desk": "symptom",
+      "assertion": "Post-infectious IBS (PI-IBS) develops in approximately 21% of patients after culture-confirmed Campylobacter infection (n=1,418 in the largest prospective study). A large national database study (n=4,143) found RR~5.6 for IBS after Campylobacter vs controls; a military population study found RR=2.7. Campylobacter infection can also convert pre-existing IBS-C to IBS-M or IBS-D in ~50% of cases. Risk factors for PI-IBS include pre-existing anxiety (OR=1.14), somatization (OR=1.17), and severity of initial infection.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-014-V1",
+      "desk": "symptom",
+      "assertion": "In a meta-analysis of 19 studies (1293 IMO patients vs 3208 controls), intestinal methanogen overgrowth (IMO) is associated with increased constipation (47% vs 38%, OR 2.04, SMD 0.77), decreased diarrhea (37% vs 52%, OR 0.58, SMD -0.71), and decreased nausea (32% vs 45%, OR 0.75). Bloating was reported in 78%, abdominal pain in 65%, and flatulence in 56% of IMO patients. Methane production correlates with slowed intestinal transit, not just stool frequency.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-016-V1",
+      "desk": "symptom",
+      "assertion": "In 30 SIBO/IMO patients completing 2-week PED + 2-week food reintroduction, 83% (25/30) reported adequate global relief at trial end. At reintroduction vs screening: bloating -40% (FDR P<0.001), distention -37% (FDR P<0.001), discomfort -41% (FDR P<0.001), diarrhea -82% (FDR P=0.001), constipation -50% (FDR P=0.005), flatulence -34% (FDR P=0.008), pain -41% (FDR P=0.002), fatigue -34% (FDR P=0.001), urgency -38% (FDR P=0.024), brain fog -68% (FDR P=0.008). During PED itself, diarrhea transiently worsened (+135%, P=0.001) before resolving at reintroduction. Stool looseness increased during PED (expected from liquid diet) but normalized; Bristol 3-5 stools increased from 56% to 71% at trial end (P=0.35).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-018-V1",
+      "desk": null,
+      "assertion": "IBS-P metabotype patients achieved significantly greater symptom improvement from low-FODMAP diet than IBS-H patients. IBS-SSS mean delta: IBS-P 193.8 [56.9%] vs IBS-H 119.6 [39.6%] (p<0.05, independent samples t-test, Cohen's d 0.722). Pain composite score delta: IBS-P 79.5 [63.1%] vs IBS-H 42.1 [38.1%] (p<0.05, Cohen's d 0.689). Remission rate (IBS-SSS <75): IBS-P 43.8% vs IBS-H 25.0% (OR 2.30, 95% CI 1.26-4.21, p<0.005). Both groups improved significantly within-group, but IBS-P response magnitude was approximately double. No significant difference in response between IBS-D vs IBS-M subtypes.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-019-V1",
+      "desk": "symptom",
+      "assertion": "In a double-blind placebo-controlled RCT (n=101 analyzed), IBS patients supplemented with microencapsulated sodium butyrate (300mg) + 5 probiotic strains (B. lactis DSM 32269, B. longum DSM 32946, B. bifidum DSM 32403, L. acidophilus DSM 32418, L. rhamnosus DSM 26357; total 10^9 CFU) + scFOS (64mg) for 12 weeks reported significantly higher adequate relief at week 4 (64.7% vs 42.0%, OR 2.53, 95% CI 1.13-5.65, P=0.023) but this advantage attenuated by week 8 (74.5% vs 62.0%, ns) and week 12 (72.5% vs 56.0%, P=0.085). IBS-SSS showed no significant between-group differences at any timepoint despite significant within-group improvements in both arms. IBS-GIS worsening was significantly less in biotic group at week 12 (5.9% vs 16.0%, OR 0.17, 95% CI 0.041-0.71, P=0.015). Urgency to defecate significantly lower in biotic group at week 12 (P=0.015). No significant between-group differences in IBS-QOL, stool frequency, stool consistency, or serum cytokines (IL-6, CCL-4).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-020-V1",
+      "desk": "symptom",
+      "assertion": "IBS-Diarrhea patients show differential dietary treatment response: AI-personalised diet (PD) achieved significant IBS-SSS improvement (P=0.010, Cohen's d=0.81) while low-FODMAP diet did not reach significance in IBS-D (P=0.312). In contrast, both diets were effective for IBS-C (both P<0.001) and IBS-M (both P<0.001). For IBS-D, stool frequency decreased from 7.13 to 5.09/day in PD group (P=0.70 between groups). This subtype-specific differential suggests that diarrhea-predominant IBS may require microbiome-personalised dietary approaches rather than one-size-fits-all FODMAP restriction.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-021-V1",
+      "desk": null,
+      "assertion": "In the largest synbiotic-bloating RCT to date (n=350 randomized, 219 analyzed at week 6), a 24-strain multi-species synbiotic (DS-01: 53.6 billion AFU including Bifidobacterium and Lactobacillus species + 400mg pomegranate extract as polyphenol prebiotic) significantly improved GI quality-of-life (DQLQ 0.80 vs 1.20, P<0.05, 81.4% vs 72.1% improvement), bloating and gas (PROMIS-GI 13a 16.0 vs 21.0, P<0.01; 72.3% vs 55.9% never/rarely bloating, P<0.001), abdominal discomfort (PROMIS-GI 5a 8.0 vs 10.0, P<0.01), constipation (79.2% vs 71.8% no/slight, P<0.05), and bowel regularity (49.5% vs 34.2% moderate-significant improvement, P<0.05) compared to placebo over 6 weeks in otherwise healthy adults with self-reported bloating/indigestion. No significant differences in anxiety, depression, or libido in overall population. No serious adverse events.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-022-V1",
+      "desk": "symptom",
+      "assertion": "An 8-week double-blind RCT in 56 Rome IV-diagnosed IBS females found that Lab4 multistrain probiotic (L. acidophilus CUL60 + CUL21, B. bifidum CUL20, B. animalis subsp. lactis CUL34; 25 billion CFU/day) produced an 85-point between-group IBS-SSS reduction at day 56 (P<0.0001), with 63% achieving >=50-point responder status vs 4% placebo (P<0.0001). All five IBS-SSS subdomains improved significantly: abdominal pain severity (-19.2, P<0.0001), days with pain (-13.6, P<0.0001), bloating severity (P<0.0001), bowel habit dissatisfaction (P<0.0001), and IBS impact on everyday life (-15.7, P<0.0001). Additionally, anxiety (HADS-A: -1.85, P=0.0002; 31.4% reduction), depression (HADS-D: -2.36, P<0.0001; 33.9% reduction), and avoidance/control behaviors (IBS-BRQ: -7.49, P=0.0002) all improved significantly. Normal stool form proportion increased (78% vs 67%, P=0.0106) and loose stools decreased (15.7% vs 24.4%, P=0.0311). No change in alpha diversity, but Roseburia and Holdemanella enriched in probiotic group. No adverse events. Notably, placebo response was only 4% — unusually low for IBS trials, attributed to minimal patient-physician contact (2 visits only).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-023-V1",
+      "desk": "symptom",
+      "assertion": "In a 1:1 propensity-score-matched retrospective cohort of 669,083 US adults with IBS (TriNetX EHR, 2005-2023, aged 18-65, 56 covariates matched), antidepressant users had significantly higher all-cause mortality than non-users: overall HR 1.35 (95% CI 1.26-1.45; mortality 1.6% vs 1.01%). The association was consistent across all subclasses: SSRI HR 1.32 (1.22-1.44), TCA HR 1.27 (1.14-1.43), SNRI HR 1.32 (1.19-1.46), and mirtazapine HR 2.05 (1.73-2.43; mortality 5.29% vs 2.27% — the most pronounced signal). The effect held across sex, age (18-40 and 40-65), BMI, and racial/ethnic subgroups. A clear dose-response was observed: mortality risk rose monotonically with prescription refill count from 2 to 20 refills, reaching HR 1.91 (1.68-2.17) at 20 refills. Target trial emulation comparing antidepressants to antispasmodics (first-line active comparator) showed Kaplan-Meier survival curves diverging after ~5 years with log-rank P<0.001. Seven negative control outcomes (blepharitis, frostbite, appendicitis, etc.) showed no association, supporting absence of systematic bias. Secondary outcomes in antidepressant users: hypertension, cardiac arrhythmia, heart failure, ischemic heart disease, aspiration pneumonitis, falls, stroke, serotonin syndrome, suicidal ideation (5-fold increase), GI bleeding, and obesity — HRs ranged 1.21-5.19. The same pattern held in IBS-C subgroup (HR 1.56, 1.08-2.25) and IBS-D subgroup (HR 1.50, 1.07-2.11). Study cannot determine cause-specific mortality due to TriNetX platform constraints.",
+      "grade": "strong"
+    }
+  ],
+  "coverage": {
+    "symptom": 13,
+    "biology": 10,
+    "nutrition": 6,
+    "mechanism": 8,
+    "measurement": 8
+  },
+  "weakest": [
+    "nutrition",
+    "mechanism"
+  ],
+  "returned": [
+    {
+      "ergon_id": "erg-MECH-037-V1",
+      "desk": "mechanism",
+      "assertion": "Integrated analysis using DIABLO (mixOmics) revealed strong positive correlations between fecal SCFA/SCFA-ester VOCs and bacterial carbohydrate and amino acid metabolism pathways (MetaCyc; R=0.60-0.83), specifically in IBS-P metabotype. This links the previously identified IBS-P microbial subtype (enriched in diverse Firmicutes with saccharolytic capacity) to its functional metabolic output. SCFAs (particularly propanoic acid and 3-methylbutanoic acid/isovaleric acid) have demonstrated pro-nociceptive properties: stimulating serotonin release from enterochromaffin cells, stimulating sensory nerves innervating the bowel, promoting visceral hypersensitivity following colorectal butyrate enema, and activating sensory neurons via free fatty acid receptors FFA2 and FFA3.",
+      "grade": "moderate",
+      "edge_weight": 4,
+      "via": [
+        "erg-SYM-018-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-MECH-011-V1",
+      "desk": "mechanism",
+      "assertion": "The L-homocysteine biosynthesis pathway, used by specific bacteria to consume cysteine and produce H₂S, was positively associated with stool % wet weight on day 20 (r=0.30, P=0.06), was increased in F. varium-gavaged rats (P<0.001), and positively associated with stool H₂S levels (r=0.5, P=0.021), establishing a metabolic pathway link between sulfur metabolism and diarrhea phenotype.",
+      "grade": "moderate",
+      "edge_weight": 3,
+      "via": [
+        "erg-MECH-027-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-MECH-020-V1",
+      "desk": "mechanism",
+      "assertion": "Increases in calcium absorption from soluble corn fiber positively correlated with increases in Clostridium (r=0.44, P=0.023) and Clostridiaceae SBM53 (r=0.40, P=0.040) at 20g/d SCF. Parabacteroides was negatively correlated with calcium absorption (ρ=−0.45, P=0.018 at 20g/d), suggesting Bacteroidetes ferment starch to acetate/lactate, then Firmicutes (Clostridiaceae) further ferment to butyrate, with SCFA-mediated mineral absorption rather than direct pH lowering.",
+      "grade": "emerging",
+      "edge_weight": 3,
+      "via": [
+        "erg-BIO-043-V1",
+        "erg-MEAS-008-V1",
+        "erg-NUT-027-V1"
+      ]
+    }
+  ],
+  "absent": [
+    {
+      "desk": "nutrition",
+      "code": "NO_SHARED_SEED_PATH",
+      "reason": "canon holds 30 nutrition erga, none of them connected to this entry set by a shared seed (seeds on more than 25 erga are treated as topics, not links)"
+    }
+  ],
+  "unresolved": [],
+  "notes": [
+    {
+      "code": "DESK_UNRESOLVED",
+      "message": "2 ergon(s) in the entry set carry no resolvable desk and are excluded from desk coverage; see canon-index.json anomalies",
+      "ergon_ids": [
+        "erg-SYM-018-V1",
+        "erg-SYM-021-V1"
+      ]
+    }
+  ]
+}
