@@ -1,0 +1,384 @@
+{
+  "_fixture": {
+    "slug": "device-gas",
+    "line": "device (Aeriscope gas axes)",
+    "params": [
+      "h2s",
+      "methane",
+      "voc",
+      "h2"
+    ],
+    "k": 3,
+    "generated_by": "engine/build-fixtures.mjs",
+    "index_content_digest": "sha256:9436cea0134cd91aed636df80b3022b47e96defc6f6429a59fdcb03b084e8960",
+    "source_digest": "sha256:02e1188546642e65ed51ba907e0735424db7e0d5f831a13f78811a2702a202cb",
+    "release": true,
+    "release_ruling": "D-17 (founder, 2026-09-21)"
+  },
+  "entry": [
+    {
+      "ergon_id": "erg-BIO-005-V1",
+      "desk": "biology",
+      "assertion": "Proteus mirabilis relative abundance in the duodenum correlates with breath H2S levels (R=0.32, P=0.001); subjects with duodenal P. mirabilis had significantly higher breath H2S than those without (P=0.0021).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-006-V1",
+      "desk": "biology",
+      "assertion": "Desulfovibrio desulfuricans (R=0.23, P=0.018), Desulfobulbus oligotrophicus (R=0.22, P=0.025), Desulfobulbus oralis (R=0.20, P=0.033), Desulfosarcina widdelii (R=0.24, P=0.011), and Desulfurispirillum indicum (R=0.24, P=0.011) all show significant correlation between duodenal relative abundance and breath H2S levels.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-007-V1",
+      "desk": "biology",
+      "assertion": "Co-occurrence of 3 or more H2S-producing species in duodenal microbiome results in significantly higher breath H2S levels compared to fewer producers (P=0.0239); the effect is additive rather than driven by any single species.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-008-V1",
+      "desk": "biology",
+      "assertion": "Methanobrevibacter smithii is the predominant methanogen in the human duodenum, present in 63.64% of subjects; the entire Methanobacteriaceae family shows a 2.94-log2 fold increase in relative abundance in IMO subjects vs non-IMO.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-010-V1",
+      "desk": "biology",
+      "assertion": "Fecal abundance of Methanobrevibacter smithii decreased in 92% of subjects with detectable levels by end of trial; M. smithii RA correlated with average daily single methane measurements at baseline (r=0.627, P=.001), during PED (r=0.581, P=.007), and at reintroduction (r=0.489, P=.024).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-011-V1",
+      "desk": "biology",
+      "assertion": "Fusobacteriaceae was the only bacterial family with significantly decreased relative abundance from baseline to end of trial after PED (Log2FC=-2.21, q=.002). At genus level, Fusobacterium also decreased (Log2FC=-3.57, q<.0001).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-019-V1",
+      "desk": "biology",
+      "assertion": "Gavage with H₂S producers (D. piger and F. varium) significantly altered stool microbial profiles: both increased relative abundance of Bilophila (FC=4.77 in F. varium, P=0.001) and Lachnospiraceae (FC=18.96 in D. piger; FC=19.94 in F. varium), suggesting H₂S producers create an ecological niche that expands other sulfur-metabolizing taxa.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-026-V1",
+      "desk": "biology",
+      "assertion": "Response to psyllium's gas-reducing effect is microbiome-dependent. Nonresponders (7/17, those whose BH₂ was not reduced by psyllium) had significantly higher Phocaeicola dorei and Clostridium spp. AM22_11AC abundance, while responders (10/17) had higher Alistipes putredinis. P. dorei was positively associated with total BH₂ in the PI treatment (P=0.0001, q=0.06). Nonresponders had higher BH₂ AUC₀₋₂₄ₕ (median 70,380 vs 25,050 ppm.min, P=0.0007). In vitro, psyllium increased butyrate production from inulin fermentation, but only significantly in responders (P=0.05).",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-BIO-027-V1",
+      "desk": "biology",
+      "assertion": "Chronic high-fat (lard-based, 60% energy from fat) feeding in male C57BL/6J mice for 20 weeks increased colonic mucosal abundance of three sulfidogenic bacteria genera — Desulfobulbus, Desulfovibrio, and Bilophila wadsworthia (all P<0.05 vs low-fat controls). B. wadsworthia colonic abundance was strongly correlated with mRNA markers of systemic inflammation (TNFα, F4/80, Cd11c, Cd68) in epididymal and inguinal white adipose tissue depots. High-fat feeding also impaired ileal tight junction protein ZO-1 apical localization at both 6 and 20 weeks, reduced claudin-1 and occludin expression at week 6, and increased ileal inflammatory markers (Mcp1, F4/80, Tlr4) at week 20 but not week 6 — indicating chronic, not acute, inflammation.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-BIO-028-V1",
+      "desk": "biology",
+      "assertion": "IBS-C/CH4+ and IBS-D subjects harbor distinct gut microtypes identified by stool 16S rRNA sequencing. IBS-C/CH4+ is enriched in Methanobacteriaceae, Ruminococcaceae (FC=1.23, FDR P=0.009), and Christensenellaceae — families whose RAs correlate with each other and with Methanobacteriaceae RA. IBS-D is enriched in Fusobacteriaceae (FC=5.23, FDR P=3.75E-9), Pseudomonadaceae (FC=7.26, FDR P<0.00001), Spirochaetaceae (FC=5.94, FDR P=5.91E-9), and Bacteroidaceae (FC=1.81, FDR P=4.18E-3). 88% of IBS-C/CH4+ subjects had detectable stool M. smithii vs 18% of IBS-D (P<0.0001).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-029-V1",
+      "desk": "biology",
+      "assertion": "Stool Fusobacteriaceae relative abundance correlates positively with breath H2S AUC (R=0.269, P=0.017) and with other Gram-negative families including Enterobacteriaceae, Pasteurellaceae, Pseudomonadaceae, Bacteroidaceae, and Vibrionaceae. Fusobacteriaceae RA inversely correlates with IBS-C/CH4+-associated families: Ruminococcaceae, Methanobacteriaceae, Peptococcaceae, and Methanomassiliicoccaceae. At genus level, Fusobacterium (FC=6.08, FDR P=3.75E-12) and an unknown Desulfovibrionaceae genus (FC=3, FDR P=4.58E-3) were enriched in IBS-D.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-043-V1",
+      "desk": "biology",
+      "assertion": "IBS-D/M patients separate into two distinct fecal volatile organic compound (VOC) metabotypes: IBS-P ('pathological'), characterised by elevated SCFAs and SCFA-esters (acetic acid, propanoic acid, butanoic acid, ethyl butanoate, propyl acetate, methyl pentanoate, propyl butanoate; all FDR q<0.1), and IBS-H ('healthy'), characterised by elevated organosulphurs and ketones (methyldisulfanylmethane q<0.01, methyltrisulfanylmethane q<0.01, methylsulfanylmethane q<0.05, butan-2-one q<0.05). 177 VOCs identified total. IBS-P metabotype corresponds to previously identified 'dysbiotic' microbial subtype enriched in diverse Firmicutes with carbohydrate/amino acid metabolism genes. Household controls co-habiting with IBS-P cases resembled IBS-P metabolome, and vice versa for IBS-H, suggesting shared environmental/dietary influence on metabotype.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-046-V1",
+      "desk": "biology",
+      "assertion": "Methanobrevibacter smithii is the dominant human gut methanogen with 95.7% prevalence (16S rRNA + rpoB quantification in 700 fecal samples), encompassing 15 genotypes across 95 GenBank genomes (34 isolates, 61 MAGs) but only 4 complete genome sequences. M. smithii is an ancient human companion: aDNA detected in dental calculus 2,223-14,180 years old from Poland and Italy, with two ancient lineages diverging ~85,000 years ago. Acquisition begins in utero (meconial detection correlates with C-section, P=0.004) and via breast milk (detected in 5/13 colostrum samples, 37/127 milk samples by culture and qPCR). In the intestinal tract, M. smithii colonizes preferentially in the colon (pH 6.5-7) and cannot survive in the stomach (pH<3.5). It centres metabolism-driven microbial networks with Bacteroidaceae, Ruminococcaceae, Prevotella, Enterococcus, Escherichia, Enterobacter, Klebsiella. A symbiotic nanoarchaeon, Candidatus Nanopusillus phocaeensis, associates specifically with M. smithii, determining small and large cell variants with differential pathogenic capabilities.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-003-V1",
+      "desk": "measurement",
+      "assertion": "Fasting single-sample breath testing is sufficient to assess CH4 levels (methanogenesis is not dependent on carbohydrate ingestion) and appears sufficient to assess H2S production. IMO is defined as CH4 >= 10 ppm on fasting breath.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-004-V1",
+      "desk": "measurement",
+      "assertion": "There is currently no established consensus or guideline regarding a diagnostic threshold for H2S levels on breath testing (as of 2025).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MEAS-005-V1",
+      "desk": "measurement",
+      "assertion": "Average daily single fasting methane measurements (SMMs) in IMO/SIBO patients dropped below 5 ppm by day 5 of PED (4.45±6.69 ppm) and 75% had SMM≤5 by the last PED day, validating daily home methane tracking as a treatment response monitoring tool.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-006-V1",
+      "desk": "measurement",
+      "assertion": "Using ROC analysis, a cutoff of 0.48 ppm H₂S in stool distinguished rats with diarrhea-like phenotype from controls, and stool H₂S levels were positively associated with stool % wet weight on day 20 (r=0.447, P=0.042) in F. varium-gavaged rats.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MEAS-010-V1",
+      "desk": "measurement",
+      "assertion": "Habitual dietary FODMAP intake inversely correlates with breath hydrogen (BH₂) response to an inulin challenge over 24 hours (Pearson r = −0.42, P = 0.009, n = 17). Higher habitual FODMAP consumers produce less BH₂ from an inulin bolus, suggesting their microbiome is better adapted to ferment FODMAPs efficiently (toward SCFAs rather than gas). This correlation held across both PI and control arms combined.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MEAS-011-V1",
+      "desk": "measurement",
+      "assertion": "A single fasting exhaled methane measurement (SMM) ≥10 ppm diagnoses intestinal methanogen overgrowth (IMO) with 86.4% sensitivity and 100% specificity compared to the standard 2-hour lactulose breath test (n=12,183 unique subjects). SMM also validated against glucose breath test (n=733) with 81.3% sensitivity and 100% specificity. SMM correlates strongly with fecal Methanobrevibacter smithii DNA load (R=0.65, P<0.0001, n=28 qPCR-validated subjects). SMM is temporally stable over 14 weeks in untreated subjects (P=0.45 comparing baseline vs week 14 in placebo arm, n=20), supporting its use as a reliable single-timepoint diagnostic. Antibiotic treatment significantly decreases SMM within 2 days (P<0.0001).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MEAS-012-V1",
+      "desk": "measurement",
+      "assertion": "In IBS subjects, breath H2 AUC inversely correlates with breath CH4 AUC (R=-0.47, P<0.0001) and positively correlates with breath H2S AUC (R=0.22, P=0.045). No association was observed between breath H2S AUC and CH4 AUC (P=0.9). M. smithii absolute abundance in stool correlated positively with maximum breath CH4 (R=0.516, P<0.0001) and negatively with breath H2 at 105 min (R=-0.375, P=0.008) and 120 min (R=-0.332, P=0.02).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MEAS-014-V1",
+      "desk": "measurement",
+      "assertion": "Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-018-V1",
+      "desk": "measurement",
+      "assertion": "Daily single fasting breath methane measurements (SMM) correlate with fecal Methanobrevibacter smithii abundance across all study phases: baseline (r=0.627, P=0.001, n=23), during PED (r=0.581, P=0.007, n=20), and during food reintroduction (r=0.489, P=0.024, n=21). Average daily SMMs in 24 IMO/IMO-SIBO patients dropped from 14.8 +/- 19.6 ppm at baseline to 4.0 +/- 5.7 ppm during PED (P<0.001) and 4.5 +/- 5.8 ppm at follow-up (P=0.042). 75% of subjects had SMM <=5 ppm by the fifth day of PED.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-020-V1",
+      "desk": "measurement",
+      "assertion": "A 5-VOC fecal biomarker model (methylsulfanylmethane, methyldisulfanylmethane, methyltrisulfanylmethane, acetic acid, propanoic acid) predicted IBS microbial subtype (IBS-P vs IBS-H) with AUROC 0.797 (95% CI 0.78-0.94 sensitivity, 0.55-0.88 specificity), sensitivity 78.6%, specificity 71.4% using logistic regression with 10-fold cross-validation. The model combines 3 organosulphur VOCs (elevated in IBS-H) with 2 SCFAs (elevated in IBS-P). Notably, the discriminating VOCs span both metabotypes: organosulphurs as IBS-H markers and SCFAs as IBS-P markers, creating a push-pull classification.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MEAS-021-V1",
+      "desk": "measurement",
+      "assertion": "Breath volatile metabolites (BVM) measured by SIFT-MS can detect and discriminate fiber fermentation in real-time. After single ingestion of chitin-glucan (4.5g, fermentable insoluble fiber) vs maltodextrin (non-fermentable control) in 15 healthy H₂-producing volunteers: (1) Exhaled butyric acid significantly increased after CG, peaking at 6h postprandial (P<0.05, Wilcoxon); (2) Six additional BVM discriminated CG vs maltodextrin: triethylamine, 2,3-butanedione, 3-hydroxybutanone, pentane, methanol, ethane (repeated measures ANOVA P<0.05); (3) 13 MS-fragments from untargeted analysis discriminated CG vs maltodextrin at 6h by PLS-DA (Monte Carlo P=0.001); (4) Baseline Mitsuokella abundance was the sole genus correlating with exhaled butyrate net AUC after CG; (5) Standard breath H₂ and CH₄ were NOT significantly different between CG and maltodextrin, suggesting BVM provides information beyond traditional lactulose breath testing.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-002-V1",
+      "desk": "mechanism",
+      "assertion": "Excessive colonic H2S is implicated in UC pathogenesis; excess H2S impairs SCFA metabolism, creates energy-deprived colonocytes, causes loss of epithelial barrier function, and triggers mucosal inflammation. This is distinct from low-level H2S which has anti-inflammatory signaling effects.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-004-V1",
+      "desk": "mechanism",
+      "assertion": "P. mirabilis relative abundance correlates with dissimilatory sulfate reduction I pathway (R=0.286, P=0.003), in which sulfite is converted to H2S. P. mirabilis can produce H2S from multiple substrates: cystine, homocystine, mercaptoacetate, sodium sulfite, and sodium thiosulfate.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-MECH-006-V1",
+      "desk": "mechanism",
+      "assertion": "Dogs fed the FOS+Lactobacillus acidophilus synbiotic combination had the highest fecal hydrogen sulfide and methanethiol concentrations among all treatment groups, suggesting probiotic supplementation may increase substrate availability for sulfate-reducing bacteria by increasing mucin production or shortening transit time.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-011-V1",
+      "desk": "mechanism",
+      "assertion": "The L-homocysteine biosynthesis pathway, used by specific bacteria to consume cysteine and produce H₂S, was positively associated with stool % wet weight on day 20 (r=0.30, P=0.06), was increased in F. varium-gavaged rats (P<0.001), and positively associated with stool H₂S levels (r=0.5, P=0.021), establishing a metabolic pathway link between sulfur metabolism and diarrhea phenotype.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-012-V1",
+      "desk": "mechanism",
+      "assertion": "Methane (CH₄) produced by M. smithii has been directly linked to slowing intestinal transit and augmenting small intestinal contractile activity, contributing to constipation. In contrast, H₂S acts as a smooth muscle relaxant through inhibition of L-type calcium channels and BKCa channels, promoting diarrhea. These divergent gas-mediated mechanisms explain the opposing stool phenotypes in IBS-C vs IBS-D.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-021-V1",
+      "desk": "mechanism",
+      "assertion": "Hydrogen sulfide (H2S) inhibits butyrate oxidation in colonocytes. Since colonocytes derive approximately 70% of their energy from butyrate oxidation, H2S toxicity directly impairs colonocyte energy metabolism. This was proposed as a mechanism linking H2S to ulcerative colitis, though later evidence suggests the butyrate oxidation defect in active UC is reversed during remission and is not a primary defect.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-022-V1",
+      "desk": "mechanism",
+      "assertion": "Bacterial degradation of the amino acids cysteine and methionine produces H2S at neutral pH, independent of dissimilatory sulfate reduction. A diet rich in meat correlates with high fecal concentrations of sulfide. This protein fermentation pathway is an alternative H2S source beyond the SRB pathway, and occurs primarily in the distal colon where protein fermentation predominates over carbohydrate fermentation.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-023-V1",
+      "desk": "mechanism",
+      "assertion": "Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-024-V1",
+      "desk": "mechanism",
+      "assertion": "Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-025-V1",
+      "desk": "mechanism",
+      "assertion": "Vitamin B6 (pyridoxal 5'-phosphate, PLP) is a coenzyme for cystathionine β-synthase (CBS) and cystathionine γ-lyase (CSE), the two transsulfuration enzymes that produce endogenous H₂S as a gaseous signaling molecule. In cultured human hepatoma cells, severe B6 deficiency (15 nmol/L pyridoxal) reduced intracellular lanthionine by 50% and homolanthionine by 47% vs adequate B6 (P<0.002), and directly measured H₂S production capacity was significantly lower at 15 and 56 nmol/L pyridoxal vs 210 and 1800 nmol/L. However, in 23 healthy humans after 28-day moderate B6 dietary restriction (PLP: 52.6→21.5 nmol/L), mean plasma lanthionine (188→193 nmol/L, P=0.659) and homolanthionine (14.9→13.5 nmol/L, P=0.460) were not significantly changed, suggesting the transsulfuration pathway maintains H₂S output across moderate B6 deficiency via compensatory CBS activity.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-027-V1",
+      "desk": "mechanism",
+      "assertion": "Microbial metabolic pathway analysis (KEGG) reveals distinct enrichment patterns in IBS subtypes: IBS-C/CH4+ subjects show enrichment of methanogenesis modules and biosynthesis of F420 (a coenzyme essential for methane production), correlating with breath CH4 levels. IBS-D subjects show enrichment of sulfate reduction pathways and cysteine/methionine metabolism modules. H2-producing pathways including formate degradation correlate with breath H2 levels, validating that lactulose breath test H2 reflects gut microbial fermentation.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-028-V1",
+      "desk": "mechanism",
+      "assertion": "Host cysteine is catabolized by two major routes: (1) CDO1-dependent oxidation to taurine or sulfate, and (2) desulfhydration by CBS and CTH producing H2S. Under conditions of excess cysteine, CBS catalyzes condensation of cysteine with homocysteine releasing H2S (<2% of normal CBS activity, favored by low serine and high cysteine + SAM activation). CTH catalyzes net degradation of cysteine to pyruvate + NH4+ + H2S. Both enzymes are paradoxically involved in both synthesis and catabolism of cysteine. Excess cysteine or methionine intake shifts flux toward desulfhydration, increasing H2S and thiosulfate production.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-032-V1",
+      "desk": "mechanism",
+      "assertion": "In a retrospective cohort of 1,126 subjects, those with detectable exhaled methane (CH4) had significantly lower resting heart rate than those without (73.0 vs 76.0 bpm, P=0.01). In a post hoc analysis of a randomized trial, a decrease in CH4 over 14 weeks was associated with an increase in heart rate (Δ=+6.5 bpm, P=0.0006). A biological gradient was observed: greater CH4 decrease correlated with greater HR increase (R=-0.31, P=0.03). This suggests a microbiome-neurocardiac axis in which intestinal methane production may influence the parasympathetic nervous system, particularly via the vagus nerve.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-035-V1",
+      "desk": "mechanism",
+      "assertion": "PED shifted hydrogen production from a small bowel fermentation pattern (early rise >=20 ppm within 90 min) to a colonic fermentation pattern (delayed rise). After PED, significant H2 reductions were observed at the 60-min (P=0.009), 75-min (P<0.001), 90-min (P=0.0017), 105-min (P=0.0076), and 120-min (P=0.01) timepoints but NOT at 0-45 min (P=0.14-0.96), indicating elimination of small intestinal bacterial substrate access while some colonic fermentation persists. Methane reductions were significant at ALL timepoints (P<0.0001 for 0-105 min, P=0.0003 at 120 min), consistent with global methanogen suppression rather than site-specific substrate reduction. Mean CH4 change after PED ranged from -18.5 to -22.4 ppm across all LBT timepoints.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-036-V1",
+      "desk": "mechanism",
+      "assertion": "Methane-positive subjects on lactulose breath test had a significantly elevated threshold for sensing defecation urge on anorectal manometry (109 +/- 2 +/- 45.6 mL) compared to methane-negative subjects (93.0 +/- 45.0 mL, P=0.004), even after controlling for baseline presenting diagnosis. This was true for both positive hydrogen (93.6 +/- 45.0 mL) and flat line (95.5 +/- 48.8 mL) groups. Methane-positive subjects also had a significantly lower volume threshold for defecation urge compared to non-methane groups when pooled together (P=0.004). No differences were seen in resting and squeeze anal sphincter pressures between methane-positive and other groups. n=365 subjects from linked breath test and anorectal manometry databases (1,201 anorectal manometry records linked to 16,703 breath tests, Oct 2007 to Apr 2013).",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-040-V1",
+      "desk": "mechanism",
+      "assertion": "Methane in human breath has both exogenous (microbial) and endogenous (non-microbial) sources. Exogenous production by gut methanogenic archaea (primarily M. smithii) via methylotrophic reduction of CO₂ with H₂ is the dominant source. Endogenous production occurs via oxidative demethylation of methyl-containing compounds (methionine, DMSO, trimethylamine, choline) driven by reactive oxygen species (ROS) through the Fenton reaction. In vitro, choline chloride was the most potent substrate (4-25 µM methane); isolated mitochondria and cultured endothelial cells produced measurable methane under oxidative stress (2 nmol/mg baseline, increased by NaN₃ and DNP). In vivo, NaN₃ administration elevated rat breath methane, and LPS (acute sepsis model) produced a 2-3 fold increase. However, estimated physiological endogenous production (~2 µM blood concentration) is small relative to microbial production. Systemically, methane-rich saline (MRS at 0.99 mM) shows anti-inflammatory (reduced TNFα, IL-6, IL-1β via PI3K-AKT-GSK-3B), anti-oxidative (reduced MDA, 8-OHdG), and anti-apoptotic (reduced caspase 3/9) effects across ischemia/reperfusion, inflammatory, and neuronal disease models. CRITICAL CAVEAT: MRS doses produce ~140 µM blood methane, which is ~70× the level expected from microbiome production alone, making clinical translation uncertain. Methane's effects on GI motility (59% transit increase in dogs, ileal contraction amplitude increase) and vagus nerve pathway (abolished by tetrodotoxin/atropine) are better established at physiological concentrations.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-001-V1",
+      "desk": "nutrition",
+      "assertion": "The 4-SURE diet combines four strategies to reduce colonic sulfide: (1) increase fermentable fiber to 10-15g/d resistant starch + 5g/d slowly fermentable NSP, (2) restrict total protein to <=1.2g/kg/d, (3) restrict sulfur-containing amino acids to <=1.5-2.0g/d, (4) avoid sulfite/sulfate/nitrate/carrageenan food additives.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-003-V1",
+      "desk": "nutrition",
+      "assertion": "Fecal gas profiling has detected superior suppression of H2S production by readily fermentable fibers compared with 5-aminosalicylic acid (5-ASA) therapy; colonic bacteria preferentially ferment carbohydrate, which signals a mechanism to switch off microbial protein fermentation and thereby suppress H2S.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-004-V1",
+      "desk": "nutrition",
+      "assertion": "Two weeks of exclusive palatable elemental diet (PED) significantly reduced maximum exhaled methane levels from 41±35 to 12±15 ppm (P<.001) in subjects with IMO and/or SIBO, with 73% achieving LBT normalization.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-NUT-012-V1",
+      "desk": "nutrition",
+      "assertion": "FOS supplementation (4 g/d) in dogs increased bifidobacteria (+0.58 log) and lactobacilli (+0.86 log) with a small decrease in clostridia (-0.11 log), but also increased ammonia, isovalerate, dimethylsulfide, and hydrogen sulfide levels alongside lactate and butyrate.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-NUT-020-V1",
+      "desk": "nutrition",
+      "assertion": "Psyllium (PI) co-administered with inulin reduces early breath hydrogen (BH₂ 0-6h AUC) by shifting fermentation to a later colonic time window. Both PI and divided-dose inulin (DDI) significantly reduced BH₂ 0-6h vs control (PI: −8.99 [−13.33 to −4.64], P<0.0001; DDI: −10.86 [−15.18 to −6.54], P<0.0001). However, DDI increased BH₂ 6-12h (27.93, P<0.0001) and 12-24h (35.61, P<0.0001), while PI only increased BH₂ 12-24h (22.49, P=0.0002). PI acts by delaying inulin delivery to the colon via viscous gel formation, not by reducing total fermentation. Total 24h BH₂ AUC was not significantly reduced by PI vs control (P=0.32).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-026-V1",
+      "desk": "nutrition",
+      "assertion": "Exclusive 2-week palatable elemental diet (PED; mBiota Elemental — 6% fat from MCT, free amino acids as polypeptides/dipeptides, no allergens or food additives, eucaloric 300-cal packets) normalized lactulose breath tests in 73.3% of SIBO/IMO patients. Peak exhaled methane dropped from 40.8 +/- 35.0 to 12.4 +/- 15.0 ppm (P<0.001). Peak H2 rise by 90 min dropped from 42.8 +/- 42.5 to 11.8 +/- 11.2 ppm (P<0.001). Methane AUC (0-120 min) dropped from 258 +/- 212 to 72 +/- 93 ppm (P<0.001). H2 AUC (0-90 min) dropped from 136 +/- 122 to 68 +/- 78 ppm (P=0.001). LBT normalization rates by subtype: IMO 58%, SIBO 100%, IMO/SIBO 75%. Despite eucaloric design, significant weight loss occurred (70.4 to 67.0 kg post-PED, P<0.01) driven by fat loss (total body fat 20.4 to 19.0 kg, visceral fat area 42.8 to 39.9 cm2, both P<0.01), persisting after reintroduction.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-004-V1",
+      "desk": "symptom",
+      "assertion": "In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-005-V1",
+      "desk": "symptom",
+      "assertion": "H2S levels are proportional to diarrhea severity; H2S producers correlate with loose stool phenotype while methanogens correlate with constipation. The two phenotypes appear mutually exclusive depending on which gas producers dominate.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-008-V1",
+      "desk": "symptom",
+      "assertion": "Gavage with H2S-producing bacteria D. piger or F. varium significantly increased stool wet weight (diarrhea-like phenotype) in rats — D. piger increased wet weight on day 10 (P<0.0001), F. varium increased wet weight at all timepoints (day 5 P=0.019 through day 20 P=0.032) — establishing a causal link between H2S producers and diarrhea in an animal model.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-011-V1",
+      "desk": "symptom",
+      "assertion": "Fasting exhaled methane >=10 ppm (IMO-positive) is associated with significantly higher constipation scores (5.65+/-3.47 vs 4.32+/-3.62, P=0.008), higher gas/bloating scores (6.27+/-2.77 vs 5.41+/-2.98, P=0.003), and LOWER diarrhea scores (3.68+/-3.49 vs 4.38+/-3.46, P=0.04) compared to methane-negative subjects (n=732). This confirms the methane-constipation link and the inverse methane-diarrhea relationship at the population level, consistent with methane's known effect of slowing gut transit.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-012-V1",
+      "desk": "symptom",
+      "assertion": "IBS-C/CH4+ subjects have significantly higher stool microbial alpha diversity (Shannon, Simpson, and Chao1 indices, all P<0.05) than IBS-D subjects. Alpha diversity indices correlate positively with breath CH4 AUC and negatively with breath H2S AUC. IBS-D subjects have significantly higher breath H2 AUC and H2S AUC, while IBS-C/CH4+ subjects have significantly higher breath CH4 at all timepoints (P<0.0001). No association was observed between breath H2S AUC and CH4 AUC (P=0.9).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-014-V1",
+      "desk": "symptom",
+      "assertion": "In a meta-analysis of 19 studies (1293 IMO patients vs 3208 controls), intestinal methanogen overgrowth (IMO) is associated with increased constipation (47% vs 38%, OR 2.04, SMD 0.77), decreased diarrhea (37% vs 52%, OR 0.58, SMD -0.71), and decreased nausea (32% vs 45%, OR 0.75). Bloating was reported in 78%, abdominal pain in 65%, and flatulence in 56% of IMO patients. Methane production correlates with slowed intestinal transit, not just stool frequency.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-017-V1",
+      "desk": "symptom",
+      "assertion": "Breath H2S AUC >=6.0 ppm (over 120 min) was associated with greater severity of diarrhea (P=0.028) and greater degree of fatigue (P=0.035) in 99 patients undergoing lactulose breath testing at a tertiary care motility program. Mean H2S AUC was 5.37 +/- 2.29 ppm (range 2.57-16.44 ppm). The H2 AUC was significantly higher in the high H2S group (367 +/- 232 ppm) compared to the low H2S group (244 +/- 176 ppm, P=0.02), consistent with H2 consumption to produce H2S by sulfate-reducing bacteria. Age and gender were not confounding variables. This is the first clinical examination of detectable H2S levels in human breath tests in North America.",
+      "grade": "emerging"
+    }
+  ],
+  "coverage": {
+    "symptom": 7,
+    "biology": 13,
+    "nutrition": 6,
+    "mechanism": 16,
+    "measurement": 11
+  },
+  "weakest": [
+    "nutrition",
+    "symptom"
+  ],
+  "returned": [
+    {
+      "ergon_id": "erg-NUT-027-V1",
+      "desk": "nutrition",
+      "assertion": "Four-week low-FODMAP diet reduced fecal SCFA abundance by >50% specifically in IBS-P metabotype patients (n=18): acetic acid (p<0.0001, q<0.05), propanoic acid (p<0.0001, q<0.05), butanoic acid (p<0.05, q<0.1) all significantly reduced (Wilcoxon signed rank). Branched-chain SCFAs (2-methylpropanoic, 2-methylbutanoic, 3-methylbutanoic acid) also reduced but did not survive FDR correction. In IBS-H metabotype (n=21), NO significant changes in any SCFAs or branched-SCFAs after FODMAP restriction. After FODMAP reintroduction at week 16, IBS-P SCFA abundance recalibrated toward levels seen in IBS-H and healthy controls — not depleted, but normalised.",
+      "grade": "moderate",
+      "edge_weight": 7,
+      "via": [
+        "erg-BIO-043-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-SYM-016-V1",
+      "desk": "symptom",
+      "assertion": "In 30 SIBO/IMO patients completing 2-week PED + 2-week food reintroduction, 83% (25/30) reported adequate global relief at trial end. At reintroduction vs screening: bloating -40% (FDR P<0.001), distention -37% (FDR P<0.001), discomfort -41% (FDR P<0.001), diarrhea -82% (FDR P=0.001), constipation -50% (FDR P=0.005), flatulence -34% (FDR P=0.008), pain -41% (FDR P=0.002), fatigue -34% (FDR P=0.001), urgency -38% (FDR P=0.024), brain fog -68% (FDR P=0.008). During PED itself, diarrhea transiently worsened (+135%, P=0.001) before resolving at reintroduction. Stool looseness increased during PED (expected from liquid diet) but normalized; Bristol 3-5 stools increased from 56% to 71% at trial end (P=0.35).",
+      "grade": "moderate",
+      "edge_weight": 6,
+      "via": [
+        "erg-SYM-014-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-NUT-002-V1",
+      "desk": "nutrition",
+      "assertion": "On the 4-SURE diet, fiber intake increased from 21.5 to 34.4 g/d (P<0.0001), resistant starch from 2.84 to 12.6 g/d (P<0.0001), while inorganic sulfur fell by 24% from 1.34 to 1.02 g/d (P=0.042).",
+      "grade": "moderate",
+      "edge_weight": 5,
+      "via": [
+        "erg-NUT-001-V1"
+      ]
+    }
+  ],
+  "absent": [],
+  "unresolved": [],
+  "notes": []
+}

@@ -1,0 +1,126 @@
+{
+  "_fixture": {
+    "slug": "unresolved-params",
+    "line": "honest-failure case — an unresolved parameter and an empty weakest desk",
+    "params": [
+      "mucin",
+      "gluten_free",
+      "perimenopause"
+    ],
+    "k": 3,
+    "generated_by": "engine/build-fixtures.mjs",
+    "index_content_digest": "sha256:9436cea0134cd91aed636df80b3022b47e96defc6f6429a59fdcb03b084e8960",
+    "source_digest": "sha256:02e1188546642e65ed51ba907e0735424db7e0d5f831a13f78811a2702a202cb",
+    "release": true,
+    "release_ruling": "D-17 (founder, 2026-09-21) — delegated to Keel, cleared on the same test",
+    "note": "Two of these three locate nothing in canon. The read that comes back is thin ON PURPOSE: this is what the surface must render when canon does not hold the answer, and it must render it as a finding, never as a blank or a spinner."
+  },
+  "entry": [
+    {
+      "ergon_id": "erg-BIO-022-V1",
+      "desk": "biology",
+      "assertion": "Akkermansia muciniphila abundance is consistently decreased in T2D subjects. Metformin treatment increases A. muciniphila and several SCFA-producing genera. Restoring A. muciniphila levels normalized insulin resistance in obese mice, and its abundance in lean subjects with newly diagnosed T2D was positively correlated with insulin secretion and fibroblast growth factor 15/19 levels.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-047-V1",
+      "desk": "biology",
+      "assertion": "In a mouse colorectal cancer (CRC) model (AOM/DSS-induced, BALB/C, n=5/group), oral gavage of A. muciniphila (1×10⁹ CFU daily for 12 weeks) after antibiotic pretreatment produced over-colonization that damaged intestinal barrier integrity. Over-colonized A. muciniphila significantly decreased mucus layer thickness (Alcian blue staining reduced, P<0.05 vs CRC-only controls), decreased MUC2 glycoprotein expression (immunofluorescence, P<0.001), and decreased tight junction proteins ZO-1 (P<0.0001) and occludin/claudin-4 mRNA (both P<0.001). Histopathology showed destroyed crypt architecture, submucosal edema, and inflammatory cell infiltration. Peripheral blood showed increased WBC count, elevated neutrophils, and decreased lymphocytes. The proposed mechanism is that over-colonized A. muciniphila consumes mucin faster than goblet cells can secrete it, breaking the degradation-secretion equilibrium. Critically, antibiotic pretreatment created the ecological vacuum enabling over-colonization — this is not a normal dietary scenario. The study did NOT include a healthy (non-CRC) control group receiving A. muciniphila, so it cannot distinguish whether over-colonization damage requires the malignant intestinal environment as a prerequisite.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-BIO-048-V1",
+      "desk": "biology",
+      "assertion": "In mouse ileal organoids, A. muciniphila conditioned media (CM) affected 1,005 genes (fold change ≥1.5, P=0.01) compared to only 190 genes for F. prausnitzii CM, demonstrating a much broader transcriptomic impact. A. muciniphila CM strongly modulated lipid metabolism genes: upregulated Lxrα (liver X receptor), altered Cpt1 (carnitine palmitoyltransferase), and HMG-CoA synthase. It decreased Gpr43 (short-chain fatty acid receptor, P<0.01) and PPARγ (P<0.01), and increased histone deacetylases Hdac3 and Hdac5, suggesting epigenetic modulation of host gene expression. A. muciniphila produced propionate (3.65 mM) and acetate (7.14 mM) as primary metabolites; F. prausnitzii produced butyrate (8.03 mM) as its dominant metabolite. This establishes a cross-feeding mechanism: A. muciniphila degrades mucin → releases propionate + acetate + sugars → F. prausnitzii utilizes acetate as co-substrate → produces butyrate that feeds colonocytes and maintains barrier. The two species affect different host pathways: A. muciniphila primarily modulates lipid metabolism and immune signaling; F. prausnitzii primarily modulates butyrate-responsive pathways. Together they represent complementary mutualists in the mucus niche.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-006-V1",
+      "desk": "mechanism",
+      "assertion": "Dogs fed the FOS+Lactobacillus acidophilus synbiotic combination had the highest fecal hydrogen sulfide and methanethiol concentrations among all treatment groups, suggesting probiotic supplementation may increase substrate availability for sulfate-reducing bacteria by increasing mucin production or shortening transit time.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-017-V1",
+      "desk": "mechanism",
+      "assertion": "Butyrate strengthens the intestinal epithelial barrier by upregulating tight junction protein expression (claudin-1, occludin, zonula occludens 1) and facilitating tight junction assembly via AMP-activated protein kinase activation. SCFAs also increase mucin production by goblet cells, which is critical for intestinal barrier integrity. Bacterial LPS directly increases tight junction permeability, while microbial SCFAs counteract this effect.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-019-V1",
+      "desk": "mechanism",
+      "assertion": "During intermittent fasting, PICRUSt functional analysis showed an increase in mucin degradation-dependent metabolic pathways. Lachnospiraceae, which can ferment mucins, gain a competitive advantage when dietary carbohydrate substrates are scarce during fasting, as mucin serves as an alternative energy source. Lachnospiraceae are not competitive in Muc2-knockout mice, supporting the hypothesis that mucin metabolism underpins their fasting-associated expansion.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-041-V1",
+      "desk": "mechanism",
+      "assertion": "A. muciniphila BAA-835 encodes 54 glycoside hydrolases (GHs), 11 sulfatases, and 1 polysaccharide lyase that synergistically degrade mucin O-glycans to completion (core GalNAc on polypeptide backbone). Degradation follows a sequential 4-step model: (1) extracellular surface-associated enzymes (GH16, GH2, GH20, GH29, GH95, GH33, sulfatases) remove outer chains and sulfate caps from intact mucin; (2) periplasmic enzymes remove remaining capping structures (fucose, sialic acid, sulfate) from O-glycan fragments; (3) periplasmic GH enzymes break down core O-glycan structures (core 1-4 types); (4) GH101 endo-α-N-acetylgalactosaminidase removes the final core GalNAc from the polypeptide. The enzyme repertoire also degrades human breast milk oligosaccharides (HMOs), gangliosides, and globosides — explaining A. muciniphila's early colonization advantage in neonatal gut. Pangenome analysis showed the CAZyme repertoire is highly conserved across A. muciniphila strains, indicating this is a core species function, not strain-variable. Individual enzymes had low activity alone; synergistic combinations were required for complete degradation, explaining why A. muciniphila's niche is difficult for other species to replicate.",
+      "grade": "strong"
+    }
+  ],
+  "coverage": {
+    "symptom": 0,
+    "biology": 3,
+    "nutrition": 0,
+    "mechanism": 4,
+    "measurement": 0
+  },
+  "weakest": [
+    "symptom",
+    "nutrition"
+  ],
+  "returned": [
+    {
+      "ergon_id": "erg-NUT-006-V1",
+      "desk": "nutrition",
+      "assertion": "Fructooligosaccharide (FOS) supplementation (4g/day) significantly increased fecal Bifidobacterium concentrations (P<0.05) and tended to increase Lactobacillus (P=0.08) in healthy adult dogs over 28 days.",
+      "grade": "moderate",
+      "edge_weight": 2,
+      "via": [
+        "erg-MECH-006-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-NUT-007-V1",
+      "desk": "nutrition",
+      "assertion": "FOS supplementation increased fecal butyrate (P=0.06) and lactate (P<0.05) concentrations, while decreasing branched-chain fatty acids (isobutyrate P<0.01, isovalerate P<0.01, total BCFA P<0.01) indicating a shift from protein to carbohydrate fermentation.",
+      "grade": "moderate",
+      "edge_weight": 2,
+      "via": [
+        "erg-MECH-017-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-NUT-013-V1",
+      "desk": "nutrition",
+      "assertion": "Insoluble fiber intake is positively associated with relative abundance of Faecalibacterium (β=0.28, 95% CI: 0.03–0.52, P=0.02) and Coprococcus (β=0.28, 95% CI: 0.03–0.38, P=0.03), both known butyrate-producing genera.",
+      "grade": "moderate",
+      "edge_weight": 2,
+      "via": [
+        "erg-MECH-017-V1"
+      ]
+    }
+  ],
+  "absent": [
+    {
+      "desk": "symptom",
+      "code": "NO_SHARED_SEED_PATH",
+      "reason": "canon holds 23 symptom erga, none of them connected to this entry set by a shared seed (seeds on more than 25 erga are treated as topics, not links)"
+    }
+  ],
+  "unresolved": [
+    "gluten_free",
+    "perimenopause"
+  ],
+  "notes": [
+    {
+      "code": "UNRESOLVED_PARAMS",
+      "message": "2 parameter(s) located nothing in canon",
+      "params": [
+        "gluten_free",
+        "perimenopause"
+      ]
+    }
+  ]
+}

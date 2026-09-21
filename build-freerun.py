@@ -57,11 +57,20 @@ def check_release_boundary(name, fx, public):
     checklist item on purpose: a canon leak into a public repo is not fixable
     after the fact, so the boundary is held by the tool, not by remembering.
 
-    To admit an ergon that is not in data/erga.json, the fixture must carry:
-        "_release_safe": true
-    and that flag is a claim by the canon owner, not by whoever runs the build.
+    To admit an ergon that is not in data/erga.json, the fixture must carry the
+    canon owner's own release marker, inside its `_fixture` block:
+
+        "release": true,
+        "release_ruling": "D-17 (founder, 2026-09-21)"
+
+    BOTH are required. A bare boolean is a flag anybody could set; the ruling is
+    the provenance, and a release with no ruling behind it is not a release.
+    This marker is written by whoever owns the canon. It is not ours to set, and
+    setting it here to unblock a build would defeat the only thing this function
+    does.
     """
-    if fx.get("_release_safe") is True:
+    meta = fx.get("_fixture") or {}
+    if meta.get("release") is True and str(meta.get("release_ruling") or "").strip():
         return []
     problems = []
     for bucket in ("entry", "returned"):
@@ -106,7 +115,6 @@ def normalise(name, fx):
         "params": meta.get("params", []),
         "_fixture": meta,
         "_demo": fx.get("_demo", False),
-        "_release_safe": fx.get("_release_safe", False),
         "payload": payload,
     }
 
@@ -142,9 +150,11 @@ if leaks:
         "REFUSING TO BUILD -- unreleased canon in a public repository.\n"
         + "\n".join(leaks)
         + "\n\naextech-ai/aerine is public. Every ergon in a fixture must already be in\n"
-          "data/erga.json on main, or the fixture must be marked \"_release_safe\": true\n"
-          "by the canon owner. If you are unsure whether something may be committed\n"
-          "here, it may not."
+          "data/erga.json on main, or the fixture's _fixture block must carry BOTH\n"
+          "  \"release\": true\n"
+          "  \"release_ruling\": \"<the ruling that released it>\"\n"
+          "written by the canon owner. If you are unsure whether something may be\n"
+          "committed here, it may not."
     )
 
 if not IN_REPO:
@@ -168,6 +178,11 @@ OUT.write_text(html2)
 
 print(f"Injected {len(runs)} runs ({len(payload_json)} bytes) into {OUT.name}")
 print("  order: " + ", ".join(r["name"] for r in runs))
+for r in runs:
+    meta = r.get("_fixture") or {}
+    if meta.get("release") is True:
+        print(f"  released: {r['name']} — {meta.get('release_ruling')}")
+
 if demo_count:
     print(f"  NOTE: {demo_count} of {len(runs)} runs carry _demo:true — the page will "
           f"show the demonstration banner for those. Real engine fixtures must not "

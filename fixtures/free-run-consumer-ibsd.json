@@ -1,0 +1,229 @@
+{
+  "_fixture": {
+    "slug": "consumer-ibsd",
+    "line": "consumer (IBS-D, loose stool)",
+    "params": [
+      "ibs_d",
+      "diarrhea",
+      "transit_time"
+    ],
+    "k": 3,
+    "generated_by": "engine/build-fixtures.mjs",
+    "index_content_digest": "sha256:9436cea0134cd91aed636df80b3022b47e96defc6f6429a59fdcb03b084e8960",
+    "source_digest": "sha256:02e1188546642e65ed51ba907e0735424db7e0d5f831a13f78811a2702a202cb",
+    "release": true,
+    "release_ruling": "D-17 (founder, 2026-09-21)"
+  },
+  "entry": [
+    {
+      "ergon_id": "erg-BIO-001-V1",
+      "desk": "biology",
+      "assertion": "Pectin is more fermentable than cellulose in vivo; pectin produces peak breath hydrogen at ~4 hours post-ingestion while cellulose fermentation does not begin until at least 12 hours.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-011-V1",
+      "desk": "biology",
+      "assertion": "Fusobacteriaceae was the only bacterial family with significantly decreased relative abundance from baseline to end of trial after PED (Log2FC=-2.21, q=.002). At genus level, Fusobacterium also decreased (Log2FC=-3.57, q<.0001).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-028-V1",
+      "desk": "biology",
+      "assertion": "IBS-C/CH4+ and IBS-D subjects harbor distinct gut microtypes identified by stool 16S rRNA sequencing. IBS-C/CH4+ is enriched in Methanobacteriaceae, Ruminococcaceae (FC=1.23, FDR P=0.009), and Christensenellaceae — families whose RAs correlate with each other and with Methanobacteriaceae RA. IBS-D is enriched in Fusobacteriaceae (FC=5.23, FDR P=3.75E-9), Pseudomonadaceae (FC=7.26, FDR P<0.00001), Spirochaetaceae (FC=5.94, FDR P=5.91E-9), and Bacteroidaceae (FC=1.81, FDR P=4.18E-3). 88% of IBS-C/CH4+ subjects had detectable stool M. smithii vs 18% of IBS-D (P<0.0001).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-BIO-029-V1",
+      "desk": "biology",
+      "assertion": "Stool Fusobacteriaceae relative abundance correlates positively with breath H2S AUC (R=0.269, P=0.017) and with other Gram-negative families including Enterobacteriaceae, Pasteurellaceae, Pseudomonadaceae, Bacteroidaceae, and Vibrionaceae. Fusobacteriaceae RA inversely correlates with IBS-C/CH4+-associated families: Ruminococcaceae, Methanobacteriaceae, Peptococcaceae, and Methanomassiliicoccaceae. At genus level, Fusobacterium (FC=6.08, FDR P=3.75E-12) and an unknown Desulfovibrionaceae genus (FC=3, FDR P=4.58E-3) were enriched in IBS-D.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-006-V1",
+      "desk": "measurement",
+      "assertion": "Using ROC analysis, a cutoff of 0.48 ppm H₂S in stool distinguished rats with diarrhea-like phenotype from controls, and stool H₂S levels were positively associated with stool % wet weight on day 20 (r=0.447, P=0.042) in F. varium-gavaged rats.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-011-V1",
+      "desk": "mechanism",
+      "assertion": "The L-homocysteine biosynthesis pathway, used by specific bacteria to consume cysteine and produce H₂S, was positively associated with stool % wet weight on day 20 (r=0.30, P=0.06), was increased in F. varium-gavaged rats (P<0.001), and positively associated with stool H₂S levels (r=0.5, P=0.021), establishing a metabolic pathway link between sulfur metabolism and diarrhea phenotype.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-012-V1",
+      "desk": "mechanism",
+      "assertion": "Methane (CH₄) produced by M. smithii has been directly linked to slowing intestinal transit and augmenting small intestinal contractile activity, contributing to constipation. In contrast, H₂S acts as a smooth muscle relaxant through inhibition of L-type calcium channels and BKCa channels, promoting diarrhea. These divergent gas-mediated mechanisms explain the opposing stool phenotypes in IBS-C vs IBS-D.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-023-V1",
+      "desk": "mechanism",
+      "assertion": "Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-024-V1",
+      "desk": "mechanism",
+      "assertion": "Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-026-V1",
+      "desk": "mechanism",
+      "assertion": "Bile acids (BAs) and the gut microbiome form a bidirectional regulatory axis relevant to IBS pathophysiology. Primary BAs (CDCA, CA) are converted to secondary BAs (DCA, LCA, UDCA) by microbial 7α-dehydroxylation, performed mainly by Clostridium species. Bile salt hydrolase (BSH) deconjugation is the gateway reaction, performed by diverse taxa (Firmicutes, Bacteroidetes, Actinobacteria, and even archaea — M. smithii and M. stadtmanae). In IBS-D, multiple studies (Table 2: 7 studies, n=15-290 per study) consistently report increased fecal primary BAs and decreased secondary BAs, with reduced Bifidobacterium, C. leptum, and Ruminococcaceae, and increased E. coli. Primary BA percentage correlates positively with Bristol stool score and diarrhea severity; secondary BA correlates negatively with stool frequency. DCA and CDCA have prosecretory effects on colonic epithelium (α-dihydroxy BAs). TGR5 receptor expression is elevated in IBS-D rectal mucosa and correlates with abdominal pain severity. Fecal BA sulfation is increased in IBS-D and may contribute to constipation by abolishing secretory activity of CDCA.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-027-V1",
+      "desk": "mechanism",
+      "assertion": "Microbial metabolic pathway analysis (KEGG) reveals distinct enrichment patterns in IBS subtypes: IBS-C/CH4+ subjects show enrichment of methanogenesis modules and biosynthesis of F420 (a coenzyme essential for methane production), correlating with breath CH4 levels. IBS-D subjects show enrichment of sulfate reduction pathways and cysteine/methionine metabolism modules. H2-producing pathways including formate degradation correlate with breath H2 levels, validating that lactulose breath test H2 reflects gut microbial fermentation.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-031-V1",
+      "desk": "mechanism",
+      "assertion": "In a validated CdtB rat model of IBS-D, combining low-dose rifaximin with N-acetylcysteine (NAC, a mucolytic) was superior to rifaximin alone. Rifaximin+NAC normalized stool consistency variance (P=0.0014 vs controls for CdtB-PBS), reduced small bowel E. coli to control levels (P=0.0021 vs CdtB-PBS), reduced Desulfovibrio spp to near-control levels (P=0.013 vs CdtB-PBS), and reduced total duodenal bacterial load (P=0.02 vs CdtB-PBS, P=0.0005 vs rifaximin alone). Rifaximin alone failed to normalize E. coli, Desulfovibrio, or stool consistency. The mechanism: NAC disrupts the mucus layer where E. coli and Klebsiella shelter, exposing them to rifaximin. Cytokine profiles normalized only in the Rif+NAC group, with IPA predicting reduced diarrhea driven by E. coli reduction.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MECH-040-V1",
+      "desk": "mechanism",
+      "assertion": "Methane in human breath has both exogenous (microbial) and endogenous (non-microbial) sources. Exogenous production by gut methanogenic archaea (primarily M. smithii) via methylotrophic reduction of CO₂ with H₂ is the dominant source. Endogenous production occurs via oxidative demethylation of methyl-containing compounds (methionine, DMSO, trimethylamine, choline) driven by reactive oxygen species (ROS) through the Fenton reaction. In vitro, choline chloride was the most potent substrate (4-25 µM methane); isolated mitochondria and cultured endothelial cells produced measurable methane under oxidative stress (2 nmol/mg baseline, increased by NaN₃ and DNP). In vivo, NaN₃ administration elevated rat breath methane, and LPS (acute sepsis model) produced a 2-3 fold increase. However, estimated physiological endogenous production (~2 µM blood concentration) is small relative to microbial production. Systemically, methane-rich saline (MRS at 0.99 mM) shows anti-inflammatory (reduced TNFα, IL-6, IL-1β via PI3K-AKT-GSK-3B), anti-oxidative (reduced MDA, 8-OHdG), and anti-apoptotic (reduced caspase 3/9) effects across ischemia/reperfusion, inflammatory, and neuronal disease models. CRITICAL CAVEAT: MRS doses produce ~140 µM blood methane, which is ~70× the level expected from microbiome production alone, making clinical translation uncertain. Methane's effects on GI motility (59% transit increase in dogs, ileal contraction amplitude increase) and vagus nerve pathway (abolished by tetrodotoxin/atropine) are better established at physiological concentrations.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-029-V1",
+      "desk": "nutrition",
+      "assertion": "In a multicenter RCT (n=121), AI-personalised diet (ENBIOSIS platform, microbiome-based food scoring) and low-FODMAP diet produced comparable overall IBS-SSS reduction (PD -112.7 vs FODMAP -99.9, P=0.29 between groups). However, in IBS-D subtype specifically, PD achieved significantly greater improvement (IBS-SSS P=0.010, Cohen's d=0.81 large effect) while FODMAP did not reach significance (P=0.312). Both diets effective in IBS-C (both P<0.001) and IBS-M (both P<0.001). PD led to significant improvements in IBS-QOL across all subtypes; FODMAP only in IBS-C and IBS-D. PD also improved HADS anxiety (P<0.001) and depression (P=0.02). Dietary overlap between PD and FODMAP was moderate (Jaccard index 0.29).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-005-V1",
+      "desk": "symptom",
+      "assertion": "H2S levels are proportional to diarrhea severity; H2S producers correlate with loose stool phenotype while methanogens correlate with constipation. The two phenotypes appear mutually exclusive depending on which gas producers dominate.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-007-V1",
+      "desk": "symptom",
+      "assertion": "After reintroducing regular diet following PED, further improvements were observed in abdominal pain (-41%, P=.001), diarrhea (-82%, P=.001), urgency (-38%, P=.02), fatigue (-34%, P=.001), and brain fog (-68%, P=.004) compared to screening, suggesting sustained microbiome modulation beyond the diet period.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-008-V1",
+      "desk": "symptom",
+      "assertion": "Gavage with H2S-producing bacteria D. piger or F. varium significantly increased stool wet weight (diarrhea-like phenotype) in rats — D. piger increased wet weight on day 10 (P<0.0001), F. varium increased wet weight at all timepoints (day 5 P=0.019 through day 20 P=0.032) — establishing a causal link between H2S producers and diarrhea in an animal model.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-009-V1",
+      "desk": "symptom",
+      "assertion": "In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-011-V1",
+      "desk": "symptom",
+      "assertion": "Fasting exhaled methane >=10 ppm (IMO-positive) is associated with significantly higher constipation scores (5.65+/-3.47 vs 4.32+/-3.62, P=0.008), higher gas/bloating scores (6.27+/-2.77 vs 5.41+/-2.98, P=0.003), and LOWER diarrhea scores (3.68+/-3.49 vs 4.38+/-3.46, P=0.04) compared to methane-negative subjects (n=732). This confirms the methane-constipation link and the inverse methane-diarrhea relationship at the population level, consistent with methane's known effect of slowing gut transit.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-012-V1",
+      "desk": "symptom",
+      "assertion": "IBS-C/CH4+ subjects have significantly higher stool microbial alpha diversity (Shannon, Simpson, and Chao1 indices, all P<0.05) than IBS-D subjects. Alpha diversity indices correlate positively with breath CH4 AUC and negatively with breath H2S AUC. IBS-D subjects have significantly higher breath H2 AUC and H2S AUC, while IBS-C/CH4+ subjects have significantly higher breath CH4 at all timepoints (P<0.0001). No association was observed between breath H2S AUC and CH4 AUC (P=0.9).",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-013-V1",
+      "desk": "symptom",
+      "assertion": "Post-infectious IBS (PI-IBS) develops in approximately 21% of patients after culture-confirmed Campylobacter infection (n=1,418 in the largest prospective study). A large national database study (n=4,143) found RR~5.6 for IBS after Campylobacter vs controls; a military population study found RR=2.7. Campylobacter infection can also convert pre-existing IBS-C to IBS-M or IBS-D in ~50% of cases. Risk factors for PI-IBS include pre-existing anxiety (OR=1.14), somatization (OR=1.17), and severity of initial infection.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-014-V1",
+      "desk": "symptom",
+      "assertion": "In a meta-analysis of 19 studies (1293 IMO patients vs 3208 controls), intestinal methanogen overgrowth (IMO) is associated with increased constipation (47% vs 38%, OR 2.04, SMD 0.77), decreased diarrhea (37% vs 52%, OR 0.58, SMD -0.71), and decreased nausea (32% vs 45%, OR 0.75). Bloating was reported in 78%, abdominal pain in 65%, and flatulence in 56% of IMO patients. Methane production correlates with slowed intestinal transit, not just stool frequency.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-015-V1",
+      "desk": "symptom",
+      "assertion": "In a meta-analysis of 54 IBS pharmacotherapy trials, the number needed to harm (NNH, defined by discontinuation due to adverse events) varies significantly across drugs. For IBS-C: linaclotide NNH=35, lubiprostone NNH=53 (P=0.59, not significant), plecanatide NNH=59, tegaserod NNH=58, tenapanor NNH=16. For IBS-D: alosetron NNH=14, eluxadoline NNH=32, while rifaximin and ramosetron had NEGATIVE NNH values (nonsignificant — meaning they were SAFER than placebo in terms of discontinuation). For IBS global symptoms: tricyclics NNH=24. Rifaximin is the safest IBS pharmacotherapy studied. Alosetron, tenapanor, and tricyclics (especially at elevated doses) carry the highest absolute risk of discontinuation due to adverse events. Many AEs were transient.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-016-V1",
+      "desk": "symptom",
+      "assertion": "In 30 SIBO/IMO patients completing 2-week PED + 2-week food reintroduction, 83% (25/30) reported adequate global relief at trial end. At reintroduction vs screening: bloating -40% (FDR P<0.001), distention -37% (FDR P<0.001), discomfort -41% (FDR P<0.001), diarrhea -82% (FDR P=0.001), constipation -50% (FDR P=0.005), flatulence -34% (FDR P=0.008), pain -41% (FDR P=0.002), fatigue -34% (FDR P=0.001), urgency -38% (FDR P=0.024), brain fog -68% (FDR P=0.008). During PED itself, diarrhea transiently worsened (+135%, P=0.001) before resolving at reintroduction. Stool looseness increased during PED (expected from liquid diet) but normalized; Bristol 3-5 stools increased from 56% to 71% at trial end (P=0.35).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-017-V1",
+      "desk": "symptom",
+      "assertion": "Breath H2S AUC >=6.0 ppm (over 120 min) was associated with greater severity of diarrhea (P=0.028) and greater degree of fatigue (P=0.035) in 99 patients undergoing lactulose breath testing at a tertiary care motility program. Mean H2S AUC was 5.37 +/- 2.29 ppm (range 2.57-16.44 ppm). The H2 AUC was significantly higher in the high H2S group (367 +/- 232 ppm) compared to the low H2S group (244 +/- 176 ppm, P=0.02), consistent with H2 consumption to produce H2S by sulfate-reducing bacteria. Age and gender were not confounding variables. This is the first clinical examination of detectable H2S levels in human breath tests in North America.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-020-V1",
+      "desk": "symptom",
+      "assertion": "IBS-Diarrhea patients show differential dietary treatment response: AI-personalised diet (PD) achieved significant IBS-SSS improvement (P=0.010, Cohen's d=0.81) while low-FODMAP diet did not reach significance in IBS-D (P=0.312). In contrast, both diets were effective for IBS-C (both P<0.001) and IBS-M (both P<0.001). For IBS-D, stool frequency decreased from 7.13 to 5.09/day in PD group (P=0.70 between groups). This subtype-specific differential suggests that diarrhea-predominant IBS may require microbiome-personalised dietary approaches rather than one-size-fits-all FODMAP restriction.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-024-V1",
+      "desk": "symptom",
+      "assertion": "In the IBS-D subgroup of a 1:1 propensity-matched cohort (n=62,464 IBS-D patients, from the same TriNetX EHR study of 669,083 total IBS patients), the mu-opioid receptor agonists loperamide and diphenoxylate were associated with significantly increased all-cause mortality. Loperamide: mortality 2.1% vs 0.98%, HR 2.39 (95% CI 1.48-3.90, P<0.001). Diphenoxylate (combined mu + muscarinic agonist): mortality 2.34% vs 1.38%, HR 1.89 (1.02-3.51, P=0.040). Target trial emulation comparing mu-opioid agonists to antispasmodics (first-line active comparator, IBS-D patients without antidepressant exposure) showed Kaplan-Meier survival divergence after ~3 years. By contrast, other IBS-D-recommended therapies showed NO mortality association: rifaximin HR 1.11 (0.74-1.65), eluxadoline HR 0.63 (0.18-2.18), cholestyramine/colestipol HR 0.95 (0.56-1.61), antispasmodics HR 0.79 (0.72-1.31). Proposed mechanism: loperamide blocks cardiac sodium and potassium channels leading to QT prolongation, QRS widening, Torsades de Pointes, and ventricular arrhythmias at supratherapeutic doses. Loperamide has low oral bioavailability and P-glycoprotein efflux at normal doses (2-8 mg/day), but excessive use can cause severe cardiac dysrhythmias. Study could not explore cause-specific mortality due to low incident case numbers and platform constraints.",
+      "grade": "moderate"
+    }
+  ],
+  "coverage": {
+    "symptom": 13,
+    "biology": 4,
+    "nutrition": 1,
+    "mechanism": 8,
+    "measurement": 1
+  },
+  "weakest": [
+    "nutrition",
+    "measurement"
+  ],
+  "returned": [
+    {
+      "ergon_id": "erg-MEAS-011-V1",
+      "desk": "measurement",
+      "assertion": "A single fasting exhaled methane measurement (SMM) ≥10 ppm diagnoses intestinal methanogen overgrowth (IMO) with 86.4% sensitivity and 100% specificity compared to the standard 2-hour lactulose breath test (n=12,183 unique subjects). SMM also validated against glucose breath test (n=733) with 81.3% sensitivity and 100% specificity. SMM correlates strongly with fecal Methanobrevibacter smithii DNA load (R=0.65, P<0.0001, n=28 qPCR-validated subjects). SMM is temporally stable over 14 weeks in untreated subjects (P=0.45 comparing baseline vs week 14 in placebo arm, n=20), supporting its use as a reliable single-timepoint diagnostic. Antibiotic treatment significantly decreases SMM within 2 days (P<0.0001).",
+      "grade": "strong",
+      "edge_weight": 3,
+      "via": [
+        "erg-SYM-011-V1",
+        "erg-SYM-014-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-NUT-027-V1",
+      "desk": "nutrition",
+      "assertion": "Four-week low-FODMAP diet reduced fecal SCFA abundance by >50% specifically in IBS-P metabotype patients (n=18): acetic acid (p<0.0001, q<0.05), propanoic acid (p<0.0001, q<0.05), butanoic acid (p<0.05, q<0.1) all significantly reduced (Wilcoxon signed rank). Branched-chain SCFAs (2-methylpropanoic, 2-methylbutanoic, 3-methylbutanoic acid) also reduced but did not survive FDR correction. In IBS-H metabotype (n=21), NO significant changes in any SCFAs or branched-SCFAs after FODMAP restriction. After FODMAP reintroduction at week 16, IBS-P SCFA abundance recalibrated toward levels seen in IBS-H and healthy controls — not depleted, but normalised.",
+      "grade": "moderate",
+      "edge_weight": 3,
+      "via": [
+        "erg-NUT-029-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-MEAS-003-V1",
+      "desk": "measurement",
+      "assertion": "Fasting single-sample breath testing is sufficient to assess CH4 levels (methanogenesis is not dependent on carbohydrate ingestion) and appears sufficient to assess H2S production. IMO is defined as CH4 >= 10 ppm on fasting breath.",
+      "grade": "moderate",
+      "edge_weight": 2,
+      "via": [
+        "erg-SYM-011-V1",
+        "erg-SYM-014-V1"
+      ]
+    }
+  ],
+  "absent": [],
+  "unresolved": [],
+  "notes": []
+}

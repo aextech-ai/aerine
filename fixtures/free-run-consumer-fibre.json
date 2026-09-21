@@ -1,0 +1,267 @@
+{
+  "_fixture": {
+    "slug": "consumer-fibre",
+    "line": "consumer (bloating after fibre)",
+    "params": [
+      "bloating",
+      "fiber",
+      "fodmap"
+    ],
+    "k": 3,
+    "generated_by": "engine/build-fixtures.mjs",
+    "index_content_digest": "sha256:9436cea0134cd91aed636df80b3022b47e96defc6f6429a59fdcb03b084e8960",
+    "source_digest": "sha256:02e1188546642e65ed51ba907e0735424db7e0d5f831a13f78811a2702a202cb",
+    "release": true,
+    "release_ruling": "D-17 (founder, 2026-09-21)"
+  },
+  "entry": [
+    {
+      "ergon_id": "erg-BIO-023-V1",
+      "desk": "biology",
+      "assertion": "Standard Western dietary pattern is associated with significantly lower gut microbiome alpha diversity compared to Flexitarian (Faith's PD: P=0.009; observed ASVs: P=0.007) and Health-Conscious Western (Faith's PD: P=0.048) patterns. Data-driven dietary patterns (DP5) explained more microbiome beta-diversity variance than any individual nutrient or a priori diet index (P ≤ 0.0002).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-024-V1",
+      "desk": "biology",
+      "assertion": "Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-BIO-030-V1",
+      "desk": "biology",
+      "assertion": "Aerobic 'disruptor taxa' in the duodenum — Klebsiella, Escherichia-Shigella, Enterococcus, Clostridium (C. perfringens by V4 classification), Romboutsia, Aeromonas, and Bacteroides — displace strict anaerobes (Porphyromonas, Leptotrichia, Prevotella, Neisseria) when present, creating a mutually exclusive ecological pattern. The disruptor taxa axis (PC2) correlates with patient-reported GI symptom scores: bloating, incomplete evacuation, and constipation showed the highest correlation, while urgency, excess gas, and diarrhea were weaker. Serum IL-8 showed a weak positive correlation with the disruptor taxa axis.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-039-V1",
+      "desk": "biology",
+      "assertion": "In a double-blind RCT of 40 sedentary women (BMI 25-40, age 18-45), 6 weeks of high-intensity interval training (HIIT) combined with FOS-enriched inulin (12 g/d) vs HIIT + placebo (maltodextrin 12 g/d) produced differential gut microbiome responses. The primary endpoint (VO2peak) was not significantly different between groups (P=0.58). However, HIIT-Inulin produced a 38-fold increase in Bifidobacterium (FDR<0.05), with significant increases in Actinobacteria and Bifidobacteriaceae relative to HIIT-Placebo. HIIT-Inulin also improved ventilatory thresholds: VT1 (+4.3%) and VT2 (+4.2%) vs placebo (P<0.05). In exploratory analysis, higher VO2peak responders (regardless of group) had 9.4x Bacteroides_A abundance (P<0.0001, FDR=0.12), 2.2x B. uniformis (P<0.001, FDR=0.08), 2.2x gellan degradation pathways (P<0.00001, FDR<0.05), and higher fecal SCFAs (+14.4 μmol/g, P=0.049 unadjusted, P=0.13 after covariate adjustment).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-BIO-044-V1",
+      "desk": "biology",
+      "assertion": "AI-personalised diet (PD) significantly increased Faecalibacterium prausnitzii abundance (P<10^-4, paired t-test) while low-FODMAP diet did not (P>0.05) over 6 weeks in IBS patients. PD also significantly decreased Ruminococcaceae family abundance (P<10^-5), with no change in FODMAP group. Alpha diversity showed significant shifts in PD group but not FODMAP. Beta diversity (Bray-Curtis PERMANOVA) shifted significantly in both groups for IBS-C and IBS-M subtypes (P<0.05), with PD showing more pronounced shifts and lower P values. IBS-D subgroup did not achieve significant beta-diversity shifts in either group.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-008-V1",
+      "desk": "measurement",
+      "assertion": "A low FODMAP diet does not alter total fecal SCFA concentration compared to control diets in IBS patients (meta-analysis: SMD −0.25, 95% CI −0.63 to 0.13, P=0.20, n=208 across 4 trials). Individual SCFAs (acetate, propionate, butyrate, valerate) and fecal pH also showed no significant differences.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-MEAS-010-V1",
+      "desk": "measurement",
+      "assertion": "Habitual dietary FODMAP intake inversely correlates with breath hydrogen (BH₂) response to an inulin challenge over 24 hours (Pearson r = −0.42, P = 0.009, n = 17). Higher habitual FODMAP consumers produce less BH₂ from an inulin bolus, suggesting their microbiome is better adapted to ferment FODMAPs efficiently (toward SCFAs rather than gas). This correlation held across both PI and control arms combined.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MEAS-021-V1",
+      "desk": "measurement",
+      "assertion": "Breath volatile metabolites (BVM) measured by SIFT-MS can detect and discriminate fiber fermentation in real-time. After single ingestion of chitin-glucan (4.5g, fermentable insoluble fiber) vs maltodextrin (non-fermentable control) in 15 healthy H₂-producing volunteers: (1) Exhaled butyric acid significantly increased after CG, peaking at 6h postprandial (P<0.05, Wilcoxon); (2) Six additional BVM discriminated CG vs maltodextrin: triethylamine, 2,3-butanedione, 3-hydroxybutanone, pentane, methanol, ethane (repeated measures ANOVA P<0.05); (3) 13 MS-fragments from untargeted analysis discriminated CG vs maltodextrin at 6h by PLS-DA (Monte Carlo P=0.001); (4) Baseline Mitsuokella abundance was the sole genus correlating with exhaled butyrate net AUC after CG; (5) Standard breath H₂ and CH₄ were NOT significantly different between CG and maltodextrin, suggesting BVM provides information beyond traditional lactulose breath testing.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-016-V1",
+      "desk": "mechanism",
+      "assertion": "Roseburia spp. perform dual metabolic functions: they ferment dietary fibers to produce butyrate and they metabolize linoleic acid (18:2n-6) via conjugation, linking SCFA production to fatty acid transformation within the same organism.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-MECH-024-V1",
+      "desk": "mechanism",
+      "assertion": "Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-001-V1",
+      "desk": "nutrition",
+      "assertion": "The 4-SURE diet combines four strategies to reduce colonic sulfide: (1) increase fermentable fiber to 10-15g/d resistant starch + 5g/d slowly fermentable NSP, (2) restrict total protein to <=1.2g/kg/d, (3) restrict sulfur-containing amino acids to <=1.5-2.0g/d, (4) avoid sulfite/sulfate/nitrate/carrageenan food additives.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-002-V1",
+      "desk": "nutrition",
+      "assertion": "On the 4-SURE diet, fiber intake increased from 21.5 to 34.4 g/d (P<0.0001), resistant starch from 2.84 to 12.6 g/d (P<0.0001), while inorganic sulfur fell by 24% from 1.34 to 1.02 g/d (P=0.042).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-013-V1",
+      "desk": "nutrition",
+      "assertion": "Insoluble fiber intake is positively associated with relative abundance of Faecalibacterium (β=0.28, 95% CI: 0.03–0.52, P=0.02) and Coprococcus (β=0.28, 95% CI: 0.03–0.38, P=0.03), both known butyrate-producing genera.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-014-V1",
+      "desk": "nutrition",
+      "assertion": "Total fiber intake is positively associated with Blautia abundance (β=0.29, 95% CI: 0.14–0.43, P≤0.001) and with multiple butyrate-associated genera including Dorea, Oscillospira, and Coprococcus, while higher total sugar is associated with lower Bacteroides and Lachnospiraceae-Clostridium.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-015-V1",
+      "desk": "nutrition",
+      "assertion": "Walnut consumption (42 g/d for 3 weeks) significantly increased relative abundance of butyrate-producing Firmicutes including Faecalibacterium (0.79→2.77%, P=0.02), Roseburia (1.45→1.32%→significant increase P<0.01), and Clostridium (0.72→1.07%, P=0.01), while reducing Ruminococcus, Dorea, Oscillospira, and Bifidobacterium (all P<0.05).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-017-V1",
+      "desk": "nutrition",
+      "assertion": "A low FODMAP diet consistently reduces Bifidobacteria abundance in IBS patients, with lower levels observed both between-group (vs control diets) and within-group (vs baseline) across 7 of 9 included RCTs (n=403 total). This 'antibifidogenic' effect is the most consistent microbiome change from FODMAP restriction.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-NUT-018-V1",
+      "desk": "nutrition",
+      "assertion": "Soluble corn fiber (SCF, PROMITOR SCF 85) dose-dependently increases Parabacteroides proportions in the fecal microbiome: 1.1% at 0g, 2.1% at 10g/d, 3.0% at 20g/d (P<0.001 for 0 vs 20g/d). SCF also increases alpha diversity (Chao1: 1104→1402→1282 for 0/10/20g, P<0.05) and lowers fecal pH at highest dose (P<0.02).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-019-V1",
+      "desk": "nutrition",
+      "assertion": "An Exclusion diet pattern (low-carbohydrate, modified paleo) is associated with a 3-to-6-fold reduction in Bifidobacterium relative abundance compared to all other dietary patterns (P ≤ 1.2 × 10⁻⁷). Bifidobacterium depletion persists after adjusting for carbohydrate percentage, fat percentage, and health conditions, and is better explained by overall diet pattern than by any single nutrient.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-020-V1",
+      "desk": "nutrition",
+      "assertion": "Psyllium (PI) co-administered with inulin reduces early breath hydrogen (BH₂ 0-6h AUC) by shifting fermentation to a later colonic time window. Both PI and divided-dose inulin (DDI) significantly reduced BH₂ 0-6h vs control (PI: −8.99 [−13.33 to −4.64], P<0.0001; DDI: −10.86 [−15.18 to −6.54], P<0.0001). However, DDI increased BH₂ 6-12h (27.93, P<0.0001) and 12-24h (35.61, P<0.0001), while PI only increased BH₂ 12-24h (22.49, P=0.0002). PI acts by delaying inulin delivery to the colon via viscous gel formation, not by reducing total fermentation. Total 24h BH₂ AUC was not significantly reduced by PI vs control (P=0.32).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-021-V1",
+      "desk": "nutrition",
+      "assertion": "Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33/2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-024-V1",
+      "desk": "nutrition",
+      "assertion": "In 303 older men (age 71±4, BMI 25.2±3.6) from the Harvard MLVS with 911 fecal metagenomes (shotgun sequencing), higher healthy plant-based diet index (hPDI) was significantly associated with: enrichment of Bacteroides cellulosilyticus and Eubacterium eligens; amino acid biosynthesis pathways (L-isoleucine, L-valine) and pyruvate fermentation to isobutanol; lower triglycerides (-8.9 mg/dL per SD hPDI), lower HbA1c (-0.06%), lower BMI (-0.9 kg/m²), and lower metabolic risk score (-1.0 unit per SD). Critically, the hPDI-metabolic benefit was modulated by gut microbiome composition: the benefit was more pronounced with higher B. uniformis and lower Prevotella copri. P. copri carriers showed attenuated hPDI-metabolic associations (P-interaction <0.01). Clostridium clostridioforme enhanced and Blautia hydrogenotrophica attenuated the hPDI-metabolic score association.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-027-V1",
+      "desk": "nutrition",
+      "assertion": "Four-week low-FODMAP diet reduced fecal SCFA abundance by >50% specifically in IBS-P metabotype patients (n=18): acetic acid (p<0.0001, q<0.05), propanoic acid (p<0.0001, q<0.05), butanoic acid (p<0.05, q<0.1) all significantly reduced (Wilcoxon signed rank). Branched-chain SCFAs (2-methylpropanoic, 2-methylbutanoic, 3-methylbutanoic acid) also reduced but did not survive FDR correction. In IBS-H metabotype (n=21), NO significant changes in any SCFAs or branched-SCFAs after FODMAP restriction. After FODMAP reintroduction at week 16, IBS-P SCFA abundance recalibrated toward levels seen in IBS-H and healthy controls — not depleted, but normalised.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-NUT-029-V1",
+      "desk": "nutrition",
+      "assertion": "In a multicenter RCT (n=121), AI-personalised diet (ENBIOSIS platform, microbiome-based food scoring) and low-FODMAP diet produced comparable overall IBS-SSS reduction (PD -112.7 vs FODMAP -99.9, P=0.29 between groups). However, in IBS-D subtype specifically, PD achieved significantly greater improvement (IBS-SSS P=0.010, Cohen's d=0.81 large effect) while FODMAP did not reach significance (P=0.312). Both diets effective in IBS-C (both P<0.001) and IBS-M (both P<0.001). PD led to significant improvements in IBS-QOL across all subtypes; FODMAP only in IBS-C and IBS-D. PD also improved HADS anxiety (P<0.001) and depression (P=0.02). Dietary overlap between PD and FODMAP was moderate (Jaccard index 0.29).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-006-V1",
+      "desk": "symptom",
+      "assertion": "PED significantly improved bloating (-43%, P<.001), distention (-40%, P<.001), flatulence (-42%, P<.001), abdominal discomfort (-30%, P=.02), and constipation (-25%, P=.036) during the 2-week diet phase compared to screening in IMO/SIBO subjects; 83% reported adequate global symptom relief.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-009-V1",
+      "desk": "symptom",
+      "assertion": "In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-011-V1",
+      "desk": "symptom",
+      "assertion": "Fasting exhaled methane >=10 ppm (IMO-positive) is associated with significantly higher constipation scores (5.65+/-3.47 vs 4.32+/-3.62, P=0.008), higher gas/bloating scores (6.27+/-2.77 vs 5.41+/-2.98, P=0.003), and LOWER diarrhea scores (3.68+/-3.49 vs 4.38+/-3.46, P=0.04) compared to methane-negative subjects (n=732). This confirms the methane-constipation link and the inverse methane-diarrhea relationship at the population level, consistent with methane's known effect of slowing gut transit.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-014-V1",
+      "desk": "symptom",
+      "assertion": "In a meta-analysis of 19 studies (1293 IMO patients vs 3208 controls), intestinal methanogen overgrowth (IMO) is associated with increased constipation (47% vs 38%, OR 2.04, SMD 0.77), decreased diarrhea (37% vs 52%, OR 0.58, SMD -0.71), and decreased nausea (32% vs 45%, OR 0.75). Bloating was reported in 78%, abdominal pain in 65%, and flatulence in 56% of IMO patients. Methane production correlates with slowed intestinal transit, not just stool frequency.",
+      "grade": "strong"
+    },
+    {
+      "ergon_id": "erg-SYM-016-V1",
+      "desk": "symptom",
+      "assertion": "In 30 SIBO/IMO patients completing 2-week PED + 2-week food reintroduction, 83% (25/30) reported adequate global relief at trial end. At reintroduction vs screening: bloating -40% (FDR P<0.001), distention -37% (FDR P<0.001), discomfort -41% (FDR P<0.001), diarrhea -82% (FDR P=0.001), constipation -50% (FDR P=0.005), flatulence -34% (FDR P=0.008), pain -41% (FDR P=0.002), fatigue -34% (FDR P=0.001), urgency -38% (FDR P=0.024), brain fog -68% (FDR P=0.008). During PED itself, diarrhea transiently worsened (+135%, P=0.001) before resolving at reintroduction. Stool looseness increased during PED (expected from liquid diet) but normalized; Bristol 3-5 stools increased from 56% to 71% at trial end (P=0.35).",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-018-V1",
+      "desk": null,
+      "assertion": "IBS-P metabotype patients achieved significantly greater symptom improvement from low-FODMAP diet than IBS-H patients. IBS-SSS mean delta: IBS-P 193.8 [56.9%] vs IBS-H 119.6 [39.6%] (p<0.05, independent samples t-test, Cohen's d 0.722). Pain composite score delta: IBS-P 79.5 [63.1%] vs IBS-H 42.1 [38.1%] (p<0.05, Cohen's d 0.689). Remission rate (IBS-SSS <75): IBS-P 43.8% vs IBS-H 25.0% (OR 2.30, 95% CI 1.26-4.21, p<0.005). Both groups improved significantly within-group, but IBS-P response magnitude was approximately double. No significant difference in response between IBS-D vs IBS-M subtypes.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-020-V1",
+      "desk": "symptom",
+      "assertion": "IBS-Diarrhea patients show differential dietary treatment response: AI-personalised diet (PD) achieved significant IBS-SSS improvement (P=0.010, Cohen's d=0.81) while low-FODMAP diet did not reach significance in IBS-D (P=0.312). In contrast, both diets were effective for IBS-C (both P<0.001) and IBS-M (both P<0.001). For IBS-D, stool frequency decreased from 7.13 to 5.09/day in PD group (P=0.70 between groups). This subtype-specific differential suggests that diarrhea-predominant IBS may require microbiome-personalised dietary approaches rather than one-size-fits-all FODMAP restriction.",
+      "grade": "emerging"
+    },
+    {
+      "ergon_id": "erg-SYM-021-V1",
+      "desk": null,
+      "assertion": "In the largest synbiotic-bloating RCT to date (n=350 randomized, 219 analyzed at week 6), a 24-strain multi-species synbiotic (DS-01: 53.6 billion AFU including Bifidobacterium and Lactobacillus species + 400mg pomegranate extract as polyphenol prebiotic) significantly improved GI quality-of-life (DQLQ 0.80 vs 1.20, P<0.05, 81.4% vs 72.1% improvement), bloating and gas (PROMIS-GI 13a 16.0 vs 21.0, P<0.01; 72.3% vs 55.9% never/rarely bloating, P<0.001), abdominal discomfort (PROMIS-GI 5a 8.0 vs 10.0, P<0.01), constipation (79.2% vs 71.8% no/slight, P<0.05), and bowel regularity (49.5% vs 34.2% moderate-significant improvement, P<0.05) compared to placebo over 6 weeks in otherwise healthy adults with self-reported bloating/indigestion. No significant differences in anxiety, depression, or libido in overall population. No serious adverse events.",
+      "grade": "moderate"
+    },
+    {
+      "ergon_id": "erg-SYM-022-V1",
+      "desk": "symptom",
+      "assertion": "An 8-week double-blind RCT in 56 Rome IV-diagnosed IBS females found that Lab4 multistrain probiotic (L. acidophilus CUL60 + CUL21, B. bifidum CUL20, B. animalis subsp. lactis CUL34; 25 billion CFU/day) produced an 85-point between-group IBS-SSS reduction at day 56 (P<0.0001), with 63% achieving >=50-point responder status vs 4% placebo (P<0.0001). All five IBS-SSS subdomains improved significantly: abdominal pain severity (-19.2, P<0.0001), days with pain (-13.6, P<0.0001), bloating severity (P<0.0001), bowel habit dissatisfaction (P<0.0001), and IBS impact on everyday life (-15.7, P<0.0001). Additionally, anxiety (HADS-A: -1.85, P=0.0002; 31.4% reduction), depression (HADS-D: -2.36, P<0.0001; 33.9% reduction), and avoidance/control behaviors (IBS-BRQ: -7.49, P=0.0002) all improved significantly. Normal stool form proportion increased (78% vs 67%, P=0.0106) and loose stools decreased (15.7% vs 24.4%, P=0.0311). No change in alpha diversity, but Roseburia and Holdemanella enriched in probiotic group. No adverse events. Notably, placebo response was only 4% — unusually low for IBS trials, attributed to minimal patient-physician contact (2 visits only).",
+      "grade": "moderate"
+    }
+  ],
+  "coverage": {
+    "symptom": 7,
+    "biology": 5,
+    "nutrition": 13,
+    "mechanism": 2,
+    "measurement": 3
+  },
+  "weakest": [
+    "mechanism",
+    "measurement"
+  ],
+  "returned": [
+    {
+      "ergon_id": "erg-MEAS-013-V1",
+      "desk": "measurement",
+      "assertion": "Duodenal total microbial load measured by digital PCR spans nearly 5 orders of magnitude (from ~5×10³ to ~10⁹ rRNA gene copies/mL), with a log-normal distribution (mean=10^6.13, SD=1.12 log10 copies/mL). SIBO samples are enriched in specific 'disruptor taxa' (Enterobacteriaceae, Escherichia-Shigella, Clostridium perfringens) rather than showing uniformly higher total microbial load. Disruptor taxa load classification agrees 80% with gold-standard aerobic aspirate culture for SIBO diagnosis. Neither age, gender, PPI use, probiotic intake, nor smoking correlated with total microbial load.",
+      "grade": "strong",
+      "edge_weight": 5,
+      "via": [
+        "erg-BIO-030-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-MEAS-020-V1",
+      "desk": "measurement",
+      "assertion": "A 5-VOC fecal biomarker model (methylsulfanylmethane, methyldisulfanylmethane, methyltrisulfanylmethane, acetic acid, propanoic acid) predicted IBS microbial subtype (IBS-P vs IBS-H) with AUROC 0.797 (95% CI 0.78-0.94 sensitivity, 0.55-0.88 specificity), sensitivity 78.6%, specificity 71.4% using logistic regression with 10-fold cross-validation. The model combines 3 organosulphur VOCs (elevated in IBS-H) with 2 SCFAs (elevated in IBS-P). Notably, the discriminating VOCs span both metabotypes: organosulphurs as IBS-H markers and SCFAs as IBS-P markers, creating a push-pull classification.",
+      "grade": "emerging",
+      "edge_weight": 4,
+      "via": [
+        "erg-SYM-018-V1"
+      ]
+    },
+    {
+      "ergon_id": "erg-MECH-012-V1",
+      "desk": "mechanism",
+      "assertion": "Methane (CH₄) produced by M. smithii has been directly linked to slowing intestinal transit and augmenting small intestinal contractile activity, contributing to constipation. In contrast, H₂S acts as a smooth muscle relaxant through inhibition of L-type calcium channels and BKCa channels, promoting diarrhea. These divergent gas-mediated mechanisms explain the opposing stool phenotypes in IBS-C vs IBS-D.",
+      "grade": "moderate",
+      "edge_weight": 4,
+      "via": [
+        "erg-SYM-011-V1",
+        "erg-SYM-014-V1"
+      ]
+    }
+  ],
+  "absent": [],
+  "unresolved": [],
+  "notes": [
+    {
+      "code": "DESK_UNRESOLVED",
+      "message": "2 ergon(s) in the entry set carry no resolvable desk and are excluded from desk coverage; see canon-index.json anomalies",
+      "ergon_ids": [
+        "erg-SYM-018-V1",
+        "erg-SYM-021-V1"
+      ]
+    }
+  ]
+}
