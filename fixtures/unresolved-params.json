@@ -1,0 +1,52 @@
+{
+  "name": "unresolved-params",
+  "label": "Nothing located",
+  "lede": "Four parameters, none of them in canon. The shape of that gap is the answer, and naming it is the most defensible thing this store does.",
+  "params": [
+    "histamine intolerance",
+    "MCAS",
+    "brain fog after meals",
+    "low stomach acid"
+  ],
+  "_demo": true,
+  "_note": "Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.",
+  "payload": {
+    "entry": [],
+    "coverage": {
+      "symptom": 0,
+      "biology": 0,
+      "nutrition": 0,
+      "mechanism": 0,
+      "measurement": 0
+    },
+    "weakest": [],
+    "returned": [],
+    "absent": [
+      {
+        "desk": "symptom",
+        "reason": "Nothing in this subset indexes a histamine-mediated presentation, or cognitive symptoms of any kind. What is here attaches to gas, stool form, pain, bloating and urgency."
+      },
+      {
+        "desk": "biology",
+        "reason": "Nothing here characterises a histamine-producing population. The organisms in this subset were counted for overgrowth and for fibre response."
+      },
+      {
+        "desk": "mechanism",
+        "reason": "Nothing here concerns gastric acid or anything downstream of it. The mechanisms in this subset are fermentation and sulfate reduction, both of them further along the gut than your entry points."
+      },
+      {
+        "desk": "measurement",
+        "reason": "Nothing here reports a measurement for any of the four parameters supplied. No assay, no marker, no series."
+      }
+    ],
+    "unresolved": [
+      "histamine intolerance",
+      "MCAS",
+      "brain fog after meals",
+      "low stomach acid"
+    ],
+    "notes": [
+      "No parameter located an ergon. Nothing was returned because nothing was reached — not because something was reached and then ranked out."
+    ]
+  }
+}

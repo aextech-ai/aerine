@@ -1,0 +1,80 @@
+{
+  "name": "consumer-ibsd",
+  "label": "SIBO, diarrhoea, gas",
+  "lede": "A consumer entry that lands squarely in the desks canon is thickest in — which is exactly why the thin desks are the interesting part.",
+  "params": [
+    "diarrhoea most days",
+    "diagnosed with SIBO",
+    "a lot of gas"
+  ],
+  "_demo": true,
+  "_note": "Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.",
+  "payload": {
+    "entry": [
+      {
+        "ergon_id": "erg-SYM-009-V1",
+        "desk": "symptom",
+        "assertion": "In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.",
+        "grade": "emerging"
+      },
+      {
+        "ergon_id": "erg-BIO-025-V1",
+        "desk": "biology",
+        "assertion": "Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).",
+        "grade": "strong"
+      },
+      {
+        "ergon_id": "erg-MECH-023-V1",
+        "desk": "mechanism",
+        "assertion": "Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).",
+        "grade": "moderate"
+      }
+    ],
+    "coverage": {
+      "symptom": 1,
+      "biology": 1,
+      "nutrition": 0,
+      "mechanism": 1,
+      "measurement": 0
+    },
+    "weakest": [
+      "measurement",
+      "nutrition"
+    ],
+    "returned": [
+      {
+        "ergon_id": "erg-MEAS-014-V1",
+        "desk": "measurement",
+        "assertion": "Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).",
+        "grade": "moderate",
+        "edge_weight": 0.58,
+        "via": [
+          "erg-MECH-023-V1"
+        ]
+      },
+      {
+        "ergon_id": "erg-NUT-021-V1",
+        "desk": "nutrition",
+        "assertion": "Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).",
+        "grade": "moderate",
+        "edge_weight": 0.34,
+        "via": [
+          "erg-MECH-023-V1",
+          "erg-MECH-024-V1"
+        ]
+      }
+    ],
+    "absent": [
+      {
+        "desk": "measurement",
+        "reason": "Your entry names a gas. Nothing in this subset says what a level of that gas means — there is no threshold, no reference range and no verdict attached to any reading. What is here describes the engineering a sensor needs to detect it at all."
+      },
+      {
+        "desk": "nutrition",
+        "reason": "Nothing here studies diet in the population your entry located. The one nutrition ergon in this subset tested a fibre supplement in a general population; nobody in it had the duodenal overgrowth your entry named."
+      }
+    ],
+    "unresolved": [],
+    "notes": []
+  }
+}

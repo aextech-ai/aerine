@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aerine — the free run</title>
+<style>
+/* ── Palette inherited verbatim from index.html (the ergastorion browser).
+      Do not fork these values; a second source of truth for desk colour is
+      how two surfaces stop looking like one product. ─────────────────────── */
+:root {
+  --oak:       #2A241C;
+  --oak-mid:   #3F362A;
+  --oak-light: #5A4A35;
+  --oak-faint: #7A6542;
+  --brass:     #8B6F47;
+  --brass-mid: #A6916B;
+  --brass-light:#D4C5A3;
+  --parch:     #FDF8ED;
+  --parch-mid: #FAF4E4;
+  --parch-warm:#F5EFDF;
+  --parch-card:#F5EAD0;
+  --parch-deep:#EDE4D1;
+
+  /* Confidence — honest label, not judgment */
+  --strong-bg:  #D4E4D0;  --strong-fg: #2E4A26;  --strong-bar: #4A7A3E;
+  --mod-bg:     #EED9B5;  --mod-fg:    #6A4A18;  --mod-bar:    #B08038;
+  --emerg-bg:   #D6DBEC;  --emerg-fg:  #2C3A64;  --emerg-bar:  #5A6FA0;
+
+  /* Desks — one colour each for the five extraction desks */
+  --sym-bg: #EFD5D8; --sym-fg: #6B2832; --sym-bd: #BA7A80;
+  --bio-bg: #D4E1CF; --bio-fg: #2E4A26; --bio-bd: #7FA476;
+  --nut-bg: #ECD9A8; --nut-fg: #5A3E0A; --nut-bd: #BA955A;
+  --mech-bg:#D9D0E4; --mech-fg:#3E2E5A; --mech-bd:#8678A6;
+  --meas-bg:#CFD8DE; --meas-fg:#25384A; --meas-bd:#6C8194;
+
+  /* Flags — all honesty markers, not dismissals */
+  --flag-bg:   #F2E8D0;  --flag-fg: #5A4A20;  --flag-bd: #B09660;
+  --echo-bg:   #E8D6DC;  --echo-fg: #5A2838;  --echo-bd: #A66880;
+
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-sans: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--parch-deep);
+  font-family: var(--font-sans);
+  color: var(--oak);
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+.fr-wrap { max-width: 720px; margin: 0 auto; padding: 18px 16px 40px; }
+
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
+.fr-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.fr-wordmark { font-family: var(--font-mono); font-size: 13px; color: var(--oak-light); letter-spacing: 0.04em; }
+.fr-wordmark span { color: var(--brass); }
+.fr-demo-badge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px;
+  background: #EBD4A8; color: #5A3506; border: 0.5px solid #BA8F4A; border-radius: 3px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em;
+  text-transform: uppercase; font-weight: 500;
+}
+.fr-demo-badge::before { content: "◌"; font-size: 11px; opacity: 0.8; }
+
+/* ── HONESTY BANNER — scope of what is on screen ─────────────────────────── */
+.fr-scope {
+  background: var(--flag-bg); border: 0.5px solid var(--flag-bd); border-left-width: 3px;
+  border-radius: 3px; padding: 10px 13px; margin-bottom: 16px;
+  font-size: 12px; line-height: 1.6; color: var(--flag-fg);
+}
+.fr-scope strong { color: #43360F; }
+.fr-scope-label {
+  display: block; font-family: var(--font-mono); font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; opacity: 0.85;
+}
+
+/* ── RUN PICKER ──────────────────────────────────────────────────────────── */
+.fr-picker { margin-bottom: 18px; }
+.fr-picker-label {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--oak-faint); margin-bottom: 7px;
+}
+.fr-runs { display: flex; flex-wrap: wrap; gap: 6px; }
+.fr-run {
+  min-height: 40px; padding: 8px 13px;
+  background: var(--parch-mid); border: 0.5px solid var(--brass);
+  border-radius: 3px; font-family: var(--font-mono); font-size: 12px;
+  color: var(--oak-mid); cursor: pointer; letter-spacing: 0.02em;
+}
+.fr-run:hover { background: var(--parch-card); border-color: var(--oak-light); }
+.fr-run.active { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+
+/* ── SECTIONS ────────────────────────────────────────────────────────────── */
+.fr-sec { margin-bottom: 22px; }
+.fr-sec-label {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--oak-faint); margin-bottom: 8px;
+}
+.fr-sec-sub { font-size: 12px; color: var(--oak-light); line-height: 1.6; margin-bottom: 12px; }
+.fr-lede { font-size: 13px; line-height: 1.65; color: var(--oak-mid); font-style: italic; margin-bottom: 16px; }
+
+/* ── ENTRY TRAY — the parameter surface ──────────────────────────────────── */
+.fr-tray {
+  background: var(--parch-warm); border: 0.5px solid var(--brass-mid);
+  border-radius: 4px; padding: 13px 14px; margin-bottom: 14px;
+}
+.fr-tray-fields { display: flex; flex-direction: column; gap: 7px; }
+.fr-field {
+  display: flex; align-items: center; gap: 9px;
+  min-height: 40px; padding: 8px 11px;
+  background: var(--parch-mid); border: 0.5px solid var(--brass);
+  border-radius: 3px; font-size: 13px; color: var(--oak);
+}
+.fr-field-n { font-family: var(--font-mono); font-size: 10px; color: var(--oak-faint); flex: none; }
+.fr-field-v { flex: 1; min-width: 0; word-break: break-word; }
+.fr-field.miss { background: var(--flag-bg); border-color: var(--flag-bd); border-left-width: 3px; }
+.fr-field-mark {
+  flex: none; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 2px 6px; border-radius: 3px;
+  background: var(--flag-bd); color: #FFF8E8; white-space: nowrap;
+}
+.fr-notwired {
+  margin-top: 10px; padding-top: 9px; border-top: 0.5px solid var(--brass-light);
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 1.6; color: var(--oak-faint);
+}
+.fr-notwired strong { color: var(--oak-light); font-weight: 500; }
+
+/* ── THE ARTIFACT CARD — every ergon anywhere on this page is one of these.
+      A grade never leaves its assertion: the grade is encoded THREE times in
+      one unit (head chip, left border colour, foot strip) so that a crop is
+      visibly mutilated rather than silently laundered. ────────────────────── */
+.fr-erg {
+  background: var(--parch-card); border: 0.5px solid var(--brass-mid);
+  border-left-width: 4px; border-radius: 4px;
+  margin-bottom: 9px; overflow: hidden;
+}
+.fr-erg[data-grade="strong"]   { border-left-color: var(--strong-bar); }
+.fr-erg[data-grade="moderate"] { border-left-color: var(--mod-bar); }
+.fr-erg[data-grade="emerging"] { border-left-color: var(--emerg-bar); }
+.fr-erg[data-grade="unknown"]  { border-left-color: var(--flag-bd); }
+
+.fr-erg-head {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding: 9px 12px 0;
+}
+.fr-erg-id {
+  font-family: var(--font-mono); font-size: 10px; color: var(--oak-faint);
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.fr-erg-body { padding: 7px 12px 9px; font-size: 13px; line-height: 1.6; color: var(--oak); }
+.fr-erg-body.clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.fr-erg.compact .fr-erg-body { font-size: 12.5px; padding: 5px 12px 7px; }
+.fr-erg.compact .fr-erg-body.clamp { -webkit-line-clamp: 2; }
+.fr-erg.compact .fr-erg-head { padding-top: 8px; }
+.fr-erg.compact .fr-erg-more { padding-bottom: 7px; min-height: 28px; }
+.fr-erg.compact .fr-erg-foot { padding: 5px 12px; }
+.fr-erg-more {
+  display: block; width: 100%; text-align: left;
+  background: none; border: none; padding: 0 12px 9px;
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--brass);
+  cursor: pointer; letter-spacing: 0.03em; min-height: 32px;
+}
+.fr-erg-more:hover { color: var(--oak); text-decoration: underline; }
+.fr-erg-foot {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 6px 12px; background: var(--parch-mid);
+  border-top: 0.5px solid var(--brass-light);
+  font-family: var(--font-mono); font-size: 10px; color: var(--oak-faint);
+  letter-spacing: 0.03em;
+}
+.fr-erg-foot .sep { opacity: 0.45; }
+
+/* Tags — same grammar as index.html */
+.fr-tag {
+  display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 3px;
+  font-size: 10px; font-weight: 500; font-family: var(--font-mono);
+  letter-spacing: 0.02em; border: 0.5px solid transparent; white-space: nowrap;
+}
+.fr-tag-grade-strong   { background: var(--strong-bg); color: var(--strong-fg); border-color: var(--strong-bar); }
+.fr-tag-grade-moderate { background: var(--mod-bg);    color: var(--mod-fg);    border-color: var(--mod-bar); }
+.fr-tag-grade-emerging { background: var(--emerg-bg);  color: var(--emerg-fg);  border-color: var(--emerg-bar); }
+.fr-tag-grade-unknown  { background: var(--flag-bg);   color: var(--flag-fg);   border-color: var(--flag-bd); }
+.fr-tag-desk { font-size: 9px; padding: 1px 6px; }
+.fr-tag-desk-symptom     { background: var(--sym-bg);  color: var(--sym-fg);  border-color: var(--sym-bd); }
+.fr-tag-desk-biology     { background: var(--bio-bg);  color: var(--bio-fg);  border-color: var(--bio-bd); }
+.fr-tag-desk-nutrition   { background: var(--nut-bg);  color: var(--nut-fg);  border-color: var(--nut-bd); }
+.fr-tag-desk-mechanism   { background: var(--mech-bg); color: var(--mech-fg); border-color: var(--mech-bd); }
+.fr-tag-desk-measurement { background: var(--meas-bg); color: var(--meas-fg); border-color: var(--meas-bd); }
+.fr-tag-desk-unknown     { background: var(--parch-mid); color: var(--oak-light); border-color: var(--brass-mid); }
+
+/* ── THE PATH — via[] made visible. The connection is the claim. ─────────── */
+.fr-path { padding: 8px 12px; background: var(--parch-warm); border-top: 0.5px solid var(--brass-light); }
+.fr-path-label {
+  font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--oak-faint); margin-bottom: 5px;
+}
+.fr-path-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.fr-hop {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em;
+  padding: 2px 6px; border-radius: 3px;
+  background: var(--parch-mid); border: 0.5px solid var(--brass-mid); color: var(--oak-mid);
+}
+.fr-hop.target { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.fr-arrow { font-family: var(--font-mono); font-size: 11px; color: var(--brass); }
+.fr-edge { font-family: var(--font-mono); font-size: 9.5px; color: var(--oak-faint); }
+
+/* ── COVERAGE — the explanation. Pips, one per located ergon.
+      Deliberately NOT a scaled bar: a scaled bar needs a maximum, and a
+      maximum is a computation over the payload. ───────────────────────────── */
+.fr-cov { background: var(--parch-warm); border: 0.5px solid var(--brass-mid); border-radius: 4px; padding: 13px 14px; }
+.fr-cov-row {
+  display: grid; grid-template-columns: 86px minmax(0,1fr);
+  gap: 10px; align-items: center;
+  padding: 8px 0 8px 9px; border-left: 3px solid transparent;
+  border-bottom: 0.5px solid var(--brass-light);
+}
+.fr-cov-row:last-child { border-bottom: none; }
+.fr-cov-desk { font-family: var(--font-mono); font-size: 11px; color: var(--oak-mid); letter-spacing: 0.02em; }
+.fr-cov-track { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.fr-pip { width: 11px; height: 11px; border-radius: 50%; flex: none; border: 0.5px solid var(--oak-faint); }
+.fr-pip-symptom     { background: var(--sym-bd); }
+.fr-pip-biology     { background: var(--bio-bd); }
+.fr-pip-nutrition   { background: var(--nut-bd); }
+.fr-pip-mechanism   { background: var(--mech-bd); }
+.fr-pip-measurement { background: var(--meas-bd); }
+.fr-cov-n { font-family: var(--font-mono); font-size: 10px; color: var(--oak-faint); margin-left: 3px; }
+.fr-cov-zero {
+  font-family: var(--font-mono); font-size: 11px; color: var(--flag-fg);
+  background: var(--flag-bg); border: 1px dashed var(--flag-bd);
+  border-radius: 3px; padding: 3px 9px; letter-spacing: 0.03em;
+}
+/* The thin desks are the finding — mark them, do not let them read as blank. */
+.fr-cov-row.thin { background: var(--parch-mid); }
+.fr-cov-row.thin.d-symptom     { border-left-color: var(--sym-bd); }
+.fr-cov-row.thin.d-biology     { border-left-color: var(--bio-bd); }
+.fr-cov-row.thin.d-nutrition   { border-left-color: var(--nut-bd); }
+.fr-cov-row.thin.d-mechanism   { border-left-color: var(--mech-bd); }
+.fr-cov-row.thin.d-measurement { border-left-color: var(--meas-bd); }
+.fr-cov-row.thin .fr-cov-desk { color: var(--oak); font-weight: 600; }
+.fr-thin-mark {
+  display: inline-block; margin-left: 6px;
+  font-family: var(--font-mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 0.07em; padding: 1px 5px; border-radius: 3px;
+  background: var(--oak); color: var(--parch); white-space: nowrap;
+}
+
+/* ── THE TURN — the sentence the whole page exists to deliver ────────────── */
+.fr-turn {
+  margin-top: 14px; padding: 16px 16px 15px;
+  background: var(--parch); border: 0.5px solid var(--brass);
+  border-top: 3px solid var(--oak); border-radius: 3px;
+}
+.fr-turn-1 { font-size: 20px; line-height: 1.4; color: var(--oak); margin-bottom: 8px; }
+.fr-turn-1 b { font-weight: 600; border-bottom: 2px solid var(--brass); }
+.fr-turn-2 { font-size: 14px; line-height: 1.6; color: var(--oak-mid); }
+.fr-turn-2 strong { color: var(--oak); font-weight: 600; }
+
+/* ── ABSENT — a finding, never an empty state. Inverted out of the parchment
+      so it is the heaviest thing on the page after the turn. ──────────────── */
+.fr-absent {
+  background: var(--oak); color: var(--parch);
+  border-radius: 4px; padding: 17px 16px 15px; margin-bottom: 22px;
+}
+.fr-absent-label {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--brass-light); margin-bottom: 3px;
+}
+.fr-absent-h { font-size: 19px; line-height: 1.35; color: var(--parch); margin-bottom: 14px; }
+.fr-absent-item { padding: 11px 0 11px 12px; border-left: 3px solid var(--brass); border-top: 0.5px solid #4A4035; }
+.fr-absent-item:first-of-type { border-top: none; }
+.fr-absent-item.d-symptom     { border-left-color: var(--sym-bd); }
+.fr-absent-item.d-biology     { border-left-color: var(--bio-bd); }
+.fr-absent-item.d-nutrition   { border-left-color: var(--nut-bd); }
+.fr-absent-item.d-mechanism   { border-left-color: var(--mech-bd); }
+.fr-absent-item.d-measurement { border-left-color: var(--meas-bd); }
+.fr-absent-desk {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.09em; margin-bottom: 5px;
+}
+.fr-absent-item.d-symptom     .fr-absent-desk { color: var(--sym-bd); }
+.fr-absent-item.d-biology     .fr-absent-desk { color: var(--bio-bd); }
+.fr-absent-item.d-nutrition   .fr-absent-desk { color: var(--nut-bd); }
+.fr-absent-item.d-mechanism   .fr-absent-desk { color: var(--mech-bd); }
+.fr-absent-item.d-measurement .fr-absent-desk { color: var(--meas-bd); }
+.fr-absent-reason { font-size: 13.5px; line-height: 1.65; color: #E8DFCC; }
+.fr-absent-foot {
+  margin-top: 14px; padding-top: 11px; border-top: 0.5px solid #4A4035;
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 1.65; color: var(--brass-light);
+}
+
+/* ── NOTES / STANDING LINES ──────────────────────────────────────────────── */
+.fr-note {
+  background: var(--parch-mid); border: 0.5px solid var(--brass-mid);
+  border-left: 3px solid var(--brass); border-radius: 3px;
+  padding: 10px 13px; margin-bottom: 9px;
+  font-size: 12.5px; line-height: 1.6; color: var(--oak-mid);
+}
+.fr-standing {
+  font-family: var(--font-mono); font-size: 10.5px; line-height: 1.65;
+  color: var(--oak-faint); margin-bottom: 11px;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.fr-footer {
+  margin-top: 30px; padding-top: 15px; border-top: 0.5px solid var(--brass-light);
+  font-family: var(--font-mono); font-size: 10px; color: var(--oak-faint);
+  letter-spacing: 0.03em; line-height: 1.7;
+}
+.fr-footer-line { font-size: 12px; color: var(--oak-mid); margin-bottom: 9px; font-family: var(--font-sans); font-style: italic; }
+.fr-footer strong { color: var(--oak-light); font-weight: 500; }
+
+@media (min-width: 400px) { .fr-cov-row { grid-template-columns: 104px minmax(0,1fr); } }
+@media (min-width: 700px) {
+  .fr-wrap { padding: 26px 24px 56px; }
+  .fr-turn-1 { font-size: 24px; }
+  .fr-absent-h { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<div class="fr-wrap">
+
+  <header class="fr-head">
+    <div class="fr-wordmark">aerine <span>· the free run</span></div>
+    <span class="fr-demo-badge" id="fr-badge">demonstration</span>
+  </header>
+
+  <div class="fr-scope" id="fr-scope"></div>
+
+  <div class="fr-picker">
+    <div class="fr-picker-label">Prepared runs</div>
+    <div class="fr-runs" id="fr-runs"></div>
+  </div>
+
+  <p class="fr-lede" id="fr-lede"></p>
+
+  <!-- ENTRY ─────────────────────────────────────────────────────────────── -->
+  <section class="fr-sec">
+    <div class="fr-sec-label">What you told us</div>
+    <div class="fr-tray">
+      <div class="fr-tray-fields" id="fr-fields"></div>
+      <div class="fr-notwired">
+        <strong>Typing is not wired to the engine on this page.</strong> The fields above show the
+        parameters this prepared run was made from. The picker is the working control.
+      </div>
+    </div>
+    <div id="fr-unresolved"></div>
+    <div class="fr-sec-label" id="fr-entry-label">What that located in canon</div>
+    <div id="fr-entry"></div>
+  </section>
+
+  <!-- COVERAGE + THE TURN ───────────────────────────────────────────────── -->
+  <section class="fr-sec">
+    <div class="fr-sec-label">How your entry covered the five desks</div>
+    <div class="fr-cov" id="fr-cov"></div>
+    <div class="fr-turn" id="fr-turn"></div>
+  </section>
+
+  <!-- RETURNED ──────────────────────────────────────────────────────────── -->
+  <section class="fr-sec" id="fr-returned-sec">
+    <div class="fr-sec-label" id="fr-returned-label">What those desks hold</div>
+    <div class="fr-sec-sub" id="fr-returned-sub"></div>
+    <div class="fr-standing">
+      Grades belong to the claims, not to the connections between them. A link weight is
+      this engine's ranking number; it is not evidence that anyone has asserted the link.
+    </div>
+    <div id="fr-returned"></div>
+  </section>
+
+  <!-- ABSENT ────────────────────────────────────────────────────────────── -->
+  <section class="fr-absent" id="fr-absent"></section>
+
+  <!-- NOTES ─────────────────────────────────────────────────────────────── -->
+  <section class="fr-sec" id="fr-notes-sec">
+    <div class="fr-sec-label">Engine notes</div>
+    <div id="fr-notes"></div>
+  </section>
+
+  <footer class="fr-footer">
+    <div class="fr-footer-line">Easier to travel than the literature. Never stronger than it.</div>
+    © 2026 <strong>AEXTech Holdings</strong> · Aerine — gut-health research assistant<br/>
+    Aerine <strong>helps you research; she does not diagnose</strong>. Nothing here is medical,
+    clinical or nutritional advice. Grades describe the strength of the evidence behind a claim,
+    not a recommendation to act on it.
+  </footer>
+
+</div>
+
+<!-- Prepared runs, injected from fixtures/*.json by build-freerun.py.
+     Kept as a data island so the page is self-contained and opens from file://
+     with no server and no fetch. -->
+<script id="aerine-freerun" type="application/json">[{"name":"consumer-ibsd","label":"SIBO, diarrhoea, gas","lede":"A consumer entry that lands squarely in the desks canon is thickest in — which is exactly why the thin desks are the interesting part.","params":["diarrhoea most days","diagnosed with SIBO","a lot of gas"],"_demo":true,"_note":"Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.","payload":{"entry":[{"ergon_id":"erg-SYM-009-V1","desk":"symptom","assertion":"In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.","grade":"emerging"},{"ergon_id":"erg-BIO-025-V1","desk":"biology","assertion":"Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).","grade":"strong"},{"ergon_id":"erg-MECH-023-V1","desk":"mechanism","assertion":"Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).","grade":"moderate"}],"coverage":{"symptom":1,"biology":1,"nutrition":0,"mechanism":1,"measurement":0},"weakest":["measurement","nutrition"],"returned":[{"ergon_id":"erg-MEAS-014-V1","desk":"measurement","assertion":"Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).","grade":"moderate","edge_weight":0.58,"via":["erg-MECH-023-V1"]},{"ergon_id":"erg-NUT-021-V1","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","grade":"moderate","edge_weight":0.34,"via":["erg-MECH-023-V1","erg-MECH-024-V1"]}],"absent":[{"desk":"measurement","reason":"Your entry names a gas. Nothing in this subset says what a level of that gas means — there is no threshold, no reference range and no verdict attached to any reading. What is here describes the engineering a sensor needs to detect it at all."},{"desk":"nutrition","reason":"Nothing here studies diet in the population your entry located. The one nutrition ergon in this subset tested a fibre supplement in a general population; nobody in it had the duodenal overgrowth your entry named."}],"unresolved":[],"notes":[]}},{"name":"consumer-fibre","label":"Fibre and whole grains","lede":"A consumer entry: three things known, all of them about food and the body.","params":["bloating after high-fibre meals","I eat a lot of whole grains","trying to lose weight"],"_demo":true,"_note":"Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.","payload":{"entry":[{"ergon_id":"erg-NUT-021-V1","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","grade":"moderate"},{"ergon_id":"erg-BIO-024-V1","desk":"biology","assertion":"Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).","grade":"emerging"}],"coverage":{"symptom":0,"biology":1,"nutrition":1,"mechanism":0,"measurement":0},"weakest":["measurement","mechanism"],"returned":[{"ergon_id":"erg-MECH-024-V1","desk":"mechanism","assertion":"Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.","grade":"moderate","edge_weight":0.63,"via":["erg-NUT-021-V1"]},{"ergon_id":"erg-MECH-023-V1","desk":"mechanism","assertion":"Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).","grade":"moderate","edge_weight":0.38,"via":["erg-NUT-021-V1","erg-MECH-024-V1"]},{"ergon_id":"erg-MEAS-014-V1","desk":"measurement","assertion":"Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).","grade":"moderate","edge_weight":0.41,"via":["erg-NUT-021-V1"]}],"absent":[{"desk":"measurement","reason":"Nothing here connects a fibre dose to a measurable change. The one measurement ergon in this subset states what a breath sensor must be able to detect; it does not report what any particular reading means, and no threshold for any gas appears anywhere in it."},{"desk":"symptom","reason":"Your entry names bloating after fibre. Nothing in this subset records bloating as an outcome of a fibre intervention. The two symptom erga here attach to breath methane and to named strains, neither of which your entry reached."}],"unresolved":[],"notes":[]}},{"name":"device-gas","label":"Breath gas","lede":"The device line. No reading is supplied and none is represented — canon holds no device data yet, and the run says so rather than implying otherwise.","params":["interested in breath testing","constipation","methane"],"_demo":true,"_note":"Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.","payload":{"entry":[{"ergon_id":"erg-SYM-004-V1","desk":"symptom","assertion":"In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).","grade":"strong"},{"ergon_id":"erg-MEAS-014-V1","desk":"measurement","assertion":"Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).","grade":"moderate"}],"coverage":{"symptom":1,"biology":0,"nutrition":0,"mechanism":0,"measurement":1},"weakest":["biology","nutrition"],"returned":[{"ergon_id":"erg-BIO-025-V1","desk":"biology","assertion":"Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).","grade":"strong","edge_weight":0.27,"via":["erg-SYM-004-V1","erg-MECH-023-V1"]},{"ergon_id":"erg-NUT-021-V1","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","grade":"moderate","edge_weight":0.3,"via":["erg-SYM-004-V1","erg-MECH-024-V1"]}],"absent":[{"desk":"biology","reason":"Your entry names methane. Nothing in this subset characterises the organism that produces it. Methane appears here as something correlated with a symptom and as something a sensor must detect — never as a population somebody counted."},{"desk":"nutrition","reason":"Nothing here reports a breath-gas endpoint for any diet. The nutrition ergon in this subset measured bacterial ratios and metabolite producers in stool; nobody breathed into anything."}],"unresolved":[],"notes":["No returned ergon cites a device reading. Canon holds no device data, so none is represented here."]}},{"name":"agent-relay","label":"Agent relay (structured)","lede":"The same run, reached by another agent over a constrained vocabulary rather than by a person typing. Same engine, same rules, no free text.","params":["organism:Klebsiella","marker:breath_CH4","seed:constipation","seed:low_fodmap"],"_demo":true,"_note":"Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.","payload":{"entry":[{"ergon_id":"erg-BIO-025-V1","desk":"biology","assertion":"Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).","grade":"strong"},{"ergon_id":"erg-SYM-004-V1","desk":"symptom","assertion":"In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).","grade":"strong"}],"coverage":{"symptom":1,"biology":1,"nutrition":0,"mechanism":0,"measurement":0},"weakest":["nutrition","mechanism"],"returned":[{"ergon_id":"erg-MECH-024-V1","desk":"mechanism","assertion":"Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.","grade":"moderate","edge_weight":0.71,"via":["erg-BIO-025-V1"]},{"ergon_id":"erg-MECH-023-V1","desk":"mechanism","assertion":"Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).","grade":"moderate","edge_weight":0.66,"via":["erg-BIO-025-V1"]},{"ergon_id":"erg-NUT-021-V1","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","grade":"moderate","edge_weight":0.29,"via":["erg-BIO-025-V1","erg-MECH-024-V1"]}],"absent":[{"desk":"nutrition","reason":"Nothing in this subset connects a named organism to a dietary intervention. The nutrition ergon here is indexed by what was fed, not by what was living there — so an entry that arrives naming organisms cannot reach it directly."}],"unresolved":["seed:low_fodmap"],"notes":[]}},{"name":"unresolved-params","label":"Nothing located","lede":"Four parameters, none of them in canon. The shape of that gap is the answer, and naming it is the most defensible thing this store does.","params":["histamine intolerance","MCAS","brain fog after meals","low stomach acid"],"_demo":true,"_note":"Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.","payload":{"entry":[],"coverage":{"symptom":0,"biology":0,"nutrition":0,"mechanism":0,"measurement":0},"weakest":[],"returned":[],"absent":[{"desk":"symptom","reason":"Nothing in this subset indexes a histamine-mediated presentation, or cognitive symptoms of any kind. What is here attaches to gas, stool form, pain, bloating and urgency."},{"desk":"biology","reason":"Nothing here characterises a histamine-producing population. The organisms in this subset were counted for overgrowth and for fibre response."},{"desk":"mechanism","reason":"Nothing here concerns gastric acid or anything downstream of it. The mechanisms in this subset are fermentation and sulfate reduction, both of them further along the gut than your entry points."},{"desk":"measurement","reason":"Nothing here reports a measurement for any of the four parameters supplied. No assay, no marker, no series."}],"unresolved":["histamine intolerance","MCAS","brain fog after meals","low stomach acid"],"notes":["No parameter located an ergon. Nothing was returned because nothing was reached — not because something was reached and then ranked out."]}}]</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE SURFACE COMPUTES NOTHING.
+
+   Everything on this page is read straight out of the engine payload:
+     coverage counts, the weakest-desk pick, the ranking of returned[], the
+     edge weights, what is absent, what went unresolved.
+
+   There is deliberately no sort, no comparison of coverage counts, no max, no
+   score and no threshold anywhere below. Arrays render in the order the engine
+   returned them. If this surface ever needs a number the payload does not
+   carry, that is an engine change, not a change here.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+var DESKS = ['symptom', 'biology', 'nutrition', 'mechanism', 'measurement'];
+var GRADES = { strong: 1, moderate: 1, emerging: 1 };
+
+var RUNS = JSON.parse(document.getElementById('aerine-freerun').textContent || '[]');
+var current = 0;
+
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined && text !== null) n.textContent = text;
+  return n;
+}
+function deskClass(d) { return DESKS.indexOf(d) === -1 ? 'unknown' : d; }
+function gradeOf(e) { return (e && e.grade && GRADES[e.grade]) ? e.grade : 'unknown'; }
+
+/* ── The artifact. Used for EVERY ergon on this page, without exception, so
+      that no code path can render an assertion without its grade beside it. ── */
+function ergonCard(e, opts) {
+  opts = opts || {};
+  var grade = gradeOf(e);
+  var desk = deskClass(e.desk);
+  var card = el('article', 'fr-erg' + (opts.compact ? ' compact' : ''));
+  card.setAttribute('data-grade', grade);
+
+  var head = el('div', 'fr-erg-head');
+  head.appendChild(el('span', 'fr-erg-id', e.ergon_id || 'id absent'));
+  head.appendChild(el('span', 'fr-tag fr-tag-desk fr-tag-desk-' + desk, e.desk || 'desk absent'));
+  head.appendChild(el('span', 'fr-tag fr-tag-grade-' + grade,
+    grade === 'unknown' ? 'grade absent' : grade));
+  card.appendChild(head);
+
+  var body = el('div', 'fr-erg-body clamp', e.assertion || '');
+  card.appendChild(body);
+
+  var more = el('button', 'fr-erg-more', 'read in full ▾');
+  more.style.display = 'none';
+  more.addEventListener('click', function () {
+    var clamped = body.classList.toggle('clamp');
+    more.textContent = clamped ? 'read in full ▾' : 'show less ▴';
+  });
+  card.appendChild(more);
+  /* Only offer the control if there is actually something hidden. Measured
+     after layout, because clamping is a rendered fact, not a length guess. */
+  requestAnimationFrame(function () {
+    if (body.scrollHeight > body.clientHeight + 1) more.style.display = '';
+  });
+
+  if (opts.via) {
+    var path = el('div', 'fr-path');
+    path.appendChild(el('div', 'fr-path-label', 'reached through'));
+    var chain = el('div', 'fr-path-chain');
+    var hops = e.via || [];
+    for (var i = 0; i < hops.length; i++) {
+      chain.appendChild(el('span', 'fr-hop', hops[i]));
+      chain.appendChild(el('span', 'fr-arrow', '→'));
+    }
+    chain.appendChild(el('span', 'fr-hop target', e.ergon_id || 'id absent'));
+    if (e.edge_weight !== undefined && e.edge_weight !== null) {
+      chain.appendChild(el('span', 'fr-edge', 'link weight ' + e.edge_weight));
+    }
+    path.appendChild(chain);
+    card.appendChild(path);
+  }
+
+  /* Second and third carriage of the grade: the foot strip and the left border.
+     Crop the head off and the foot still names it; crop the foot and the head
+     still names it; crop both and the colour bar is still there. */
+  var foot = el('div', 'fr-erg-foot');
+  foot.appendChild(el('span', null, e.ergon_id || 'id absent'));
+  foot.appendChild(el('span', 'sep', '·'));
+  foot.appendChild(el('span', null, (e.desk || 'desk absent') + ' desk'));
+  foot.appendChild(el('span', 'sep', '·'));
+  foot.appendChild(el('span', null, grade === 'unknown' ? 'grade absent' : 'grade: ' + grade));
+  card.appendChild(foot);
+
+  return card;
+}
+
+function joinDesks(list) {
+  if (!list || !list.length) return '';
+  if (list.length === 1) return list[0];
+  if (list.length === 2) return list[0] + ' and ' + list[1];
+  return list.slice(0, list.length - 1).join(', ') + ' and ' + list[list.length - 1];
+}
+
+function render(i) {
+  var fx = RUNS[i];
+  if (!fx) return;
+  current = i;
+  var p = fx.payload || {};
+  var weakest = p.weakest || [];
+  var unresolved = p.unresolved || [];
+
+  /* picker */
+  var runs = document.getElementById('fr-runs');
+  runs.textContent = '';
+  for (var r = 0; r < RUNS.length; r++) {
+    (function (k) {
+      var b = el('button', 'fr-run' + (k === i ? ' active' : ''), RUNS[k].label || RUNS[k].name);
+      b.addEventListener('click', function () { render(k); window.scrollTo(0, 0); });
+      runs.appendChild(b);
+    })(r);
+  }
+
+  /* scope banner — keyed on the fixture's own _demo flag, nothing else */
+  var badge = document.getElementById('fr-badge');
+  var scope = document.getElementById('fr-scope');
+  scope.textContent = '';
+  if (fx._demo) {
+    scope.style.display = '';
+    badge.style.display = '';
+    badge.textContent = 'demonstration · not engine output';
+    scope.appendChild(el('span', 'fr-scope-label', 'read this first'));
+    var s = el('div');
+    s.innerHTML = 'This run is a <strong>hand-built demonstration payload, not engine output</strong>, '
+      + 'drawn only from the 8 erga published in this repository. '
+      + '<strong>Every &ldquo;canon does not have this&rdquo; statement below is scoped to those 8 erga</strong>, '
+      + 'not to the 171-ergon canon. The shape of the read is real; the size of it is not.';
+    scope.appendChild(s);
+  } else {
+    badge.style.display = 'none';
+    scope.style.display = 'none';
+  }
+
+  document.getElementById('fr-lede').textContent = fx.lede || '';
+
+  /* entry tray — the parameters, with unresolved ones marked in place */
+  var fields = document.getElementById('fr-fields');
+  fields.textContent = '';
+  var params = fx.params || [];
+  for (var f = 0; f < params.length; f++) {
+    var missing = unresolved.indexOf(params[f]) !== -1;
+    var row = el('div', 'fr-field' + (missing ? ' miss' : ''));
+    row.appendChild(el('span', 'fr-field-n', String(f + 1)));
+    row.appendChild(el('span', 'fr-field-v', params[f]));
+    if (missing) row.appendChild(el('span', 'fr-field-mark', 'not in canon'));
+    fields.appendChild(row);
+  }
+
+  /* unresolved, named again in the user's own words */
+  var un = document.getElementById('fr-unresolved');
+  un.textContent = '';
+  if (unresolved.length) {
+    var n = el('div', 'fr-note');
+    var q = unresolved.map(function (u) { return '“' + u + '”'; }).join(', ');
+    n.innerHTML = '<strong>Canon has nothing for ' + q + '.</strong> '
+      + (unresolved.length === 1 ? 'That parameter ' : 'Those parameters ')
+      + 'located no ergon, and nothing below stands in for '
+      + (unresolved.length === 1 ? 'it' : 'them') + '.';
+    un.appendChild(n);
+  }
+
+  /* entry erga */
+  var entryWrap = document.getElementById('fr-entry');
+  var entryLabel = document.getElementById('fr-entry-label');
+  entryWrap.textContent = '';
+  var entry = p.entry || [];
+  if (entry.length) {
+    entryLabel.textContent = 'What that located in canon — ' + entry.length
+      + (entry.length === 1 ? ' ergon' : ' erga');
+    for (var a = 0; a < entry.length; a++)
+      entryWrap.appendChild(ergonCard(entry[a], { compact: true }));
+  } else {
+    entryLabel.textContent = 'What that located in canon';
+    var none = el('div', 'fr-note');
+    none.innerHTML = '<strong>Nothing.</strong> None of the parameters above located an ergon. '
+      + 'That is the result of the run, not a failure to finish it — and the findings below are '
+      + 'what it produced.';
+    entryWrap.appendChild(none);
+  }
+
+  /* coverage — fixed desk order, pips straight off the counts, no scaling */
+  var cov = document.getElementById('fr-cov');
+  cov.textContent = '';
+  var coverage = p.coverage || {};
+  for (var d = 0; d < DESKS.length; d++) {
+    var desk = DESKS[d];
+    var count = coverage[desk];
+    var thin = weakest.indexOf(desk) !== -1;
+    var row = el('div', 'fr-cov-row d-' + desk + (thin ? ' thin' : ''));
+    var name = el('div', 'fr-cov-desk');
+    name.appendChild(document.createTextNode(desk));
+    if (thin) name.appendChild(el('span', 'fr-thin-mark', 'thinnest'));
+    row.appendChild(name);
+    var track = el('div', 'fr-cov-track');
+    if (count) {
+      for (var c = 0; c < count; c++) track.appendChild(el('span', 'fr-pip fr-pip-' + desk));
+      track.appendChild(el('span', 'fr-cov-n', String(count)));
+    } else {
+      track.appendChild(el('span', 'fr-cov-zero', 'nothing from this desk'));
+    }
+    row.appendChild(track);
+    cov.appendChild(row);
+  }
+
+  /* THE TURN */
+  var turn = document.getElementById('fr-turn');
+  turn.textContent = '';
+  var t1 = el('div', 'fr-turn-1');
+  var t2 = el('div', 'fr-turn-2');
+  if (weakest.length) {
+    t1.innerHTML = 'Your entry is thinnest at <b>' + joinDesks(weakest) + '</b>.';
+    t2.innerHTML = '<strong>So this run read there</strong> — not where you were already strong. '
+      + 'What follows is what those desks hold and, below it, what they do not.';
+  } else {
+    t1.innerHTML = 'Your entry has no thinnest desk, because it reached none of them.';
+    t2.innerHTML = '<strong>There is nothing to read from</strong>, so this run returns no claims. '
+      + 'What it returns instead is the shape of the gap — below, and it is the whole answer.';
+  }
+  turn.appendChild(t1);
+  turn.appendChild(t2);
+
+  /* returned */
+  var retSec = document.getElementById('fr-returned-sec');
+  var ret = document.getElementById('fr-returned');
+  var retLabel = document.getElementById('fr-returned-label');
+  var retSub = document.getElementById('fr-returned-sub');
+  ret.textContent = '';
+  var returned = p.returned || [];
+  if (returned.length) {
+    retSec.style.display = '';
+    retLabel.textContent = weakest.length
+      ? 'What ' + joinDesks(weakest) + ' hold'
+      : 'What came back';
+    retSub.textContent = 'Shown in the order the engine ranked them. This page does not re-order them.';
+    for (var g = 0; g < returned.length; g++) ret.appendChild(ergonCard(returned[g], { via: true }));
+  } else {
+    retSec.style.display = 'none';
+  }
+
+  /* absent — always rendered, always as a finding */
+  var abs = document.getElementById('fr-absent');
+  abs.textContent = '';
+  var absent = p.absent || [];
+  abs.appendChild(el('div', 'fr-absent-label', 'the other half of the read'));
+  abs.appendChild(el('div', 'fr-absent-h',
+    absent.length
+      ? 'What canon does not have'
+      : 'Canon was not asked for anything it does not have'));
+  for (var b2 = 0; b2 < absent.length; b2++) {
+    var it = absent[b2];
+    var item = el('div', 'fr-absent-item d-' + deskClass(it.desk));
+    item.appendChild(el('div', 'fr-absent-desk', (it.desk || 'desk absent') + ' desk'));
+    item.appendChild(el('div', 'fr-absent-reason', it.reason || ''));
+    abs.appendChild(item);
+  }
+  abs.appendChild(el('div', 'fr-absent-foot',
+    absent.length
+      ? 'This is a finding, not a failed search. It is the part of the read you can hold us to — '
+        + 'a store that names its gaps cannot be caught having invented them.'
+      : 'Nothing is recorded as missing for this run.'));
+
+  /* engine notes */
+  var noteSec = document.getElementById('fr-notes-sec');
+  var notes = document.getElementById('fr-notes');
+  notes.textContent = '';
+  var nn = p.notes || [];
+  if (nn.length) {
+    noteSec.style.display = '';
+    for (var m = 0; m < nn.length; m++) notes.appendChild(el('div', 'fr-note', nn[m]));
+  } else {
+    noteSec.style.display = 'none';
+  }
+}
+
+if (RUNS.length) {
+  render(0);
+} else {
+  document.getElementById('fr-lede').textContent =
+    'No prepared runs are embedded. Run build-freerun.py to inject fixtures/*.json.';
+}
+</script>
+</body>
+</html>

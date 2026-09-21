@@ -1,0 +1,84 @@
+{
+  "name": "consumer-fibre",
+  "label": "Fibre and whole grains",
+  "lede": "A consumer entry: three things known, all of them about food and the body.",
+  "params": [
+    "bloating after high-fibre meals",
+    "I eat a lot of whole grains",
+    "trying to lose weight"
+  ],
+  "_demo": true,
+  "_note": "Hand-built demonstration payload. NOT engine output. Drawn only from the 8 erga already public in data/erga.json on main. Every absent[] reason below is a statement about that 8-ergon subset, not about the 171-ergon canon.",
+  "payload": {
+    "entry": [
+      {
+        "ergon_id": "erg-NUT-021-V1",
+        "desk": "nutrition",
+        "assertion": "Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).",
+        "grade": "moderate"
+      },
+      {
+        "ergon_id": "erg-BIO-024-V1",
+        "desk": "biology",
+        "assertion": "Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).",
+        "grade": "emerging"
+      }
+    ],
+    "coverage": {
+      "symptom": 0,
+      "biology": 1,
+      "nutrition": 1,
+      "mechanism": 0,
+      "measurement": 0
+    },
+    "weakest": [
+      "measurement",
+      "mechanism"
+    ],
+    "returned": [
+      {
+        "ergon_id": "erg-MECH-024-V1",
+        "desk": "mechanism",
+        "assertion": "Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.",
+        "grade": "moderate",
+        "edge_weight": 0.63,
+        "via": [
+          "erg-NUT-021-V1"
+        ]
+      },
+      {
+        "ergon_id": "erg-MECH-023-V1",
+        "desk": "mechanism",
+        "assertion": "Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).",
+        "grade": "moderate",
+        "edge_weight": 0.38,
+        "via": [
+          "erg-NUT-021-V1",
+          "erg-MECH-024-V1"
+        ]
+      },
+      {
+        "ergon_id": "erg-MEAS-014-V1",
+        "desk": "measurement",
+        "assertion": "Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).",
+        "grade": "moderate",
+        "edge_weight": 0.41,
+        "via": [
+          "erg-NUT-021-V1"
+        ]
+      }
+    ],
+    "absent": [
+      {
+        "desk": "measurement",
+        "reason": "Nothing here connects a fibre dose to a measurable change. The one measurement ergon in this subset states what a breath sensor must be able to detect; it does not report what any particular reading means, and no threshold for any gas appears anywhere in it."
+      },
+      {
+        "desk": "symptom",
+        "reason": "Your entry names bloating after fibre. Nothing in this subset records bloating as an outcome of a fibre intervention. The two symptom erga here attach to breath methane and to named strains, neither of which your entry reached."
+      }
+    ],
+    "unresolved": [],
+    "notes": []
+  }
+}
