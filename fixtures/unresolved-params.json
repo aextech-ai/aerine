@@ -46,7 +46,19 @@
       "low stomach acid"
     ],
     "notes": [
-      "No parameter located an ergon. Nothing was returned because nothing was reached — not because something was reached and then ranked out."
+      {
+        "code": "UNRESOLVED_PARAMS",
+        "message": "4 parameter(s) located nothing in canon",
+        "params": [
+          "histamine intolerance",
+          "MCAS",
+          "brain fog after meals",
+          "low stomach acid"
+        ]
+      },
+      {
+        "message": "No parameter located an ergon. Nothing was returned because nothing was reached — not because something was reached and then ranked out."
+      }
     ]
   }
 }

@@ -9,11 +9,31 @@ Runs are ordered by RUN_ORDER below, not by filename, so the picker reads in a
 sensible sequence. A fixture not named there is appended after, by filename.
 
 Usage:  python3 build-freerun.py
+        python3 build-freerun.py --fixtures <dir> --out <path>   # local verification
 """
 import json, re, sys, pathlib
 
 ROOT = pathlib.Path(__file__).parent
-FIX = ROOT / "fixtures"
+
+
+def _arg(flag):
+    if flag in sys.argv:
+        i = sys.argv.index(flag)
+        if i + 1 < len(sys.argv):
+            return sys.argv[i + 1]
+        sys.exit(f"ERROR: {flag} needs a value")
+    return None
+
+
+FIX = pathlib.Path(_arg("--fixtures") or (ROOT / "fixtures")).resolve()
+OUT = pathlib.Path(_arg("--out") or (ROOT / "free-run.html")).resolve()
+
+# The release gate exists to stop unreleased canon landing in a PUBLIC repo. A
+# build that writes nothing into this repo, from fixtures that are not in it,
+# cannot do that -- so it is allowed, loudly, and it does not touch the
+# committed page. Verifying against real fixtures is exactly what the brief
+# asks for; committing them before they are marked is what it forbids.
+IN_REPO = OUT.is_relative_to(ROOT) and FIX.is_relative_to(ROOT)
 
 RUN_ORDER = [
     "consumer-ibsd",
@@ -56,7 +76,42 @@ def check_release_boundary(name, fx, public):
                     problems.append(f"{eid}: {field} does not match data/erga.json")
     return problems
 
-files = {p.stem: p for p in sorted(FIX.glob("*.json"))}
+LABELS = {
+    "consumer-ibsd": "SIBO, diarrhoea, gas",
+    "consumer-fibre": "Fibre and whole grains",
+    "device-gas": "Breath gas",
+    "agent-relay": "Agent relay (structured)",
+    "unresolved-params": "Nothing located",
+}
+
+
+def normalise(name, fx):
+    """Accept the engine's own fixture shape as well as this repo's wrapper.
+
+    engine/fixtures/free-run-<slug>.json puts the payload at the TOP LEVEL
+    alongside a `_fixture` block (slug, line, params, k, digests). This repo's
+    demo files nest it under `payload` with the params beside it, because the
+    params are the form's, not the engine's. Normalise to the wrapper so the
+    page reads one shape and the swap is a data change.
+    """
+    if "_fixture" not in fx:
+        return fx
+    meta = fx["_fixture"]
+    slug = meta.get("slug") or name.replace("free-run-", "")
+    payload = {k: v for k, v in fx.items() if k != "_fixture"}
+    return {
+        "name": slug,
+        "label": LABELS.get(slug, slug),
+        "lede": meta.get("line", ""),
+        "params": meta.get("params", []),
+        "_fixture": meta,
+        "_demo": fx.get("_demo", False),
+        "_release_safe": fx.get("_release_safe", False),
+        "payload": payload,
+    }
+
+
+files = {p.stem.replace("free-run-", ""): p for p in sorted(FIX.glob("*.json"))}
 if not files:
     sys.exit("ERROR: no fixtures found in fixtures/")
 
@@ -67,7 +122,7 @@ public = {e["ergon_id"]: e for e in json.loads((ROOT / "data" / "erga.json").rea
 
 runs, demo_count, leaks = [], 0, []
 for name in ordered:
-    fx = json.loads(files[name].read_text())
+    fx = normalise(name, json.loads(files[name].read_text()))
     payload = fx.get("payload")
     if not isinstance(payload, dict):
         sys.exit(f"ERROR: {name}.json has no payload object")
@@ -75,8 +130,9 @@ for name in ordered:
     if missing:
         sys.exit(f"ERROR: {name}.json payload is missing {', '.join(missing)}")
     fx.setdefault("name", name)
-    for problem in check_release_boundary(name, fx, public):
-        leaks.append(f"  {name}.json: {problem}")
+    if IN_REPO:
+        for problem in check_release_boundary(name, fx, public):
+            leaks.append(f"  {name}.json: {problem}")
     if fx.get("_demo"):
         demo_count += 1
     runs.append(fx)
@@ -91,6 +147,12 @@ if leaks:
           "here, it may not."
     )
 
+if not IN_REPO:
+    print("LOCAL VERIFICATION BUILD -- release gate not applied.")
+    print(f"  fixtures: {FIX}")
+    print(f"  out:      {OUT}")
+    print("  Nothing is written into the repository. Do not commit this output.")
+
 html = (ROOT / "free-run.html").read_text()
 pattern = re.compile(
     r'(<script id="aerine-freerun" type="application/json">).*?(</script>)',
@@ -101,9 +163,10 @@ if not pattern.search(html):
 
 payload_json = json.dumps(runs, ensure_ascii=False, separators=(",", ":"))
 html2 = pattern.sub(lambda m: m.group(1) + payload_json + m.group(2), html, count=1)
-(ROOT / "free-run.html").write_text(html2)
+OUT.parent.mkdir(parents=True, exist_ok=True)
+OUT.write_text(html2)
 
-print(f"Injected {len(runs)} runs ({len(payload_json)} bytes) into free-run.html")
+print(f"Injected {len(runs)} runs ({len(payload_json)} bytes) into {OUT.name}")
 print("  order: " + ", ".join(r["name"] for r in runs))
 if demo_count:
     print(f"  NOTE: {demo_count} of {len(runs)} runs carry _demo:true — the page will "

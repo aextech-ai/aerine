@@ -71,7 +71,9 @@
     ],
     "unresolved": [],
     "notes": [
-      "No returned ergon cites a device reading. Canon holds no device data, so none is represented here."
+      {
+        "message": "No returned ergon cites a device reading. Canon holds no device data, so none is represented here."
+      }
     ]
   }
 }
