@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aerine Ergastorion — Browser v1 sketch · AEXTech Holdings</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDF8ED'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%238B6F47' stroke-width='3'/%3E%3C/svg%3E"/>
+<style>
+/* ── KEEL: palette inherited from grIPhon, extended for our domain ──────── */
+:root {
+  --oak:       #2A241C;
+  --oak-mid:   #3F362A;
+  --oak-light: #5A4A35;
+  --oak-faint: #7A6542;
+  --brass:     #8B6F47;
+  --brass-mid: #A6916B;
+  --brass-light:#D4C5A3;
+  --parch:     #FDF8ED;
+  --parch-mid: #FAF4E4;
+  --parch-warm:#F5EFDF;
+  --parch-card:#F5EAD0;
+  --parch-deep:#EDE4D1;
+
+  /* Confidence — honest label, not judgment */
+  --strong-bg:  #D4E4D0;  --strong-fg: #2E4A26;  --strong-bar: #4A7A3E;
+  --mod-bg:     #EED9B5;  --mod-fg:    #6A4A18;  --mod-bar:    #B08038;
+  --emerg-bg:   #D6DBEC;  --emerg-fg:  #2C3A64;  --emerg-bar:  #5A6FA0;
+
+  /* Desks — one color each for the five extraction desks */
+  --sym-bg: #EFD5D8; --sym-fg: #6B2832; --sym-bd: #BA7A80;
+  --bio-bg: #D4E1CF; --bio-fg: #2E4A26; --bio-bd: #7FA476;
+  --nut-bg: #ECD9A8; --nut-fg: #5A3E0A; --nut-bd: #BA955A;
+  --mech-bg:#D9D0E4; --mech-fg:#3E2E5A; --mech-bd:#8678A6;
+  --meas-bg:#CFD8DE; --meas-fg:#25384A; --meas-bd:#6C8194;
+
+  /* Guilds — archetype palette, not clinical */
+  --g-ferm:    #C29A6A;  /* workers — brass */
+  --g-meth:    #8FA2B8;  /* minimalists — slate-blue */
+  --g-sulf:    #B16868;  /* bullies — muted maroon */
+  --g-but:     #7FA476;  /* healers — sage */
+  --g-muc:     #9A9080;  /* architects — stone */
+  --g-opp:     #C78650;  /* locusts — rust */
+
+  /* Flags — all honesty markers, not dismissals */
+  --flag-bg:   #F2E8D0;  --flag-fg: #5A4A20;  --flag-bd: #B09660;
+  --echo-bg:   #E8D6DC;  --echo-fg: #5A2838;  --echo-bd: #A66880;
+
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-sans: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--parch-deep);
+  font-family: var(--font-sans);
+  color: var(--oak);
+  min-height: 100vh;
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
+.erg-shell {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  max-width: 1460px;
+  margin: 0 auto;
+}
+.erg-rail {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px;
+  padding: 12px 14px;
+  align-self: start;
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  position: sticky;
+  top: 18px;
+}
+.erg-main { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
+.erg-header {
+  display: flex; align-items: center; justify-content: space-between; padding: 0 2px;
+}
+.erg-wordmark {
+  font-family: var(--font-mono); font-size: 13px; color: var(--oak-light);
+  letter-spacing: 0.04em;
+}
+.erg-wordmark span { color: var(--brass); }
+.erg-batch-banner {
+  font-size: 11px; color: var(--oak-light);
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+  background: var(--parch-mid);
+  border-radius: 3px;
+  border: 0.5px solid var(--brass-mid);
+}
+.erg-count { font-size: 12px; color: var(--oak-light); font-family: var(--font-mono); }
+
+/* ── RAIL ────────────────────────────────────────────────────────────────── */
+.erg-rail h3 {
+  font-size: 14px; color: var(--oak-light); font-family: var(--font-mono);
+  letter-spacing: 0.04em; margin-bottom: 10px;
+}
+.erg-rail h3 em { color: var(--brass); font-style: normal; }
+.erg-search {
+  width: 100%; height: 32px;
+  border: 0.5px solid var(--brass); background: var(--parch-mid);
+  border-radius: 3px; padding: 0 10px;
+  font-size: 12px; color: var(--oak);
+  font-family: var(--font-mono); margin-bottom: 12px;
+}
+.erg-search:focus { outline: none; border-color: var(--oak); background: var(--parch); }
+
+.erg-fgroup {
+  margin-bottom: 12px; padding-bottom: 10px;
+  border-bottom: 0.5px solid var(--brass-light);
+}
+.erg-fgroup:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.erg-flabel {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--oak-faint); margin-bottom: 5px;
+  font-family: var(--font-mono); font-weight: 500;
+}
+.erg-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 3px;
+  font-size: 11px; border: 0.5px solid var(--brass);
+  cursor: pointer; margin: 2px 3px 2px 0;
+  background: var(--parch-mid); color: var(--oak-mid);
+  font-family: var(--font-mono);
+}
+.erg-chip:hover { background: var(--parch-card); border-color: var(--oak-light); }
+.erg-chip.active { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-chip-ct { font-size: 9px; opacity: 0.7; }
+
+/* Guild boolean-mode toggle — any / all / only */
+/* KEEL:
+   any  = OR  — ergon has ≥1 selected guild (default)
+   all  = AND — ergon has ALL selected guilds (handoff/crossover finder)
+   only = ONE — ergon is single-guild AND that guild is selected (pure-guild erga) */
+.erg-mode-toggle {
+  display: inline-flex; gap: 0;
+  margin-bottom: 6px;
+  border: 0.5px solid var(--brass); border-radius: 3px;
+  overflow: hidden;
+}
+.erg-mode {
+  background: var(--parch-mid); color: var(--oak-mid);
+  border: none; padding: 3px 10px;
+  font-size: 10px; font-family: var(--font-mono);
+  letter-spacing: 0.04em; cursor: pointer;
+  border-right: 0.5px solid var(--brass);
+}
+.erg-mode:last-child { border-right: none; }
+.erg-mode:hover { background: var(--parch-card); }
+.erg-mode.active { background: var(--oak); color: var(--parch); }
+
+/* Guild chips — archetype-colored stripe on the left */
+.erg-chip-guild {
+  padding-left: 4px;
+  border-left-width: 3px; border-left-style: solid;
+}
+.erg-chip-guild[data-v="fermentation"]  { border-left-color: var(--g-ferm); }
+.erg-chip-guild[data-v="methanogen"]    { border-left-color: var(--g-meth); }
+.erg-chip-guild[data-v="sulfur-reducer"]{ border-left-color: var(--g-sulf); }
+.erg-chip-guild[data-v="butyrate"]      { border-left-color: var(--g-but); }
+.erg-chip-guild[data-v="mucin"]         { border-left-color: var(--g-muc); }
+.erg-chip-guild[data-v="opportunist"]   { border-left-color: var(--g-opp); }
+
+/* ── CARDS ───────────────────────────────────────────────────────────────── */
+/* KEEL: 3.5-card window — keeps the reader panel visible below the stack. */
+.erg-cards-wrap { max-height: 452px; overflow-y: auto; }
+.erg-card {
+  background: var(--parch-card);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 4px; padding: 11px 15px 10px;
+  cursor: pointer; position: relative;
+  border-left-width: 4px;
+  min-height: 118px; display: flex; flex-direction: column;
+  margin-bottom: 8px; transition: background 0.1s;
+}
+.erg-card:hover { background: #F9EED5; }
+.erg-card.focused { background: var(--parch-mid); border-color: var(--oak-light); }
+.erg-card[data-conf="strong"]   { border-left-color: var(--strong-bar); }
+.erg-card[data-conf="moderate"] { border-left-color: var(--mod-bar); }
+.erg-card[data-conf="emerging"] { border-left-color: var(--emerg-bar); }
+
+.erg-card-actions { position: absolute; top: 9px; right: 12px; display: flex; gap: 4px; }
+.erg-icon {
+  width: 26px; height: 26px;
+  border: 0.5px solid var(--brass); background: var(--parch-mid);
+  border-radius: 3px; display: inline-flex;
+  align-items: center; justify-content: center;
+  cursor: pointer; font-size: 13px; line-height: 1;
+  color: var(--oak-mid); font-family: var(--font-mono);
+}
+.erg-icon:hover { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+
+.erg-card-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; margin-bottom: 4px; padding-right: 64px;
+}
+.erg-card-id {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--oak-faint); white-space: nowrap; letter-spacing: 0.04em;
+}
+.erg-card-title {
+  font-size: 13px; font-weight: 500; line-height: 1.35; color: var(--oak);
+}
+/* KEEL: card quote uses the ±1 framing convention — sentence before the claim,
+   the claim itself, and the sentence after. Display clamps at 3 lines; full
+   pericope renders in the reader verbatim. Claim sentence is marked **bold**
+   in source and rendered via <strong>. */
+.erg-card-quote {
+  font-size: 11px; color: var(--oak-mid);
+  line-height: 1.5; margin: 4px 0 8px; flex: 1;
+  font-style: italic; font-family: var(--font-sans);
+  border-left: 2px solid var(--brass-light); padding-left: 8px;
+  display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.erg-card-quote strong, .erg-reader-quote strong {
+  font-style: normal; color: var(--oak); font-weight: 600;
+}
+.erg-card-bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  flex-wrap: wrap;
+}
+.erg-card-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+
+/* ── TAGS ────────────────────────────────────────────────────────────────── */
+.erg-tag {
+  display: inline-flex; align-items: center;
+  padding: 1px 7px; border-radius: 3px;
+  font-size: 10px; font-weight: 500;
+  font-family: var(--font-mono); letter-spacing: 0.02em;
+  border: 0.5px solid transparent;
+}
+.erg-tag-strong   { background: var(--strong-bg); color: var(--strong-fg); border-color: var(--strong-bar); }
+.erg-tag-moderate { background: var(--mod-bg); color: var(--mod-fg); border-color: var(--mod-bar); }
+.erg-tag-emerging { background: var(--emerg-bg); color: var(--emerg-fg); border-color: var(--emerg-bar); }
+
+.erg-tag-desk { font-size: 9px; padding: 1px 6px; }
+.erg-tag-desk-SYM  { background: var(--sym-bg); color: var(--sym-fg); border-color: var(--sym-bd); }
+.erg-tag-desk-BIO  { background: var(--bio-bg); color: var(--bio-fg); border-color: var(--bio-bd); }
+.erg-tag-desk-NUT  { background: var(--nut-bg); color: var(--nut-fg); border-color: var(--nut-bd); }
+.erg-tag-desk-MECH { background: var(--mech-bg); color: var(--mech-fg); border-color: var(--mech-bd); }
+.erg-tag-desk-MEAS { background: var(--meas-bg); color: var(--meas-fg); border-color: var(--meas-bd); }
+
+.erg-tag-guild { font-size: 9px; padding: 1px 5px 1px 3px; border-left-width: 3px; }
+.erg-tag-guild[data-g="fermentation"]  { border-left-color: var(--g-ferm); background: #F5E6D2; color: #5A4020; }
+.erg-tag-guild[data-g="methanogen"]    { border-left-color: var(--g-meth); background: #DFE6EE; color: #2C405A; }
+.erg-tag-guild[data-g="sulfur-reducer"]{ border-left-color: var(--g-sulf); background: #EED9D9; color: #5A2828; }
+.erg-tag-guild[data-g="butyrate"]      { border-left-color: var(--g-but); background: #DEE8D8; color: #2E4A26; }
+.erg-tag-guild[data-g="mucin"]         { border-left-color: var(--g-muc); background: #E4E0DA; color: #3A352C; }
+.erg-tag-guild[data-g="opportunist"]   { border-left-color: var(--g-opp); background: #F0DCC4; color: #5A3614; }
+
+.erg-tag-flag { background: var(--flag-bg); color: var(--flag-fg); border-color: var(--flag-bd); font-size: 10px; }
+.erg-tag-echo { background: var(--echo-bg); color: var(--echo-fg); border-color: var(--echo-bd); font-size: 10px; }
+.erg-tag-origin { background: var(--parch-mid); color: var(--oak-light); border-color: var(--brass-mid); font-size: 9px; }
+
+/* ── REVIEW-WORTHY SIGNAL ────────────────────────────────────────────────── */
+/* KEEL: Inverse of confidence + methodology debt.
+   Base: emerging=0.9, moderate=0.4, strong=0.1
+   +0.20 if echo && untraced
+   +0.15 if methodology flag present
+   +0.15 if coi-industry
+   +0.10 if review-only (source_tier secondary)
+   +0.10 if duplicate-suspect
+   Clamp 0–1. Higher = Custodian should look. NOT "urgency." */
+.erg-signal {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--oak-faint);
+  font-family: var(--font-mono); white-space: nowrap;
+}
+.erg-signal-bar {
+  width: 42px; height: 4px;
+  background: var(--brass-light); border-radius: 2px;
+  overflow: hidden; border: 0.5px solid var(--brass-mid);
+}
+.erg-signal-fill { height: 100%; background: var(--oak-light); border-radius: 2px; }
+
+/* ── READER PANEL ────────────────────────────────────────────────────────── */
+.erg-reader {
+  background: var(--parch-mid);
+  border: 0.5px solid var(--brass);
+  border-radius: 4px; padding: 18px 22px;
+  font-size: 13px; line-height: 1.6; color: var(--oak);
+  max-height: 640px; overflow-y: auto;
+}
+.erg-reader.hidden { display: none; }
+.erg-reader h4 { font-size: 16px; font-weight: 500; margin: 0 0 2px; line-height: 1.3; }
+.erg-reader-sub {
+  font-size: 11px; color: var(--oak-faint);
+  font-family: var(--font-mono); margin-bottom: 14px; letter-spacing: 0.04em;
+}
+.erg-reader-sec { margin-top: 14px; }
+.erg-reader-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--oak-faint); margin-bottom: 4px;
+  font-family: var(--font-mono); font-weight: 500;
+}
+.erg-reader-quote {
+  font-size: 13px; line-height: 1.7; color: var(--oak);
+  font-style: italic; border-left: 3px solid var(--brass);
+  padding: 6px 0 6px 12px; background: var(--parch-warm);
+  white-space: pre-wrap;
+}
+.erg-reader-claim {
+  font-size: 13px; line-height: 1.7; color: var(--oak);
+}
+.erg-reader-flag {
+  font-size: 11px; background: var(--parch-warm);
+  padding: 6px 10px; border-radius: 3px;
+  margin-bottom: 4px; border-left: 3px solid var(--brass);
+}
+.erg-reader-flag.echo { border-left-color: var(--echo-bd); background: var(--echo-bg); color: var(--echo-fg); }
+.erg-kv {
+  display: grid;
+  grid-template-columns: 150px minmax(0,1fr);
+  row-gap: 4px; column-gap: 10px; font-size: 12px;
+}
+.erg-kv dt { color: var(--oak-light); font-family: var(--font-mono); font-size: 11px; }
+.erg-kv dd { margin: 0; color: var(--oak); font-family: var(--font-mono); font-size: 11px; word-break: break-word; }
+.erg-reader-actions { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+
+.erg-btn {
+  height: 32px; padding: 0 14px;
+  background: var(--parch-mid); border: 0.5px solid var(--brass);
+  border-radius: 3px; font-size: 12px; color: var(--oak);
+  cursor: pointer; font-family: var(--font-mono); letter-spacing: 0.02em;
+}
+.erg-btn:hover { background: var(--parch-card); border-color: var(--oak-light); }
+.erg-btn.primary { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-btn.primary:hover { background: var(--oak-mid); }
+.erg-btn.brass { background: #A88652; color: var(--parch); border-color: #7A5A35; }
+.erg-btn.brass:hover { background: var(--brass); }
+.erg-btn.active { background: var(--oak); color: var(--parch); border-color: var(--oak); }
+.erg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── CHAIN BUILDER ───────────────────────────────────────────────────────── */
+.erg-bottom { display: grid; grid-template-columns: 1.5fr 0.8fr 1.7fr; gap: 12px; align-items: start; }
+@media (max-width: 1100px){ .erg-bottom { grid-template-columns: 1fr; } }
+.erg-thread {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px; padding: 13px 15px;
+}
+.erg-thread-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.erg-thread-verdict {
+  font-size: 10px; font-family: var(--font-mono);
+  padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em;
+  border: 0.5px solid var(--brass-mid); background: var(--parch-mid);
+  color: var(--oak-light);
+}
+.erg-thread-verdict.gold  { background: #E9D89A; color: #5A3E08; border-color: #A88040; }
+.erg-thread-verdict.loose { background: #D8D5CD; color: #3A352C; border-color: #8A847A; }
+.erg-thread-verdict.broken{ background: var(--echo-bg); color: var(--echo-fg); border-color: var(--echo-bd); }
+
+.erg-thread-bobbins {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+.erg-bobbin {
+  background: var(--parch-mid);
+  border: 1px dashed var(--brass-mid);
+  border-radius: 3px; padding: 8px 6px;
+  min-height: 72px;
+  display: flex; flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  position: relative;
+}
+.erg-bobbin-label {
+  font-family: var(--font-mono); font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--oak-faint); text-align: center;
+  margin-bottom: 2px;
+}
+.erg-bobbin.filled { border-style: solid; background: var(--parch-card); }
+.erg-bobbin.filled[data-desk="SYM"]  { border-color: var(--sym-bd); }
+.erg-bobbin.filled[data-desk="BIO"]  { border-color: var(--bio-bd); }
+.erg-bobbin.filled[data-desk="NUT"]  { border-color: var(--nut-bd); }
+.erg-bobbin.filled[data-desk="MECH"] { border-color: var(--mech-bd); }
+.erg-bobbin.filled[data-desk="MEAS"] { border-color: var(--meas-bd); }
+
+.erg-bobbin-ergon-id {
+  font-family: var(--font-mono); font-size: 9px;
+  color: var(--oak-faint); letter-spacing: 0.04em;
+}
+.erg-bobbin-title {
+  font-size: 10px; line-height: 1.3; color: var(--oak);
+  overflow: hidden; text-overflow: ellipsis;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.erg-bobbin-conf {
+  font-size: 9px; font-family: var(--font-mono);
+  margin-top: auto; color: var(--oak-light);
+}
+.erg-bobbin-remove {
+  position: absolute; top: 2px; right: 3px;
+  font-size: 12px; color: var(--oak-faint);
+  cursor: pointer; padding: 0 3px; line-height: 1;
+}
+.erg-bobbin-remove:hover { color: var(--oak); }
+.erg-bobbin-empty {
+  color: var(--oak-faint); font-style: italic;
+  text-align: center; margin: auto 0;
+  font-size: 10px; font-family: var(--font-mono);
+}
+/* KEEL: empty slot is clickable — activates the desk filter for that slot. */
+.erg-bobbin.empty-clickable { cursor: pointer; }
+.erg-bobbin.empty-clickable:hover {
+  background: var(--parch-card);
+  border-color: var(--oak-light);
+  border-style: solid;
+}
+.erg-bobbin.empty-clickable:hover .erg-bobbin-empty {
+  color: var(--oak-mid); font-style: normal;
+}
+
+.erg-actions-panel {
+  background: var(--parch-warm);
+  border: 0.5px solid var(--brass-mid);
+  border-radius: 3px; padding: 13px 15px;
+}
+
+.erg-empty {
+  color: var(--oak-faint); font-size: 12px;
+  font-style: italic; padding: 16px 0;
+  text-align: center; font-family: var(--font-mono);
+}
+
+/* ── TABLE (alternative view) ────────────────────────────────────────────── */
+.erg-table-wrap {
+  max-height: 452px; overflow-y: auto;
+  border: 0.5px solid var(--brass-mid); border-radius: 3px;
+}
+.erg-table-wrap.hidden, .erg-cards-wrap.hidden { display: none; }
+.erg-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 11px; font-family: var(--font-mono);
+}
+.erg-table thead th {
+  background: var(--parch-warm);
+  padding: 7px 10px; text-align: left;
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--oak-faint);
+  border-bottom: 0.5px solid var(--brass-mid);
+  white-space: nowrap;
+  position: sticky; top: 0;
+}
+.erg-table tbody tr {
+  border-bottom: 0.5px solid var(--brass-light);
+  cursor: pointer;
+}
+.erg-table tbody tr:hover { background: var(--parch-card); }
+.erg-table tbody tr.focused { background: var(--parch-mid); }
+.erg-table td { padding: 7px 10px; vertical-align: top; color: var(--oak); }
+.erg-table td.td-id { color: var(--oak-faint); white-space: nowrap; }
+.erg-table td.td-title { max-width: 320px; }
+
+.erg-view-toggle { display: flex; gap: 4px; }
+
+/* ── SKETCH BADGE ────────────────────────────────────────────────────────── */
+/* Reviewer-facing signal that this is a schema/UX sketch, not a live catalog. */
+.erg-sketch-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px;
+  background: #EBD4A8; color: #5A3506;
+  border: 0.5px solid #BA8F4A; border-radius: 3px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  font-weight: 500;
+}
+.erg-sketch-badge::before {
+  content: "◌"; font-size: 11px; opacity: 0.8;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.erg-footer {
+  max-width: 1460px; margin: 16px auto 0;
+  padding: 14px 18px 22px;
+  border-top: 0.5px solid var(--brass-light);
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--oak-faint); letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+.erg-footer-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 20px; flex-wrap: wrap;
+}
+.erg-footer-copy { color: var(--oak-light); }
+.erg-footer-copy strong { color: var(--oak); font-weight: 500; }
+.erg-footer-disclaim {
+  margin-top: 6px; font-size: 9.5px;
+  color: var(--oak-faint); max-width: 900px; line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<div class="erg-shell">
+
+  <!-- ── FILTER RAIL ─────────────────────────────────────────────────────── -->
+  <aside class="erg-rail">
+    <h3>aerine <em>ergastorion</em></h3>
+    <input type="text" class="erg-search" placeholder="search catalogue…" id="erg-search"/>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Desk</div>
+      <button class="erg-chip active" data-f="desk" data-v="all">all <span class="erg-chip-ct" id="ct-desk-all"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="SYM">SYM <span class="erg-chip-ct" id="ct-desk-SYM"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="MEAS">MEAS <span class="erg-chip-ct" id="ct-desk-MEAS"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="BIO">BIO <span class="erg-chip-ct" id="ct-desk-BIO"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="MECH">MECH <span class="erg-chip-ct" id="ct-desk-MECH"></span></button>
+      <button class="erg-chip" data-f="desk" data-v="NUT">NUT <span class="erg-chip-ct" id="ct-desk-NUT"></span></button>
+    </div>
+
+    <!-- Guilds are multi-select with boolean mode. Click to add, click again to remove. -->
+    <div class="erg-fgroup" id="rail-guild">
+      <div class="erg-flabel">Guild (multi)</div>
+      <div class="erg-mode-toggle" id="guild-mode-toggle">
+        <button class="erg-mode active" data-mode="OR" title="any of selected — union">any</button>
+        <button class="erg-mode" data-mode="AND" title="all of selected — intersection, handoff finder">all</button>
+        <button class="erg-mode" data-mode="ONE" title="single-guild erga from the selected set">only</button>
+      </div>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="fermentation">workers <span class="erg-chip-ct" id="ct-g-fermentation"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="methanogen">minimalists <span class="erg-chip-ct" id="ct-g-methanogen"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="sulfur-reducer">bullies <span class="erg-chip-ct" id="ct-g-sulfur-reducer"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="butyrate">healers <span class="erg-chip-ct" id="ct-g-butyrate"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="mucin">architects <span class="erg-chip-ct" id="ct-g-mucin"></span></button>
+      <button class="erg-chip erg-chip-guild" data-f="guild" data-v="opportunist">locusts <span class="erg-chip-ct" id="ct-g-opportunist"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Confidence</div>
+      <button class="erg-chip" data-f="confidence" data-v="strong">strong <span class="erg-chip-ct" id="ct-c-strong"></span></button>
+      <button class="erg-chip" data-f="confidence" data-v="moderate">moderate <span class="erg-chip-ct" id="ct-c-moderate"></span></button>
+      <button class="erg-chip" data-f="confidence" data-v="emerging">emerging <span class="erg-chip-ct" id="ct-c-emerging"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Data Origin</div>
+      <button class="erg-chip" data-f="origin" data-v="primary">primary <span class="erg-chip-ct" id="ct-o-primary"></span></button>
+      <button class="erg-chip" data-f="origin" data-v="synthesis">synthesis <span class="erg-chip-ct" id="ct-o-synthesis"></span></button>
+      <button class="erg-chip" data-f="origin" data-v="echo">echo <span class="erg-chip-ct" id="ct-o-echo"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Source Tier</div>
+      <button class="erg-chip" data-f="tier" data-v="primary">primary <span class="erg-chip-ct" id="ct-t-primary"></span></button>
+      <button class="erg-chip" data-f="tier" data-v="secondary">secondary <span class="erg-chip-ct" id="ct-t-secondary"></span></button>
+      <button class="erg-chip" data-f="tier" data-v="crowd-report">crowd-report <span class="erg-chip-ct" id="ct-t-crowd-report"></span></button>
+    </div>
+
+    <div class="erg-fgroup">
+      <div class="erg-flabel">Methodology Flag</div>
+      <button class="erg-chip" data-f="mflag" data-v="animal-only">animal-only <span class="erg-chip-ct" id="ct-m-animal-only"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="in-vitro-only">in vitro only <span class="erg-chip-ct" id="ct-m-in-vitro-only"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="n-under-threshold">small n <span class="erg-chip-ct" id="ct-m-n-under-threshold"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="echo-unresolved">echo unresolved <span class="erg-chip-ct" id="ct-m-echo-unresolved"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="coi-industry">COI industry <span class="erg-chip-ct" id="ct-m-coi-industry"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="crowd-self-report">crowd self-report <span class="erg-chip-ct" id="ct-m-crowd-self-report"></span></button>
+      <button class="erg-chip" data-f="mflag" data-v="selection-bias">selection bias <span class="erg-chip-ct" id="ct-m-selection-bias"></span></button>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ────────────────────────────────────────────────────────────── -->
+  <div class="erg-main">
+
+    <div class="erg-header">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <a class="erg-wordmark" href="index.html" style="text-decoration:none;" title="back to the front page">aerine <span>·</span> ergastorion</a>
+        <span class="erg-sketch-badge" title="Schema and UX sketch. Sample erga are illustrative; citations and quotes are representative, not verified extractions.">sketch · illustrative data</span>
+        <span class="erg-batch-banner" id="erg-batch-banner">loading…</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="erg-count" id="erg-count"></span>
+        <div class="erg-view-toggle">
+          <button class="erg-btn active" id="btn-cards" onclick="setView('cards')">cards</button>
+          <button class="erg-btn" id="btn-table" onclick="setView('table')">table</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="erg-cards-wrap" id="erg-cards-wrap">
+      <div id="erg-cards"></div>
+    </div>
+
+    <div class="erg-table-wrap hidden" id="erg-table-wrap">
+      <table class="erg-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Claim</th>
+            <th>Desk</th>
+            <th>Guilds</th>
+            <th>Conf.</th>
+            <th>Origin</th>
+            <th>Tier</th>
+            <th>Flags</th>
+            <th>Review</th>
+          </tr>
+        </thead>
+        <tbody id="erg-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="erg-reader" class="erg-reader hidden"></div>
+
+    <!-- ── BOTTOM: CHAIN BUILDER + ACTIONS ─────────────────────────────── -->
+    <div class="erg-bottom">
+      <div class="erg-thread">
+        <div class="erg-thread-header">
+          <span class="erg-wordmark" style="font-size:12px;">thread builder <span style="color:var(--oak-faint);font-size:10px;">· ariadne</span></span>
+          <span class="erg-thread-verdict" id="thread-verdict">no thread yet</span>
+        </div>
+        <!-- KEEL: slot order is the canonical chain order. SYM → MEAS → BIO → MECH → NUT. -->
+        <div class="erg-thread-bobbins" id="thread-bobbins">
+          <div class="erg-bobbin" data-desk="SYM"><div class="erg-bobbin-label">SYM</div><div class="erg-bobbin-empty">add SYM ergon</div></div>
+          <div class="erg-bobbin" data-desk="MEAS"><div class="erg-bobbin-label">MEAS</div><div class="erg-bobbin-empty">add MEAS ergon</div></div>
+          <div class="erg-bobbin" data-desk="BIO"><div class="erg-bobbin-label">BIO</div><div class="erg-bobbin-empty">add BIO ergon</div></div>
+          <div class="erg-bobbin" data-desk="MECH"><div class="erg-bobbin-label">MECH</div><div class="erg-bobbin-empty">add MECH ergon</div></div>
+          <div class="erg-bobbin" data-desk="NUT"><div class="erg-bobbin-label">NUT</div><div class="erg-bobbin-empty">add NUT ergon</div></div>
+        </div>
+      </div>
+
+      <div class="erg-actions-panel">
+        <div class="erg-flabel" style="margin-bottom:10px;">exports</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <button class="erg-btn primary" id="btn-gold" onclick="exportGoldenThread()">golden thread ↓</button>
+          <button class="erg-btn brass" onclick="exportCustodianQueue()">custodian queue ↓</button>
+          <button class="erg-btn" onclick="exportSeedDigest()">seed digest ↓</button>
+          <button class="erg-btn" onclick="exportWolfpackScout()" title="concept-analyze selected scope, build a targeted web-search briefing">wolfpack scout ↓</button>
+        </div>
+      </div>
+
+      <!-- ── TALK TO AERINE (the barfly / persona layer) ─────────────────── -->
+      <div class="aer-chat" id="aer-chat">
+        <div class="aer-chat-head">
+          <span class="erg-wordmark" style="font-size:12px;">talk to <span style="color:var(--sym-fg);">aerine</span></span>
+          <span class="aer-chat-sub">helps you research — never diagnoses</span>
+        </div>
+        <div class="aer-log" id="aer-log"></div>
+        <div class="aer-suggest" id="aer-suggest"></div>
+        <form class="aer-input-row" id="aer-form" autocomplete="off">
+          <input type="text" class="aer-input" id="aer-input" placeholder="ask about your gut — e.g. bloating and SIBO, or does fiber help?" />
+          <button class="erg-btn primary" type="submit" id="aer-send">ask</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="erg-footer">
+  <div class="erg-footer-row">
+    <div class="erg-footer-copy">
+      © 2026 <strong>AEXTech Holdings</strong> · Aerine — gut-health research assistant (v0 prototype)
+    </div>
+    <div class="erg-footer-copy">
+      Confidential — pre-publication review artifact
+    </div>
+  </div>
+  <div class="erg-footer-disclaim">
+    Seed corpus: this prototype is loaded with a small real subset of the Aerine ergastorion — erga extracted from published sources under the Collector's procedure, each carrying its verbatim source passage, DOI, and provenance. It is a <strong>seed slice, not the full corpus</strong>; many gut-health topics are not yet covered, and Aerine will say so plainly when a question outruns what she can trace.
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    Aerine <strong>helps you research; she does not diagnose</strong>. Nothing here is medical, clinical, or nutritional advice. Confidence tiers and the golden/loose/broken verdict describe the strength of the evidence chain, not a recommendation to act.
+  </div>
+</footer>
+
+<!-- Real ergastorion corpus (seed subset), injected from data/erga.json by build.py.
+     Kept as a data island so the page is self-contained and works from file:// with no fetch. -->
+<script id="aerine-corpus" type="application/json">[{"ergon_id":"erg-BIO-024-V1","type":"fact","desk":"biology","assertion":"Baseline Prevotella abundance predicts weight loss in response to a high-fiber/whole grain diet. In a 6-week RCT (n=75 overweight adults), high-Prevotella subjects lost nearly 2 kg more on a whole grain diet compared to refined wheat, while low-Prevotella subjects remained weight-stable. Participants with no detectable Prevotella (0-P group) gained weight on refined wheat but lost weight on whole grain (P=0.009), and showed greater waist circumference reduction (−4.7 vs +0.8 cm, P<0.05).","subject":{"type":"organism","name":"Prevotella","aliases":["Prevotella copri","P/B ratio","Prevotella enterotype"]},"object":{"type":"effect","name":"weight loss response to fiber","aliases":["diet-microbiome interaction","personalized nutrition response"]},"relationship":"modulates","qualifiers":{"magnitude":"high-P: ~2 kg greater weight loss on WG vs RW; 0-P: 1 kg loss on WG (P=0.009) vs 0.63 kg gain on RW; waist circumference: −4.7 vs +0.8 cm (P<0.05) in low-P group","conditions":"ad libitum whole grain wheat/rye products replacing refined wheat for 6 weeks","duration":"6 weeks","population":"healthy overweight adults aged 30-65, n=75","model":"human RCT (3-arm: WG wheat, WG rye, refined wheat)"},"provenance":{"source_type":"journal_article","source_tier":"tertiary","ref":"ASN Prevotella abundance and weight loss","doi":"10.1093/jn/nxz248","location":"commentary on Christensen et al. 2019 (doi: 10.1093/jn/149.12.2174)","original_text":"High-P subjects lost nearly 2 kg more on the WG diet when compared with RG, whereas low-P subjects remained weight-stable. 0-P participants experienced a 1 kg loss in body weight with WG consumption (P = 0.009).","data_origin":"echo"},"confidence":"emerging","guilds":["fermentation"],"seeds":["prevotella","whole_grain","fiber","weight_loss","individual_variation","personalized_nutrition","enterotype"],"integrity":{"claim_fingerprint":"prevotella|modulates|weight_loss_on_fiber","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.35,"coi_flag":false,"coi_detail":"Commentary author CMW is paid advisory board member for Ardent Mills LLC. Primary study (Christensen et al.) had no funding disclosed.","methodology_flags":["echo-unresolved"],"review_worthy":0.65},"chain_hints":["Echo from Christensen et al. 2019 RCT — needs tracing to primary source for confidence upgrade","Prevotella and Bacteroides may compete for same functional niche (fiber degradation)","Supports personalized nutrition based on microbiome composition"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-BIO-025-V1","type":"fact","desk":"biology","assertion":"Two E. coli strains (BL21(DE3) and K-12) and two Klebsiella species (K. pneumoniae and K. aerogenes KCTC 2190) account for 40.24% of all duodenal bacteria in SIBO subjects (≥10³ CFU/mL on MAC) vs 5.6% in non-SIBO subjects. Shotgun sequencing (n=38) confirmed these specific strains. The E. coli strains were hardly detectable in non-SIBO duodenum. Enterobacteriaceae RA was increased in SIBO subjects (log₂ FC 2.43, adjusted P=2.66E-7).","subject":{"type":"organism","name":"Escherichia coli and Klebsiella species","aliases":["E. coli BL21(DE3)","E. coli K-12","K. pneumoniae","K. aerogenes KCTC 2190","Enterobacteriaceae"]},"object":{"type":"effect","name":"SIBO microbiome dominance","aliases":["duodenal bacterial overgrowth","SIBO microbial composition"]},"relationship":"dominates","qualifiers":{"magnitude":"40.24% of duodenal bacteria in SIBO vs 5.6% in non-SIBO; Enterobacteriaceae log₂ FC=2.43 (adjusted P=2.66E-7); E. coli FC=6.55 (P=4.8E-4), K. pneumoniae FC=12.43 (P=9.4E-12), K. aerogenes FC=24.76 (P=4.3E-11), Enterobacter FC=22.11 (P=7.1E-8)","conditions":"duodenal aspirate via double-lumen sterile catheter; 16S rRNA (n=483 with culture) confirmed by shotgun metagenomics (n=38)","population":"505 adults undergoing EGD; 385 non-SIBO (<10³ CFU/mL), 98 SIBO (≥10³ CFU/mL) on MAC","model":"human prospective cross-sectional (REIMAGINE study)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Specific Coliform Strains section, p.266; Discussion p.268","original_text":"Duodenal RA of specific Enterobacteriaceae species were increased in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including Escherichia coli (FC, 6.55; adjusted P = 4.8E-4), Klebsiella pneumoniae (FC, 12.43; adjusted P = 9.4E-12), Klebsiella aerogenes (FC, 24.76; adjusted P = 4.3E-11)... This remarkably specific group of microbes account for 40.24% of duodenal bacteria in SIBO subjects, compared with 5.6% in non-SIBO subjects.","data_origin":"primary"},"confidence":"strong","guilds":["opportunist"],"seeds":["sibo","e_coli","klebsiella","enterobacteriaceae","duodenal_microbiome","bacterial_overgrowth","shotgun_sequencing","strain_level"],"integrity":{"claim_fingerprint":"ecoli_klebsiella|dominates|sibo microbiome","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.1,"coi_flag":true,"coi_detail":"Pimentel lab (Cedars-Sinai MAST). Study funded by institutional funds. Pimentel has consulting relationships with multiple GI pharma companies.","methodology_flags":[],"review_worthy":0.25},"chain_hints":["CRITICAL BIO: First strain-level identification of SIBO-dominant organisms in a large cohort","Only 4 strains/species account for majority of overgrowth — remarkably specific","E. coli BL21(DE3) and K-12 were hardly detectable in non-SIBO — these are not commensals drifting upward but true invaders","Connects to SYM-009 (strain-symptom correlations from same study)","Connects to MECH-023/024 (metabolic pathways enriched by these organisms)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MEAS-014-V1","type":"fact","desk":"measurement","assertion":"Exhaled breath contains approximately 3000 known gaseous compounds, with disease-relevant biomarker gases present at parts-per-billion (ppb) concentrations within a matrix at 31-35°C and 65-89% relative humidity. Specific breath gas-disease associations relevant to gut microbiome monitoring include: methane linked to colorectal cancer and constipation-predominant IBS; hydrogen sulfide linked to halitosis and airway inflammation; ammonia linked to renal failure and H. pylori infection; hydrogen linked to carbohydrate malabsorption and small intestinal bacterial overgrowth. A single gas may serve as a biomarker for multiple diseases, and a single disease may be characterized by multiple biomarker gases, requiring sensors with both high sensitivity (ppb detection) and high selectivity (discrimination in complex mixtures). Five key engineering challenges for clinical breath sensing are: (1) material engineering for selectivity and sensitivity under humid conditions, (2) signal processing and ML-based pattern recognition, (3) hardware engineering for durable, energy-efficient portable devices, (4) biomarker origin and mechanism studies to establish gas-disease correlations, and (5) field testing with real breath samples. The gold standard remains GC-MS (sub-ppb sensitivity, high selectivity but expensive, non-portable); emerging alternatives include electrochemical sensors (ppb range, miniaturizable, low-cost), SERS-based optical sensors (trace detection, potentially humidity-resistant), and electronic noses (pattern recognition across multiple gases simultaneously).","subject":{"type":"measurement_context","name":"exhaled breath gas composition and sensor operating environment","aliases":["breath matrix","breath biomarkers","breath analysis","breathomics","exhaled breath"]},"object":{"type":"measurement_challenge","name":"detection requirements and engineering challenges for breath gas sensors","aliases":["breath sensor requirements","gas detection limits","sensor selectivity","ppb detection"]},"relationship":"defines_requirements_for","qualifiers":{"magnitude":"~3000 known breath compounds; biomarkers at ppb (10^-9); matrix at 31-35°C, 65-89% RH; GC-MS achieves sub-ppb but is non-portable; electrochemical sensors reach ppb range with miniaturization","conditions":"Review of breath sensing field as of 2025; operating parameters for exhaled breath at body temperature with full humidity saturation","population":"General human breath composition","model":"review/editorial synthesis"},"provenance":{"source_type":"journal_article","source_tier":"secondary","ref":"Kang H, Jung H-T. Breath Analysis: An ACS Sensors Special Issue. ACS Sens 2025;10:1505-1506. Supplemented by: Fernández-Lodeiro A, Constantinou M, Panteli C, Agapiou A, Andreou C. Breath Analysis via Surface Enhanced Raman Spectroscopy. ACS Sens 2025;10:602-621","doi":"10.1021/acssensors.5c00717","location":"Kang & Jung p.1505 (operating parameters, gas-disease associations, 5 challenges); Fernández-Lodeiro p.602-603 (VOC detection technologies, ~3000 compounds, H2S mention)","original_text":"Target biomarker gases typically exist in parts-per-billion (ppb) concentrations within exhaled breath at 31-35 °C, 65-89% relative humidity (RH), and in the presence of numerous interfering gases. This makes detection akin to finding a needle in a haystack.","data_origin":"synthesis"},"confidence":"moderate","guilds":["methane","sulfur","fermentation"],"seeds":["breath_testing","ppb","gas_sensor","humidity","temperature","selectivity","sensitivity","gc_ms","electrochemical_sensor","electronic_nose","sers","voc","breath_biomarker","h2s_detection","methane_detection","hydrogen_detection","ammonia"],"integrity":{"claim_fingerprint":"breath_environment|defines_requirements_for|gas_sensor_design","corroborations":2,"corroboration_refs":["Wang C, Sahay P. Breath Analysis Using Laser Spectroscopic Techniques. Sensors 2009;9:8230-8262","Güntner AT et al. Breath Sensors for Health Monitoring. ACS Sens 2019;4:268-280"],"conflicts":[],"slop_score":0.3,"coi_flag":false,"coi_detail":"Editorial and review from academic researchers. No industry funding noted.","methodology_note":"Sources are an editorial and a review paper. Neither contains original experimental measurements. The operating parameters are well-established consensus. For Irene, this ergon defines the problem space.","methodology_flags":[],"review_worthy":0.4},"chain_hints":[{"from_desk":"measurement","to_desk":"biology","via_seed":"methane_detection","target_ergon":null,"note":"Methane detection at ppb in breath connects to all methane guild erga. MEAS-011 (diagnostic accuracy) depends on sensors achieving these detection limits."},"The 65-89% RH operating range is critical context for all breath measurement erga. Any sensor performance claims (MEAS-008 through MEAS-013) should be evaluated against whether they were tested under these conditions.","The editorial explicitly notes methane→colorectal cancer association — this connects breath methane to a disease endpoint beyond the GI motility effects captured in MECH-005, MECH-032, SYM-011."],"version":1,"created_at":"2026-03-31","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MECH-023-V1","type":"fact","desk":"mechanism","assertion":"Assimilatory sulfate reduction pathways (I, III, and IV) are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO subjects. Pathway enrichment FCs: 1.541 (P=8.25E-10), 1.6575 (P=2.87E-11), and 1.115 (P=.020825). Sulfate assimilation and cysteine biosynthesis superpathway also enriched (FC 1.14, P=1.00E-07). Assimilatory pathways I and III correlated with diarrhea severity (Spearman r=0.193, P=.031 and r=0.190, P=.033 respectively).","subject":{"type":"pathway","name":"assimilatory sulfate reduction","aliases":["sulfate reduction pathway I","sulfate reduction pathway III","sulfate reduction pathway IV","sulfate assimilation","cysteine biosynthesis"]},"object":{"type":"gas","name":"hydrogen sulfide production in SIBO","aliases":["H2S in SIBO","SIBO sulfide pathway","breath H2S"]},"relationship":"enhances","qualifiers":{"magnitude":"Pathway I FC=1.541 (P=8.25E-10); III FC=1.6575 (P=2.87E-11); IV FC=1.115 (P=.020825); sulfate assimilation/cysteine biosynthesis FC=1.14 (P=1.00E-07); diarrhea correlation: pathway I r=0.193 P=.031, pathway III r=0.190 P=.033","conditions":"duodenal aspirate; functional profiles from 16S data via MetaCyc Pathway Database; SIBO defined as ≥10³ CFU/mL on MAC","population":"505 adults undergoing EGD (REIMAGINE study)","model":"human prospective cross-sectional with predicted functional profiling"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Gas Production Pathways section, p.266","original_text":"Assimilatory sulfate reduction pathways (I, III, and IV) were enriched in subjects with ≥10³ CFU/mL on MAC vs those with <10³ CFU/mL (FC, 1.541; adjusted P = 8.25E-10; FC, 1.6575; adjusted P = 2.87E-11; and FC, 1.115; adjusted P = .020825, respectively), as was the sulfate assimilation and cysteine biosynthesis superpathway (FC, 1.14-fold; adjusted P = 1.00E-07). Furthermore, assimilatory pathways I and III correlated with diarrhea (Spearman r = 0.193; P = .031; Spearman r = 0.190; P = .033).","data_origin":"primary"},"confidence":"moderate","guilds":["sulfur","opportunist"],"seeds":["sibo","h2s","sulfate_reduction","assimilatory_sulfate_reduction","diarrhea","duodenal_microbiome","metabolic_pathway","cysteine_biosynthesis"],"integrity":{"claim_fingerprint":"assimilatory_sulfate_reduction|enhanced_in|sibo","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"Pimentel lab (Cedars-Sinai MAST). Functional profiles are predicted from 16S (PICRUSt-style), not directly measured — inherent limitation.","methodology_note":"Functional pathways predicted from 16S rRNA data, not directly measured via shotgun metagenomics for the full cohort. Shotgun data (n=38) confirmed enrichment of sugar degradation and pyruvate fermentation pathways.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["KEY: These are ASSIMILATORY sulfate reduction pathways — distinct from DISSIMILATORY sulfate reduction (MECH-004/006/022)","Assimilatory pathways incorporate sulfate into amino acids (cysteine) rather than using sulfate as terminal electron acceptor","Both assimilatory and dissimilatory pathways can produce H2S, but by different mechanisms","Connects to MECH-004/006 (Desulfovibrio dissimilatory SRB pathway) — SIBO may involve different H2S production mechanism","Diarrhea correlation (r~0.19) is modest but significant — symptom link established","Supports breath H2S as a SIBO biomarker via mechanistic pathway enrichment"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-MECH-024-V1","type":"fact","desk":"mechanism","assertion":"Twelve sugar pyruvate fermentation pathways and mixed acid fermentation are enriched in the duodenal microbiome of SIBO subjects (≥10³ CFU/mL on MAC) compared to non-SIBO (FC >1.1, adjusted P<.05). Aerobic cleavage of pyruvate is also enriched, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC=1.48, adjusted P=2.09E-09). These pathways correlated with diarrhea (r=0.252, P=.0034), bloating (r=0.185, P=.025), urgency (r=0.205, P=.0146), and abdominal pain (r=0.300, P=.0006). Enterobacteriaceae species produce H₂ from sugar fermentation, and microbial reactions known to produce or consume H₂ are largely represented by pyruvate fermentation coupled with aerobic/anaerobic respiration.","subject":{"type":"pathway","name":"sugar pyruvate fermentation","aliases":["mixed acid fermentation","pyruvate fermentation","carbohydrate fermentation","aerobic pyruvate cleavage"]},"object":{"type":"gas","name":"hydrogen production in SIBO","aliases":["H2 production","breath hydrogen","fermentative H2"]},"relationship":"enhances","qualifiers":{"magnitude":"12 sugar pyruvate fermentation pathways enriched (FC>1.1, P<.05); pyruvate→cytochrome bd/bo oxidase FC=1.48 (P=2.09E-09); succinate→cytochrome bd/bo oxidase FC=1.13 (P=.01); diarrhea r=0.252 P=.0034, bloating r=0.185 P=.025 (for pyruvate→electron transfer); bloating r=0.300 P=.0006, abdominal pain r=0.194 P=.0189 (for succinate→electron transfer)","conditions":"duodenal aspirate; functional profiles from 16S and shotgun data via MetaCyc; SIBO ≥10³ CFU/mL on MAC","population":"505 adults (16S) and 38 subjects (shotgun) from REIMAGINE study","model":"human prospective cross-sectional with predicted and measured functional profiling"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Gas Production Pathways section, p.266","original_text":"Twelve sugar pyruvate fermentation pathways were enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL (FC, >1.1; adjusted P < .05), as was mixed acid fermentation (FC, 1.2; adjusted P = 2.18E-25). Aerobic cleavage of pyruvate was enriched in subjects with ≥10³ CFU/mL vs those with <10³ CFU/mL, including pyruvate to cytochrome bd/bo oxidase electron transfer (FC, 1.48; adjusted P = 2.09E-09), which correlated with diarrhea (Spearman r = 0.252; P = .0034), bloating (Spearman r = 0.185; P = .025), and urgency (Spearman r = 0.205; P = .0146)","data_origin":"primary"},"confidence":"moderate","guilds":["fermentation","opportunist"],"seeds":["sibo","h2","hydrogen","pyruvate_fermentation","sugar_fermentation","mixed_acid_fermentation","diarrhea","bloating","urgency","enterobacteriaceae","breath_test"],"integrity":{"claim_fingerprint":"sugar_pyruvate_fermentation|enhanced_in|sibo h2 production","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"Pimentel lab. 16S-based functional predictions confirmed by shotgun in subset (n=38).","methodology_note":"Primary functional analysis from 16S predicted profiles (MetaCyc). Shotgun metagenomics (n=38) confirmed enrichment of sugar degradation, aerobic respiration, and pyruvate fermentation pathways, lending additional confidence.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["KEY MECH: Establishes H2 production mechanism in SIBO — not just fermentation in general but specific pyruvate pathways","Supports breath hydrogen testing for SIBO by identifying the metabolic source of H2 in duodenal microbiome","Paper argues H2 derives from small intestine (not rapid transit to colon) — addresses longstanding debate","Connects to MECH-023 (H2S pathways in same subjects) — SIBO produces both H2 AND H2S via distinct pathway enrichment","Connects to BIO-025 (Enterobacteriaceae species driving these pathways)","Connects to existing fermentation guild erga (MECH-009/010 butyrate cross-feeding)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-NUT-021-V1","type":"fact","desk":"nutrition","assertion":"Supplementation with 21 g/d of poorly digested soluble fibers (polydextrose or soluble corn fiber) for 21 days shifted the fecal Bacteroidetes:Firmicutes ratio in healthy men (n=21, crossover RCT). Firmicutes decreased from 68% (no-fiber control) to 56% (polydextrose) and 55% (SCF) (P<0.001). Bacteroidetes increased from 25% to 36% and 38% respectively (P<0.001). The B:F ratio correlated positively with total dietary fiber intake (r=0.45, P=0.003) but NOT with BMI (r=0.06, P=0.64). Parabacteroides was the primary driver, increasing 4-5× (1.66%→6.83% PDX, 7.94% SCF, P<0.001). However, known butyrate producers Eubacterium (11.2%→6.31% PDX, 5.94% SCF), Dorea (1.32%→0.81% PDX, 0.82% SCF), and Roseburia (3.80%→2.33% PDX, 2.40% SCF) all DECREASED with fiber (P<0.001). Butanoate metabolism genes were depleted 15-20% (P=0.001, q=0.004). Amino acid metabolism genes showed the largest functional enrichment after fiber (P<0.0001).","subject":{"type":"nutrient","name":"soluble fiber (polydextrose and soluble corn fiber)","aliases":["PDX","SCF","polydextrose","soluble corn fiber","poorly digested fiber","prebiotic fiber"]},"object":{"type":"effect","name":"Bacteroidetes:Firmicutes ratio shift with butyrate producer depletion","aliases":["B:F ratio","Parabacteroides enrichment","Eubacterium depletion","microbiome restructuring"]},"relationship":"causes","qualifiers":{"magnitude":"B:F shift: Firmicutes 68%→56/55% (P<0.001), Bacteroidetes 25%→36/38% (P<0.001); Parabacteroides 1.66%→6.83/7.94% (P<0.001); Eubacterium 11.2%→6.31/5.94% (P<0.001); Roseburia 3.80%→2.33/2.40% (P<0.05); Dorea 1.32%→0.81/0.82% (P<0.05); Butanoate metabolism −15-20% (P=0.001, q=0.004); B:F~fiber r=0.45, P=0.003; B:F~BMI r=0.06, P=0.64 (NS)","conditions":"Double-blind, placebo-controlled, 3-period crossover; 21 g/d supplemental fiber; 21 days per period; whole-genome shotgun 454 pyrosequencing; KEGG functional annotation","population":"21 healthy adult men, age 27.5±4.33y, BMI 27.0±4.02","model":"human RCT (crossover, 3-period)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Holscher HD, Caporaso JG, Hooda S, Brulc JM, Fahey GC, Swanson KS. Fiber supplementation influences phylogenetic structure and functional capacity of the human intestinal microbiome. Am J Clin Nutr 2015;101:55-64","doi":"10.3945/ajcn.114.092064","location":"Results — Tables 2-3; Figures 1-3; Discussion p.61-63","original_text":"The abundance of the Firmicutes phylum was lower (P < 0.001) when men consumed polydextrose (56%) and SCF (55%) than when they consumed NFC (68%)... Within carbohydrate metabolism, butanoate metabolism was depleted 15% and 20% with polydextrose and SCF.","data_origin":"primary"},"confidence":"moderate","guilds":["fermentation","butyrate"],"seeds":["fiber","polydextrose","soluble_corn_fiber","bacteroidetes_firmicutes_ratio","parabacteroides","eubacterium","roseburia","butyrate","butanoate_metabolism","dietary_fiber"],"integrity":{"claim_fingerprint":"soluble_fiber|causes|bf_ratio_shift","corroborations":1,"corroboration_refs":["Boler et al. 2011 — same RCT, 16S amplicon: similar taxonomic shifts"],"conflicts":[],"slop_score":0.2,"coi_flag":true,"coi_detail":"JMB (co-author) is an employee of General Mills Inc. Study supported in part by General Mills. However, the finding that butyrate producers DECREASED argues against a purely promotional narrative.","methodology_note":"Well-designed crossover RCT. n=21 modest but crossover design increases power. The PARADOX of butyrate producer depletion despite prebiotic fiber is the most important finding.","methodology_flags":[],"review_worthy":0.35},"chain_hints":["PARADOX: Fiber supplementation DEPLETED butyrate producers (Eubacterium, Roseburia, Dorea) and butanoate metabolism genes. This contradicts simple 'fiber feeds good bacteria' narratives.","Connects to BIO-026 (P. dorei in psyllium nonresponders) — same genus responding to fiber","Connects to NUT-017 (low-FODMAP → Bifidobacterium reduction) — fiber effects on microbiome are not uniformly beneficial","For Irene: fiber supplementation has complex, not uniformly positive, effects. 'Eat more fiber' is oversimplified.","The amino acid metabolism enrichment may connect to MECH-022 (protein fermentation → H2S)"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-SYM-004-V1","type":"fact","desk":"symptom","assertion":"In IMO-positive subjects (CH4 >= 10 ppm), breath CH4 levels correlate with constipation severity (R=0.577, P=0.019).","subject":{"type":"gas","name":"breath methane"},"object":{"type":"symptom","name":"constipation severity"},"relationship":"correlates_with","qualifiers":{"magnitude":"R=0.577, P=0.019","conditions":"IMO-positive (CH4 >= 10 ppm)","population":"n=22 IMO-positive","model":"human cross-sectional"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"MAST2025 Gas-biome match","doi":"10.1007/s10620-025-09156-y","location":"results, CH4 section","data_origin":"primary","original_text":"CH4 levels in IMO-positive subjects correlated with greater constipation severity (P=0.019)."},"confidence":"strong","guilds":["methane"],"seeds":["methane","constipation","imo","breath_testing"],"integrity":{"claim_fingerprint":"sha256:e96cd05144555fa4","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.0,"coi_flag":false,"methodology_flags":[],"review_worthy":0.0},"chain_hints":[],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"},{"ergon_id":"erg-SYM-009-V1","type":"fact","desk":"symptom","assertion":"In SIBO subjects (>=10^3 CFU/mL on MAC), specific bacterial strains show distinct symptom correlation profiles. E. coli BL21(DE3): abdominal pain r=0.284 (P=.049), diarrhea r=0.321 (P=.02), bloating r=0.110 (sig). E. coli K-12: abdominal pain r=0.337 (sig), diarrhea r=0.298 (sig), excess gas r=0.348 (sig), urgency r=0.374 (sig). K. aerogenes KCTC 2190: abdominal pain r=0.374 (P=.013), diarrhea r=0.305 (P=.038), excess gas r=0.286 (P=.048). Escherichia is more associated with bloating and diarrhea; Klebsiella has a greater association with abdominal pain.","subject":{"type":"organism","name":"E. coli and K. aerogenes strains","aliases":["E. coli BL21(DE3)","E. coli K-12 W3110","K. aerogenes KCTC 2190","SIBO coliforms"]},"object":{"type":"symptom","name":"GI symptom severity profiles","aliases":["abdominal pain","diarrhea","bloating","excess gas","urgency"]},"relationship":"correlates_with","qualifiers":{"magnitude":"Spearman r values 0.110-0.374 across strain-symptom pairs; see assertion for full matrix; all reported P<.05","conditions":"shotgun metagenomic sequencing of duodenal aspirates; symptom severity measured by VAS 0-100; SIBO defined as >=10^3 CFU/mL on MAC","population":"n=28 subjects with shotgun data (N=17 SIBO >=10^3, N=11 non-SIBO <10^3); mean age 61+/-16y","model":"human prospective cross-sectional (REIMAGINE study shotgun subset)"},"provenance":{"source_type":"journal_article","source_tier":"primary","ref":"Leite et al. Defining Small Intestinal Bacterial Overgrowth by Culture and High Throughput Sequencing","doi":"10.1016/j.cgh.2023.06.001","location":"Results — Specific Coliform Strains section, p.266; Table 2, p.267; Discussion p.268","original_text":"only specific E coli strains, with genomic similarities to E coli BL21(DE3) and E coli strain K-12 substrain W3110, correlated with abdominal pain (Spearman r = 0.284, P = .049; and Spearman r = 0.337, P = .02, respectively), and diarrhea (Spearman r = 0.321, P = .030; and Spearman r = 0.298, P = .04, respectively); a specific K aerogenes strain, with genomic similarities to K aerogenes KCTC 2190, correlated with abdominal pain (Spearman r = 0.374; P = .013), diarrhea (Spearman r = 0.305; P = .038), and excess gas (Spearman r = 0.286; P = .048)... Escherichia is associated with bloating and diarrhea, whereas Klebsiella has a greater association with abdominal pain","data_origin":"primary"},"confidence":"emerging","guilds":["opportunist"],"seeds":["sibo","e_coli","klebsiella","abdominal_pain","diarrhea","bloating","excess_gas","urgency","strain_level","symptom_correlation","visceral_hypersensitivity"],"integrity":{"claim_fingerprint":"ecoli_klebsiella_strains|correlate_with|gi_symptom_profiles","corroborations":0,"corroboration_refs":[],"conflicts":[],"slop_score":0.3,"coi_flag":true,"coi_detail":"Pimentel lab. Small shotgun subset (n=28) limits statistical power. Multiple comparisons across many strain-symptom pairs increase false discovery risk.","methodology_note":"Shotgun subset is small (n=28). Correlations are modest (r=0.11-0.37). Multiple strain-symptom comparisons were performed; FDR correction status for these specific correlations is unclear from text. Cross-sectional design cannot establish causality.","methodology_flags":["n-under-threshold"],"review_worthy":0.6},"chain_hints":["FIRST SYM-DESK ERGON FROM SIBO STRAIN-LEVEL DATA — addresses SYM desk stagnation","K. aerogenes linked to visceral hypersensitivity via histamine production (ref 22 in paper — consistent with recent studies)","Distinct symptom fingerprints per strain suggests different pathogenic mechanisms","Connects to BIO-025 (same strains dominating SIBO microbiome)","Connects to MECH-023 (sulfate reduction pathways) and MECH-024 (sugar fermentation pathways) — the metabolic basis for these symptoms","Small n for shotgun — confidence appropriately set to emerging despite primary data"],"version":1,"created_at":"2026-03-30","producer":"COLLECTOR-MANUAL","status":"validated"}]</script>
+
+<style id="aerine-chat-css">
+/* ── TALK TO AERINE — persona/chat layer ─────────────────────────────────── */
+.aer-chat { background: var(--parch-warm); border: 0.5px solid var(--brass-mid); border-radius: 3px; padding: 13px 15px; display: flex; flex-direction: column; min-height: 320px; max-height: 560px; }
+.aer-chat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 9px; border-bottom: 0.5px solid var(--brass-mid); padding-bottom: 8px; }
+.aer-chat-sub { font-size: 10px; font-family: var(--font-mono); color: var(--oak-faint); }
+.aer-log { flex: 1 1 auto; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+.aer-msg { font-size: 13px; line-height: 1.5; }
+.aer-msg.user { align-self: flex-end; max-width: 85%; background: var(--oak); color: var(--parch); padding: 7px 11px; border-radius: 3px; }
+.aer-msg.aerine { align-self: flex-start; max-width: 96%; }
+.aer-msg.aerine .aer-who { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; color: var(--sym-fg); margin-bottom: 3px; }
+.aer-verdict-line { font-family: var(--font-mono); font-size: 10px; margin: 6px 0 2px; display: inline-block; padding: 1px 7px; border-radius: 3px; border: 0.5px solid var(--brass-mid); }
+.aer-verdict-line.gold { background:#E9D89A; color:#5A3E08; border-color:#A88040; }
+.aer-verdict-line.loose { background:#D8D5CD; color:#3A352C; border-color:#8A847A; }
+.aer-verdict-line.broken { background:var(--echo-bg); color:var(--echo-fg); border-color:var(--echo-bd); }
+.aer-chain { display: flex; flex-wrap: wrap; gap: 4px; margin: 7px 0; }
+.aer-link { font-family: var(--font-mono); font-size: 10px; padding: 2px 6px; border-radius: 3px; border: 0.5px solid var(--brass-mid); background: var(--parch-mid); cursor: pointer; color: var(--oak); }
+.aer-link:hover { background: var(--parch-card); }
+.aer-link .lk-desk { color: var(--oak-faint); }
+.aer-link.miss { border-style: dashed; opacity: 0.75; cursor: default; background: transparent; }
+.aer-cites { margin-top: 6px; display: flex; flex-direction: column; gap: 5px; }
+.aer-cite { font-size: 11px; border-left: 2px solid var(--brass-mid); padding: 2px 0 2px 8px; }
+.aer-cite .c-claim { color: var(--oak); }
+.aer-cite .c-quote { color: var(--oak-mid); font-style: italic; }
+.aer-cite .c-meta { font-family: var(--font-mono); font-size: 9.5px; color: var(--oak-faint); margin-top: 2px; }
+.aer-cite a { color: var(--sym-fg); text-decoration: none; border-bottom: 0.5px dotted var(--sym-bd); }
+.aer-cite a:hover { border-bottom-style: solid; }
+.aer-tag { font-family: var(--font-mono); font-size: 9px; padding: 0 4px; border-radius: 2px; margin-left: 4px; }
+.aer-tag.strong { background: var(--strong-bg); color: var(--strong-fg); }
+.aer-tag.moderate { background: var(--mod-bg); color: var(--mod-fg); }
+.aer-tag.emerging { background: var(--emerg-bg); color: var(--emerg-fg); }
+.aer-tag.coi { background: var(--flag-bg); color: var(--flag-fg); }
+.aer-tag.echo { background: var(--echo-bg); color: var(--echo-fg); }
+.aer-suggest { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 6px; }
+.aer-chip { font-size: 11px; padding: 3px 8px; border-radius: 3px; border: 0.5px solid var(--brass-mid); background: var(--parch-mid); cursor: pointer; color: var(--oak-mid); }
+.aer-chip:hover { background: var(--parch-card); }
+.aer-input-row { display: flex; gap: 6px; margin-top: auto; padding-top: 8px; }
+.aer-input { flex: 1; font-family: var(--font-sans); font-size: 13px; padding: 7px 9px; border: 0.5px solid var(--brass-mid); border-radius: 3px; background: var(--parch); color: var(--oak); }
+.aer-input:focus { outline: none; border-color: var(--oak-faint); }
+.aer-mode { font-family: var(--font-mono); font-size: 9px; color: var(--oak-faint); }
+</style>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// KEEL NOTES — Aerine Ergastorion Browser v1 sketch
+//
+// SCHEMA (per ergon):
+//   ergon_id          e.g. "erg-MEAS-001-V1"
+//   canonical_name    one-sentence testable claim
+//   source_excerpt    structured pericope (see FRAMING CONVENTION below):
+//                       { lead_in, claim_text, follow_on, location }
+//   desk              SYM | BIO | NUT | MECH | MEAS  (one primary)
+//   guilds            array, ≥1, from the six-guild taxonomy
+//   confidence        strong | moderate | emerging
+//   data_origin       primary | synthesis | echo
+//   source_tier       primary | secondary | crowd-report
+//   seeds             array ≥2
+//   source_paper      citation string
+//   source_year
+//   methodology_flags array: animal-only, in-vitro-only, n-under-threshold,
+//                            echo-unresolved, coi-industry, duplicate-suspect,
+//                            crowd-self-report, selection-bias
+//   chain_hints       freeform: provenance debts, lateral-desk notes
+//
+// FRAMING CONVENTION (±1 / pericope):
+//   source_excerpt is STRUCTURED so report-shape drives display-shape:
+//     lead_in     — sentence(s) IMMEDIATELY PRECEDING the claim in source.
+//                   "" if the claim is a paragraph opener (note in chain_hints).
+//     claim_text  — the load-bearing sentence the canonical_name is derived from.
+//                   Required. Must be directly quotable from source.
+//     follow_on   — sentence(s) IMMEDIATELY FOLLOWING the claim in source.
+//                   "" if the claim is a paragraph closer.
+//     location    — optional string: "p. 12, para. 3" or "Fig 2 caption".
+//   This prevents cherry-picking by preserving surrounding context at the
+//   data layer — not as formatting, but as structure. The renderer uses this
+//   to display the claim_text in full weight with lead_in/follow_on muted.
+//   A missing lead_in/follow_on is an honest empty, not a display omission.
+//
+// GUILD BOOLEAN MODE (rail):
+//   any  (OR)  — ergon has ≥1 of the selected guilds [default]
+//   all  (AND) — ergon has ALL of the selected guilds (handoff/crossover finder)
+//   only (ONE) — ergon has exactly one guild AND it is in the selected set
+//                (surfaces "pure" single-guild erga)
+//
+// REVIEW-WORTHY SCORE (derived, not stored):
+//   Base: emerging=0.9, moderate=0.4, strong=0.1
+//   +0.20 if data_origin=echo AND flags contain echo-unresolved
+//   +0.15 if any methodology_flags
+//   +0.15 if coi-industry in flags
+//   +0.10 if source_tier=secondary OR crowd-report
+//   +0.10 if duplicate-suspect in flags
+//   clamp 0–1. Label "review" in UI. Higher = Custodian should look.
+//
+// GOLDEN THREAD CONTRACT (formerly "golden chain"):
+//   Fixed order: SYM → MEAS → BIO → MECH → NUT
+//   Each slot: one ergon whose primary desk matches the slot.
+//   Metaphor: Ariadne's thread — a traced reasoning path through the labyrinth
+//   from what the user notices down to what they could try.
+//   Verdict:
+//     GOLDEN  — all five filled, all confidence ∈ {strong, moderate},
+//               no echo-unresolved flags.  Aerine may speak confidently.
+//     LOOSE   — all five filled, but ≥1 is emerging OR has echo-unresolved.
+//               Complete but provisional — "something to pick at" to tighten.
+//               Aerine must hedge when using it.
+//     BROKEN  — any slot empty.  Not exportable.
+//   Export disabled unless all five slots filled.
+//
+// SLOT CLICK: empty thread slots are clickable and activate the corresponding
+//   desk filter ONLY — other active filters (guild, confidence, tier, etc.)
+//   are PRESERVED. The remaining card set is the candidate set for that slot
+//   under the user's current query. Do not clear or override other filters.
+//
+// GUILDS (archetype → canonical):
+//   workers      → fermentation
+//   minimalists  → methanogen
+//   bullies      → sulfur-reducer
+//   healers      → butyrate
+//   architects   → mucin
+//   locusts      → opportunist
+//
+// CROWD-REPORT TIER:
+//   User-reported symptom data (e.g. reddit scrapes, community survey analysis).
+//   Always accompanied by crowd-self-report and usually selection-bias flags.
+//   Never strong confidence; always emerging or (rarely) moderate.
+//   Honest label, not a dismissal — vocal self-reporters are a real population.
+//
+// WOLFPACK SCOUT (outbound coverage-gap finder):
+//   Complements the custodian queue. Custodian looks INWARD (what's sketchy
+//   in the catalog); Wolfpack looks OUTWARD (what's beyond the catalog).
+//
+//   Input scope (in priority order):
+//     1. Active thread compilation (≥1 bobbin filled) → hunt adjacent to this thread
+//     2. Narrowed filter set (any non-default filter active) → hunt over this slice
+//     3. Otherwise → prompt user for a scope string
+//
+//   Concept extraction:
+//     Collect seeds + canonical_name tokens + guild labels from in-scope erga.
+//     Frequency-rank; take top 3–4 as target terms. A "wolfpack" is 3–4
+//     searches hunting related but not identical terms.
+//
+//   Search posture: NARROW on terms, WIDE on sources. The query is specific;
+//     the source domain is not restricted to PubMed — also reviews, preprints,
+//     .gov, .edu, quality blogs. The wolfpack finds leads, not evidence.
+//
+//   Match tiers against existing erga:
+//     confirmed — DOI or exact paper-title match → reinforces existing ergon
+//     probable  — seed overlap + author/year overlap → flag for adjudication
+//     no-match  — novel paper → new-item-candidate, Linda's extraction queue
+//
+//   Architectural note: The wolfpack agent is the ONLY component with open-web
+//   access. Custodian and the extraction pipeline remain tools-disabled. The
+//   wolfpack's briefing feeds the closed pipeline; it does not write to the
+//   fact layer directly. Same separation as grIPhon's dibbler.
+//
+//   Stale-scope signal: each run timestamps itself per scope. Scopes unscanned
+//   for >N weeks surface as custodian-queue signals.
+//
+//   This sketch emits the BRIEFING only. Actual search execution is a backend
+//   concern; the briefing is the contract between UI and backend.
+//
+// SAMPLE DATA: 16 illustrative erga covering all 5 desks and all 6 guilds,
+// including one crowd-report SYM demo. Quotes are representative — real erga
+// need verified direct quotes with true ±1 framing from the source PDF.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BATCH_META = {
+  batch: "sketch-02",
+  session_date: "2026-04-17",
+  note: "Sketch batch — 16 illustrative erga, structured source_excerpt schema. Real extraction pass still pending."
+};
+
+const ERGA_ILLUSTRATIVE = [
+  {
+    ergon_id: "erg-MEAS-001-V1",
+    canonical_name: "Elevated breath CH4 baseline (>10 ppm) is associated with slower intestinal transit time in humans.",
+    source_excerpt: {
+      lead_in: "Methane status was defined dichotomously using a 10 ppm threshold on fasting breath samples.",
+      claim_text: "Subjects with breath methane >10 ppm at baseline exhibited significantly prolonged whole-gut transit times compared to methane-negative controls (p<0.01).",
+      follow_on: "The association persisted after adjustment for age, sex, and BMI, though effect attenuation suggests partial confounding.",
+      location: "p. 423, §3.1"
+    },
+    desk: "MEAS",
+    guilds: ["methanogen"],
+    confidence: "moderate",
+    data_origin: "synthesis",
+    source_tier: "secondary",
+    seeds: ["CH4 baseline", "transit time", "methanogen signature"],
+    source_paper: "Triantafyllou et al. — narrative review, J Neurogastroenterol Motil 2014",
+    source_year: 2014,
+    methodology_flags: [],
+    chain_hints: "Narrative review. Primary studies cited include Pimentel 2006, Kunkel 2011. Trace to Pimentel for n>100 data."
+  },
+  {
+    ergon_id: "erg-BIO-001-V1",
+    canonical_name: "Methanobrevibacter smithii consumes H2 + CO2 to produce CH4 at a stoichiometric ratio of 4H2 : 1CH4.",
+    source_excerpt: {
+      lead_in: "Among gut archaea, hydrogenotrophic methanogens represent a small but metabolically distinctive group.",
+      claim_text: "M. smithii catalyzes the hydrogenotrophic reduction of CO2 to methane with fixed stoichiometry: 4H2 + CO2 → CH4 + 2H2O.",
+      follow_on: "This tight stoichiometric coupling links methane output directly to upstream fermentative hydrogen supply.",
+      location: "p. 10013, §4 discussion"
+    },
+    desk: "BIO",
+    guilds: ["methanogen", "fermentation"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["hydrogenotrophic methanogenesis", "M. smithii", "CH4 stoichiometry"],
+    source_paper: "Samuel & Gordon, PNAS 2006",
+    source_year: 2006,
+    methodology_flags: [],
+    chain_hints: "Secondary desk: MECH (reaction chemistry). Cross-feeding link to fermentation guild via H2 supply."
+  },
+  {
+    ergon_id: "erg-MECH-001-V1",
+    canonical_name: "Intraluminal methane slows small intestinal transit via reduced peristaltic amplitude in animal models.",
+    source_excerpt: {
+      lead_in: "To isolate methane's effect from co-produced fermentation products, isolated ileal segments were perfused with a controlled gas mixture.",
+      claim_text: "Infusion of methane into the guinea pig ileum reduced peristaltic amplitude by 59% (p<0.01, n=8) without affecting frequency.",
+      follow_on: "The effect was dose-dependent and reversible upon washout, supporting a direct modulatory role rather than an artifact of displacement.",
+      location: "p. G1091, fig 3"
+    },
+    desk: "MECH",
+    guilds: ["methanogen"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["methane motility", "peristaltic amplitude", "guinea pig ileum"],
+    source_paper: "Pimentel et al., Am J Physiol 2006",
+    source_year: 2006,
+    methodology_flags: ["animal-only"],
+    chain_hints: "Human correlation exists (MEAS-001) but mechanism is from guinea pig. Flag animal-only when citing for human mechanism."
+  },
+  {
+    ergon_id: "erg-NUT-001-V1",
+    canonical_name: "Resistant starch type 2 (RS2) increases fecal butyrate concentration by 40–60% in healthy adults.",
+    source_excerpt: {
+      lead_in: "Thirty healthy adults completed a crossover trial with 3-week RS2 and placebo phases separated by a 2-week washout.",
+      claim_text: "Consumption of 40 g/day RS2 for 3 weeks increased fecal butyrate concentration from 12.1 to 19.4 mmol/kg (p<0.001, n=30).",
+      follow_on: "Acetate and propionate increases were proportionally smaller, consistent with selective stimulation of butyrogenic fermentation pathways.",
+      location: "p. e01188, table 2"
+    },
+    desk: "NUT",
+    guilds: ["fermentation", "butyrate"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["resistant starch", "butyrate production", "RS2 intervention"],
+    source_paper: "Baxter et al., mBio 2019",
+    source_year: 2019,
+    methodology_flags: [],
+    chain_hints: "Crossover RCT. Strong for fecal butyrate; weaker inference for breath signatures — not a direct MEAS link."
+  },
+  {
+    ergon_id: "erg-SYM-001-V1",
+    canonical_name: "Self-reported 'sluggish/backed-up' sensation shows weak positive correlation with elevated CH4 baseline in IBS-C cohorts.",
+    source_excerpt: {
+      lead_in: "Symptom scores were collected via validated Bristol Stool Form questionnaire immediately before breath sampling.",
+      claim_text: "In a pilot cohort (n=24), IBS-C patients with CH4 >10 ppm reported higher Bristol Stool Form sluggishness scores (r=0.42, p=0.04).",
+      follow_on: "Given the small sample and borderline p-value, replication in a larger cohort is warranted before clinical inference.",
+      location: "p. 1087, §3.2"
+    },
+    desk: "SYM",
+    guilds: ["methanogen"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["subjective transit", "bloating perception", "IBS-C methane"],
+    source_paper: "Chatterjee et al., Dig Dis Sci 2007 (pilot)",
+    source_year: 2007,
+    methodology_flags: ["n-under-threshold"],
+    chain_hints: "Pilot cohort only, r=0.42 is weak. Needs replication before moderate. Candidate SYM link for methanogen thread."
+  },
+  {
+    ergon_id: "erg-MEAS-002-V1",
+    canonical_name: "Post-protein-meal H2S elevation ≥2 ppm above baseline is characteristic of sulfur-reducing-bacteria-dominant profiles.",
+    source_excerpt: {
+      lead_in: "A 40-gram standardized protein meal was selected to provoke reliable SRB substrate delivery.",
+      claim_text: "Subjects with high fecal Desulfovibrio abundance showed postprandial breath H2S excursions of 2.1–4.3 ppm following a 40g protein challenge, versus <0.5 ppm in low-SRB controls (n=42).",
+      follow_on: "Peak H2S consistently preceded peak H2 in high-SRB subjects, supporting competitive hydrogen utilization by sulfate reducers.",
+      location: "p. e1901816, fig 2A"
+    },
+    desk: "MEAS",
+    guilds: ["sulfur-reducer"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["H2S spike", "protein challenge", "SRB profile"],
+    source_paper: "Murphy et al., Gut Microbes 2021",
+    source_year: 2021,
+    methodology_flags: [],
+    chain_hints: "Single study, n=42, good methodology. Upgrade to strong if replicated."
+  },
+  {
+    ergon_id: "erg-BIO-002-V1",
+    canonical_name: "Desulfovibrio spp. outcompete methanogens for H2 under sulfate-rich conditions due to higher substrate affinity.",
+    source_excerpt: {
+      lead_in: "Kinetic measurements of hydrogen consumption were performed across a range of H2 partial pressures in enrichment cultures.",
+      claim_text: "Sulfate-reducing bacteria exhibit a lower Km for hydrogen (~1 µM) than hydrogenotrophic methanogens (~10 µM), permitting preferential H2 utilization when sulfate is non-limiting.",
+      follow_on: "This affinity advantage inverts when sulfate becomes limiting, as in long sulfate-sparse intervals such as fasting.",
+      location: "p. 193, table 1"
+    },
+    desk: "BIO",
+    guilds: ["sulfur-reducer", "methanogen"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["hydrogen competition", "H2 affinity", "SRB vs methanogen"],
+    source_paper: "Lovley & Klug, Appl Environ Microbiol 1983",
+    source_year: 1983,
+    methodology_flags: [],
+    chain_hints: "Well-replicated microbial ecology finding. Applies across ecosystems — gut, sediment, rumen."
+  },
+  {
+    ergon_id: "erg-MECH-002-V1",
+    canonical_name: "Butyrate is the primary energy substrate for colonocytes, supplying 60–70% of their ATP.",
+    source_excerpt: {
+      lead_in: "Epithelial substrate preference was assessed by oxidative rate measurements using radiolabeled precursors.",
+      claim_text: "Colonocyte β-oxidation of butyrate accounts for approximately 70% of their energy requirements, with the remainder derived from acetate and amino acids.",
+      follow_on: "This substrate hierarchy is unusual among mammalian epithelia and makes colonic tissue uniquely dependent on microbial metabolic output.",
+      location: "p. 427, §discussion"
+    },
+    desk: "MECH",
+    guilds: ["butyrate", "mucin"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["colonocyte fuel", "butyrate β-oxidation", "SCFA metabolism"],
+    source_paper: "Roediger, Gastroenterology 1982",
+    source_year: 1982,
+    methodology_flags: [],
+    chain_hints: "Foundational. Replicated many times since. Ties butyrate guild to mucin guild via barrier energetics."
+  },
+  {
+    ergon_id: "erg-NUT-002-V1",
+    canonical_name: "Polyphenol-rich berry extracts suppress Desulfovibrio growth in in vitro fecal fermentation.",
+    source_excerpt: {
+      lead_in: "Freshly collected fecal slurries (n=8 donors) were incubated anaerobically with graded polyphenol doses.",
+      claim_text: "Incubation of fecal slurries with blueberry polyphenol extract (500 mg/L) reduced Desulfovibrio 16S copy number by 1.8 log over 24 h.",
+      follow_on: "Effects on butyrate-producers were neutral or mildly positive in the same samples, suggesting a selective rather than broadly antimicrobial action.",
+      location: "p. 62, fig 4B"
+    },
+    desk: "NUT",
+    guilds: ["sulfur-reducer"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["polyphenols", "berry extract", "sulfur-reducer suppression"],
+    source_paper: "Tzounis et al., Am J Clin Nutr 2011",
+    source_year: 2011,
+    methodology_flags: ["in-vitro-only"],
+    chain_hints: "In vitro only. No human dose-response data. Cannot recommend a polyphenol intake on this alone."
+  },
+  {
+    ergon_id: "erg-SYM-002-V1",
+    canonical_name: "Bloating intensity correlates with rate of gas production, not total gas volume.",
+    source_excerpt: {
+      lead_in: "Real-time abdominal MRI was used to quantify intraluminal gas volume and rate of change during a standardized fiber challenge.",
+      claim_text: "Perceived abdominal distension correlated with dV/dt of intraluminal gas (r=0.61) but not with integrated gas volume (r=0.14, n.s.) in MRI-monitored subjects.",
+      follow_on: "This decouples the subjective experience of bloating from the absolute quantity of gas produced, implicating rate-dependent mechanoreceptor signaling.",
+      location: "p. 1403, fig 5"
+    },
+    desk: "SYM",
+    guilds: ["fermentation", "opportunist"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["bloating kinetics", "distension perception", "gas rate"],
+    source_paper: "Serra et al., Gastroenterology 2010",
+    source_year: 2010,
+    methodology_flags: [],
+    chain_hints: "Implies curve shape matters more than peak height. Directly feeds MEAS-003 framing."
+  },
+  {
+    ergon_id: "erg-MEAS-003-V1",
+    canonical_name: "Smoother post-meal H2 curves (lower variance) indicate efficient hydrogen handoff between fermentation and downstream consumer guilds.",
+    source_excerpt: {
+      lead_in: "Several recent clinical reviews have proposed curve-shape analytics as a complement to absolute-peak breath testing.",
+      claim_text: "Efficient cross-feeding is characterized by a single rounded H2 peak with rapid return to baseline, whereas multiple chaotic peaks suggest disrupted consumer dynamics.",
+      follow_on: "Quantitative thresholds for 'chaotic' vs. 'smooth' have not been standardized across laboratories.",
+      location: "p. 789, §2.3"
+    },
+    desk: "MEAS",
+    guilds: ["fermentation", "methanogen", "butyrate"],
+    confidence: "emerging",
+    data_origin: "echo",
+    source_tier: "secondary",
+    seeds: ["H2 curve smoothness", "hydrogen handoff", "cross-feeding signature"],
+    source_paper: "Rezaie (review) — interpretation synthesized across multiple clinical reviews",
+    source_year: 2023,
+    methodology_flags: ["echo-unresolved"],
+    chain_hints: "PROVENANCE DEBT: claim appears in multiple narrative reviews but primary data on 'smoothness as cross-feeding index' not located. Must trace before upgrading confidence."
+  },
+  {
+    ergon_id: "erg-MECH-003-V1",
+    canonical_name: "H2S at concentrations >100 µM inhibits mitochondrial butyrate oxidation in colonocytes.",
+    source_excerpt: {
+      lead_in: "Isolated rat colonocytes were incubated with graded sulfide concentrations under controlled oxygen tension.",
+      claim_text: "Sulfide concentrations above 100 µM produced dose-dependent inhibition of butyrate oxidation in isolated rat colonocytes, with complete inhibition at 500 µM.",
+      follow_on: "Inhibition was fully reversible on sulfide washout and rescued by exogenous thiosulfate, implicating sulfide's effect on mitochondrial electron transport rather than substrate depletion.",
+      location: "p. 802, fig 1"
+    },
+    desk: "MECH",
+    guilds: ["sulfur-reducer", "butyrate"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["H2S toxicity", "butyrate oxidation", "mitochondrial inhibition"],
+    source_paper: "Roediger et al., Gastroenterology 1993",
+    source_year: 1993,
+    methodology_flags: ["in-vitro-only"],
+    chain_hints: "Isolated colonocytes, rat. Luminal H2S concentrations in vivo are debated — effective exposure likely lower. Mechanistic link between sulfur guild and butyrate guild is real but dose-dependency in vivo is open."
+  },
+  {
+    ergon_id: "erg-NUT-003-V1",
+    canonical_name: "Dietary microbiota-accessible carbohydrate (MAC) intake below 15 g/day is associated with reduced mucin-degrading bacterial diversity.",
+    source_excerpt: {
+      lead_in: "Gnotobiotic mice were colonized with a 14-member synthetic human-derived community and fed diets differing only in accessible carbohydrate content.",
+      claim_text: "Low-MAC diets (<15 g/day) resulted in compensatory mucin foraging and a 40% reduction in mucin-layer thickness in gnotobiotic mice, reversible on reintroduction of MAC.",
+      follow_on: "Thinning correlated with increased susceptibility to enteric pathogen colonization, suggesting the barrier effect is downstream of MAC availability rather than intrinsic.",
+      location: "p. 1344, fig 3A-C"
+    },
+    desk: "NUT",
+    guilds: ["mucin", "fermentation"],
+    confidence: "moderate",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["MAC intake", "mucin thickness", "dietary fiber deficiency"],
+    source_paper: "Desai et al., Cell 2016",
+    source_year: 2016,
+    methodology_flags: ["animal-only"],
+    chain_hints: "Gnotobiotic mouse model. Strong mechanism, but human MAC-mucin quantification threshold is extrapolated. Flag animal-only."
+  },
+  {
+    ergon_id: "erg-BIO-003-V1",
+    canonical_name: "Akkermansia muciniphila degrades mucin glycans and produces acetate/propionate as byproducts, supporting cross-feeding.",
+    source_excerpt: {
+      lead_in: "A novel Verrucomicrobia isolate was cultured from human fecal material under strictly anaerobic conditions.",
+      claim_text: "A. muciniphila utilizes mucin as sole carbon and nitrogen source in vitro, producing acetate, propionate, and 1,2-propanediol as principal fermentation products.",
+      follow_on: "The 1,2-propanediol output is notable as a cross-feeding substrate for downstream bacteria that convert it to propionate via the Roseburia-type pathway.",
+      location: "p. 1472, §phenotypic characteristics"
+    },
+    desk: "BIO",
+    guilds: ["mucin", "fermentation"],
+    confidence: "strong",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["Akkermansia", "mucin fermentation", "cross-feeding byproducts"],
+    source_paper: "Derrien et al., Int J Syst Evol Microbiol 2004",
+    source_year: 2004,
+    methodology_flags: [],
+    chain_hints: "Foundational for the mucin guild. Connects mucin degradation to downstream butyrate-producers that feed on acetate/propionate intermediates."
+  },
+  {
+    ergon_id: "erg-SYM-003-V1",
+    canonical_name: "VOC chaos score (post-meal breath volatile variance) correlates with self-reported GI symptom flare episodes.",
+    source_excerpt: {
+      lead_in: "A single-subject protocol was used to evaluate intra-individual variability against self-reported symptom days.",
+      claim_text: "In a single-subject longitudinal study (n=1, 90 days), days scored as GI flares showed a 2.3× increase in VOC variance versus asymptomatic days.",
+      follow_on: "Per-person baseline establishment is required before VOC variance can be interpreted across subjects, as absolute variance differs substantially between individuals.",
+      location: "Aeris internal doc, §pilot obs"
+    },
+    desk: "SYM",
+    guilds: ["opportunist"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "primary",
+    seeds: ["VOC variance", "symptom flare correlate", "opportunist fingerprint"],
+    source_paper: "Aeris internal pilot — personal-N=1 study",
+    source_year: 2025,
+    methodology_flags: ["n-under-threshold", "coi-industry"],
+    chain_hints: "Single subject, internal. Explicitly underpowered and COI-flagged. Placeholder SYM for opportunist thread until multi-subject data exists."
+  },
+  {
+    ergon_id: "erg-SYM-004-V1",
+    canonical_name: "Among self-reporting IMO-symptomatic online community members, 4.6% attributed symptom improvement to increased oatmeal intake.",
+    source_excerpt: {
+      lead_in: "Corpus: 1,247 reddit comments from r/SIBO and r/ibs posted Feb–Oct 2025, filtered to those using 'IMO' or 'methane' and describing a dietary change.",
+      claim_text: "Of the 1,247 filtered comments, 57 (4.6%) explicitly linked reduction of sluggish/bloated symptoms to increased oatmeal or beta-glucan-rich food intake; 312 comments mentioned oatmeal without a symptom claim (baseline mention rate 25.0%).",
+      follow_on: "Selection was automated by keyword regex and manually adjudicated by two reviewers (κ=0.78); the absence of dose, duration, and symptom-severity fields limits this to a community-prevalence signal rather than an intervention estimate.",
+      location: "Ergatai crowd run, 2026-04-15"
+    },
+    desk: "SYM",
+    guilds: ["methanogen", "fermentation"],
+    confidence: "emerging",
+    data_origin: "primary",
+    source_tier: "crowd-report",
+    seeds: ["crowd oatmeal IMO", "self-reported methane improvement", "community dietary attribution"],
+    source_paper: "Ergatai crowd extract — r/SIBO + r/ibs scrape Feb–Oct 2025",
+    source_year: 2025,
+    methodology_flags: ["crowd-self-report", "selection-bias", "n-under-threshold"],
+    chain_hints: "Community prevalence only — NOT an effect-size estimate. Population is vocal self-reporters, not the general IMO-affected population. Complements (does not replace) clinical evidence. Do not upgrade past emerging without a controlled trial cross-reference. Aerine uses this ONLY as 'others in communities report X' — never as 'X works'."
+  }
+];
+
+// ── REAL ERGASTORION CORPUS (seed subset) ────────────────────────────────────
+// Aerine v0 runs on the real corpus embedded in <script id="aerine-corpus">
+// (injected from data/erga.json by build.py). The illustrative array above is
+// retained as ERGA_ILLUSTRATIVE and used only if the corpus island is empty.
+const DESK_ABBR = { symptom:"SYM", measurement:"MEAS", biology:"BIO", mechanism:"MECH", nutrition:"NUT" };
+
+function loadAerineCorpus() {
+  try {
+    const el = document.getElementById("aerine-corpus");
+    const arr = JSON.parse((el && el.textContent || "[]").trim());
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) { console.warn("Aerine corpus parse failed:", e); return []; }
+}
+
+// Map a real ergon (subject/relationship/object + provenance{doi,original_text} + integrity)
+// into the shape the ergastorion browser's renderers expect — without losing the rich
+// provenance the persona layer needs (that stays on the raw object, kept in RAW_BY_ID).
+function normalizeErgon(r) {
+  const prov = r.provenance || {};
+  const integ = r.integrity || {};
+  const flags = (integ.methodology_flags || []).slice();
+  if (integ.coi_flag && !flags.includes("coi-industry")) flags.push("coi-industry");
+  const yr = (prov.ref && (prov.ref.match(/\b(19|20)\d{2}\b/) || [])[0]) || r.created_at && r.created_at.slice(0,4) || null;
+  return {
+    ergon_id: r.ergon_id,
+    canonical_name: r.assertion,
+    source_excerpt: {
+      lead_in: "",
+      claim_text: prov.original_text || r.assertion,
+      follow_on: "",
+      location: prov.location || ""
+    },
+    desk: DESK_ABBR[r.desk] || (r.desk || "").toUpperCase(),
+    guilds: r.guilds || [],
+    confidence: r.confidence,
+    data_origin: prov.data_origin || "primary",
+    source_tier: prov.source_tier || "primary",
+    seeds: r.seeds || [],
+    source_paper: prov.ref || "",
+    source_year: yr ? Number(yr) : null,
+    methodology_flags: flags,
+    chain_hints: (r.chain_hints || []).map(h => typeof h === "string" ? h : (h.note || JSON.stringify(h))).join(" · ")
+  };
+}
+
+const AERINE_RAW = loadAerineCorpus();
+const RAW_BY_ID = {};
+AERINE_RAW.forEach(r => { RAW_BY_ID[r.ergon_id] = r; });
+const ERGA = AERINE_RAW.length ? AERINE_RAW.map(normalizeErgon) : ERGA_ILLUSTRATIVE;
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+const state = {
+  view: "cards",
+  filters: {
+    desk: "all",
+    guild: [],
+    guildMode: "OR",       // OR (any) | AND (all) | ONE (only — single-guild erga)
+    confidence: null,
+    origin: null,
+    tier: null,
+    mflag: null
+  },
+  search: "",
+  openId: null,
+  thread: { SYM: null, MEAS: null, BIO: null, MECH: null, NUT: null }
+};
+
+// ── EXCERPT RENDERING ───────────────────────────────────────────────────────
+// KEEL: report-shape drives display-shape. source_excerpt is structured
+// ({lead_in, claim_text, follow_on, location}); excerptHTML renders the
+// claim_text in <strong> with muted lead/follow around it. Empty lead/follow
+// render as nothing — honest absence, not fabricated context.
+function excerptHTML(e) {
+  const x = e.source_excerpt;
+  if (!x || !x.claim_text) return "";
+  const parts = [];
+  if (x.lead_in) parts.push(x.lead_in);
+  parts.push(`<strong>${x.claim_text}</strong>`);
+  if (x.follow_on) parts.push(x.follow_on);
+  return parts.join(" ");
+}
+function excerptPlain(e) {
+  const x = e.source_excerpt;
+  if (!x) return "";
+  return [x.lead_in || "", x.claim_text || "", x.follow_on || ""].filter(Boolean).join(" ");
+}
+
+// ── DERIVED: REVIEW-WORTHY SCORE ────────────────────────────────────────────
+function reviewScore(e) {
+  const base = e.confidence === "emerging" ? 0.9 : e.confidence === "moderate" ? 0.4 : 0.1;
+  let s = base;
+  const flags = e.methodology_flags || [];
+  if (e.data_origin === "echo" && flags.includes("echo-unresolved")) s += 0.20;
+  if (flags.length) s += 0.15;
+  if (flags.includes("coi-industry")) s += 0.15;
+  if (e.source_tier === "secondary") s += 0.10;
+  if (flags.includes("duplicate-suspect")) s += 0.10;
+  return Math.max(0, Math.min(1, s));
+}
+
+// ── FILTER ──────────────────────────────────────────────────────────────────
+function matches(e) {
+  const f = state.filters;
+  if (f.desk !== "all" && e.desk !== f.desk) return false;
+  if (f.guild.length) {
+    // KEEL: guild boolean mode — OR (any), AND (all-of-selected), ONE (exactly one AND in selection)
+    if (f.guildMode === "OR") {
+      if (!f.guild.some(g => e.guilds.includes(g))) return false;
+    } else if (f.guildMode === "AND") {
+      if (!f.guild.every(g => e.guilds.includes(g))) return false;
+    } else if (f.guildMode === "ONE") {
+      if (e.guilds.length !== 1) return false;
+      if (!f.guild.includes(e.guilds[0])) return false;
+    }
+  }
+  if (f.confidence && e.confidence !== f.confidence) return false;
+  if (f.origin && e.data_origin !== f.origin) return false;
+  if (f.tier && e.source_tier !== f.tier) return false;
+  if (f.mflag && !(e.methodology_flags || []).includes(f.mflag)) return false;
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const hay = [e.canonical_name, excerptPlain(e), e.ergon_id, e.desk, e.guilds.join(" "), (e.seeds||[]).join(" "), e.source_paper].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+function filtered() { return ERGA.filter(matches); }
+
+// ── DOM REFS ────────────────────────────────────────────────────────────────
+const countEl   = document.getElementById("erg-count");
+const bannerEl  = document.getElementById("erg-batch-banner");
+const cardsWrap = document.getElementById("erg-cards-wrap");
+const cardsEl   = document.getElementById("erg-cards");
+const tableWrap = document.getElementById("erg-table-wrap");
+const tbodyEl   = document.getElementById("erg-tbody");
+const readerEl  = document.getElementById("erg-reader");
+const searchEl  = document.getElementById("erg-search");
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+function init() {
+  bannerEl.textContent = `batch ${BATCH_META.batch} · ${ERGA.length} erga · ${BATCH_META.session_date}`;
+  wireChips();
+  updateCounts();
+  renderAll();
+}
+
+function wireChips() {
+  document.querySelectorAll(".erg-chip[data-f]").forEach(btn => {
+    btn.addEventListener("click", () => handleChip(btn));
+  });
+  // Guild boolean-mode toggle
+  document.querySelectorAll("#guild-mode-toggle .erg-mode").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#guild-mode-toggle .erg-mode").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state.filters.guildMode = btn.dataset.mode;
+      renderAll();
+    });
+  });
+}
+
+function updateCounts() {
+  const all = ERGA;
+  document.getElementById("ct-desk-all").textContent = all.length;
+  ["SYM","MEAS","BIO","MECH","NUT"].forEach(d =>
+    document.getElementById("ct-desk-"+d).textContent = all.filter(e => e.desk === d).length);
+  ["fermentation","methanogen","sulfur-reducer","butyrate","mucin","opportunist"].forEach(g =>
+    document.getElementById("ct-g-"+g).textContent = all.filter(e => e.guilds.includes(g)).length);
+  ["strong","moderate","emerging"].forEach(c =>
+    document.getElementById("ct-c-"+c).textContent = all.filter(e => e.confidence === c).length);
+  ["primary","synthesis","echo"].forEach(o =>
+    document.getElementById("ct-o-"+o).textContent = all.filter(e => e.data_origin === o).length);
+  ["primary","secondary","crowd-report"].forEach(t =>
+    document.getElementById("ct-t-"+t).textContent = all.filter(e => e.source_tier === t).length);
+  ["animal-only","in-vitro-only","n-under-threshold","echo-unresolved","coi-industry","crowd-self-report","selection-bias"].forEach(m =>
+    document.getElementById("ct-m-"+m).textContent = all.filter(e => (e.methodology_flags||[]).includes(m)).length);
+}
+
+function handleChip(btn) {
+  const f = btn.dataset.f, v = btn.dataset.v;
+  if (f === "desk") {
+    document.querySelectorAll('.erg-chip[data-f="desk"]').forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.filters.desk = v;
+  } else if (f === "guild") {
+    // multi-select
+    const i = state.filters.guild.indexOf(v);
+    if (i >= 0) { state.filters.guild.splice(i,1); btn.classList.remove("active"); }
+    else { state.filters.guild.push(v); btn.classList.add("active"); }
+  } else {
+    const isActive = state.filters[f] === v;
+    document.querySelectorAll(`.erg-chip[data-f="${f}"]`).forEach(b => b.classList.remove("active"));
+    state.filters[f] = isActive ? null : v;
+    if (!isActive) btn.classList.add("active");
+  }
+  renderAll();
+}
+
+// ── VIEW TOGGLE ─────────────────────────────────────────────────────────────
+window.setView = function(v) {
+  state.view = v;
+  cardsWrap.classList.toggle("hidden", v !== "cards");
+  tableWrap.classList.toggle("hidden", v !== "table");
+  document.getElementById("btn-cards").classList.toggle("active", v === "cards");
+  document.getElementById("btn-table").classList.toggle("active", v === "table");
+  renderAll();
+};
+
+// ── RENDER CARDS ────────────────────────────────────────────────────────────
+function flagIcons(e) {
+  const icons = [];
+  (e.methodology_flags || []).forEach(f => {
+    const cls = f === "echo-unresolved" ? "erg-tag-echo" : "erg-tag-flag";
+    icons.push(`<span class="erg-tag ${cls}" title="${f}">${f}</span>`);
+  });
+  return icons.join("");
+}
+
+function guildTags(e) {
+  return e.guilds.map(g => `<span class="erg-tag erg-tag-guild" data-g="${g}">${g}</span>`).join("");
+}
+
+function renderCards() {
+  const list = filtered();
+  countEl.textContent = list.length + " ergon" + (list.length !== 1 ? "a" : "");
+  if (!list.length) { cardsEl.innerHTML = '<div class="erg-empty">No erga match current filters.</div>'; return; }
+  cardsEl.innerHTML = list.map(e => {
+    const r = reviewScore(e);
+    const focused = state.openId === e.ergon_id;
+    const inChain = state.thread[e.desk] === e.ergon_id;
+    return `<div class="erg-card${focused?" focused":""}" data-conf="${e.confidence}" data-id="${e.ergon_id}">
+      <div class="erg-card-actions">
+        <button class="erg-icon" data-action="chain" data-id="${e.ergon_id}" title="add to chain (slot ${e.desk})">${inChain?"✓":"+"}</button>
+        <button class="erg-icon" data-action="open" data-id="${e.ergon_id}" title="open">›</button>
+      </div>
+      <div class="erg-card-head">
+        <div class="erg-card-title">${e.canonical_name}</div>
+        <span class="erg-card-id">${e.ergon_id}</span>
+      </div>
+      <div class="erg-card-quote">${excerptHTML(e)}</div>
+      <div class="erg-card-bottom">
+        <div class="erg-card-meta">
+          <span class="erg-tag erg-tag-${e.confidence}">${e.confidence}</span>
+          <span class="erg-tag erg-tag-desk erg-tag-desk-${e.desk}">${e.desk}</span>
+          ${guildTags(e)}
+          <span class="erg-tag erg-tag-origin">${e.data_origin}·${e.source_tier}</span>
+          ${flagIcons(e)}
+        </div>
+        <div class="erg-signal">
+          <span style="opacity:0.7">review</span>
+          <div class="erg-signal-bar"><div class="erg-signal-fill" style="width:${Math.round(r*100)}%"></div></div>
+          <span>${(r*100).toFixed(0)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderTable() {
+  const list = filtered();
+  if (!list.length) { tbodyEl.innerHTML = `<tr><td colspan="9"><div class="erg-empty">No erga match current filters.</div></td></tr>`; return; }
+  tbodyEl.innerHTML = list.map(e => {
+    const r = reviewScore(e);
+    return `<tr data-id="${e.ergon_id}" class="${state.openId===e.ergon_id?"focused":""}">
+      <td class="td-id">${e.ergon_id}</td>
+      <td class="td-title">${e.canonical_name}</td>
+      <td><span class="erg-tag erg-tag-desk erg-tag-desk-${e.desk}">${e.desk}</span></td>
+      <td>${guildTags(e)}</td>
+      <td><span class="erg-tag erg-tag-${e.confidence}">${e.confidence}</span></td>
+      <td>${e.data_origin}</td>
+      <td>${e.source_tier}</td>
+      <td>${(e.methodology_flags||[]).join(" · ")||"—"}</td>
+      <td>
+        <div class="erg-signal">
+          <div class="erg-signal-bar"><div class="erg-signal-fill" style="width:${Math.round(r*100)}%"></div></div>
+          <span style="font-size:10px">${(r*100).toFixed(0)}</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join("");
+  tbodyEl.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => { state.openId = tr.dataset.id; renderAll(); });
+  });
+}
+
+// ── READER ──────────────────────────────────────────────────────────────────
+function renderReader() {
+  if (!state.openId) { readerEl.classList.add("hidden"); return; }
+  const e = ERGA.find(x => x.ergon_id === state.openId);
+  if (!e) { readerEl.classList.add("hidden"); return; }
+  readerEl.classList.remove("hidden");
+  const flags = e.methodology_flags || [];
+  const r = reviewScore(e);
+  const inChain = state.thread[e.desk] === e.ergon_id;
+  readerEl.innerHTML = `
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+      <h4>${e.canonical_name}</h4>
+      <button class="erg-icon" onclick="closeReader()">×</button>
+    </div>
+    <div class="erg-reader-sub">${e.ergon_id} · ${e.source_paper} (${e.source_year})${e.source_excerpt && e.source_excerpt.location ? " · " + e.source_excerpt.location : ""}</div>
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Source Excerpt (pericope — ±1 framing)</div>
+      <div class="erg-reader-quote">${excerptHTML(e)}</div>
+    </div>
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Claim (canonical)</div>
+      <div class="erg-reader-claim">${e.canonical_name}</div>
+    </div>
+
+    ${flags.length ? `<div class="erg-reader-sec">
+      <div class="erg-reader-label">Methodology Flags</div>
+      ${flags.map(f => `<div class="erg-reader-flag ${f === 'echo-unresolved' ? 'echo' : ''}">${f}</div>`).join("")}
+    </div>` : ""}
+
+    ${e.chain_hints ? `<div class="erg-reader-sec">
+      <div class="erg-reader-label">Chain Hints</div>
+      <div class="erg-reader-claim" style="font-family:var(--font-mono);font-size:11px;">${e.chain_hints}</div>
+    </div>` : ""}
+
+    <div class="erg-reader-sec">
+      <div class="erg-reader-label">Metadata</div>
+      <dl class="erg-kv">
+        <dt>ergon_id</dt><dd>${e.ergon_id}</dd>
+        <dt>desk</dt><dd>${e.desk}</dd>
+        <dt>guilds</dt><dd>${e.guilds.join(", ")}</dd>
+        <dt>confidence</dt><dd>${e.confidence}</dd>
+        <dt>data_origin</dt><dd>${e.data_origin}</dd>
+        <dt>source_tier</dt><dd>${e.source_tier}</dd>
+        <dt>seeds</dt><dd>${(e.seeds||[]).join(", ")}</dd>
+        <dt>review score</dt><dd>${(r*100).toFixed(0)} / 100</dd>
+      </dl>
+    </div>
+
+    <div class="erg-reader-actions">
+      <button class="erg-btn primary" onclick="toggleThread('${e.ergon_id}')">${inChain ? "remove from chain" : "add to chain (" + e.desk + " slot)"}</button>
+    </div>`;
+}
+
+window.closeReader = function() { state.openId = null; renderAll(); };
+
+// ── CLICK HANDLERS ──────────────────────────────────────────────────────────
+cardsEl.addEventListener("click", ev => {
+  const btn = ev.target.closest("[data-action]");
+  if (btn) {
+    ev.stopPropagation();
+    const id = btn.dataset.id;
+    if (btn.dataset.action === "chain") toggleThread(id);
+    else if (btn.dataset.action === "open") { state.openId = id; renderAll(); }
+    return;
+  }
+  const card = ev.target.closest(".erg-card");
+  if (card) { state.openId = card.dataset.id; renderAll(); }
+});
+
+// ── CHAIN BUILDER ───────────────────────────────────────────────────────────
+window.toggleThread = function(id) {
+  const e = ERGA.find(x => x.ergon_id === id);
+  if (!e) return;
+  if (state.thread[e.desk] === id) state.thread[e.desk] = null;
+  else state.thread[e.desk] = id;  // overwrites previous ergon in that desk
+  renderAll();
+};
+
+function renderThread() {
+  const verdictEl = document.getElementById("thread-verdict");
+  const slots = ["SYM","MEAS","BIO","MECH","NUT"];
+  const slotEls = document.querySelectorAll("#thread-bobbins .erg-bobbin");
+
+  slotEls.forEach(el => {
+    const desk = el.dataset.desk;
+    const id = state.thread[desk];
+    el.classList.toggle("filled", !!id);
+    el.classList.toggle("empty-clickable", !id);
+    if (id) {
+      const e = ERGA.find(x => x.ergon_id === id);
+      el.innerHTML = `
+        <div class="erg-bobbin-label">${desk}</div>
+        <span class="erg-bobbin-remove" onclick="toggleThread('${id}')">×</span>
+        <div class="erg-bobbin-ergon-id">${e.ergon_id}</div>
+        <div class="erg-bobbin-title">${e.canonical_name}</div>
+        <div class="erg-bobbin-conf">${e.confidence}${(e.methodology_flags||[]).includes("echo-unresolved") ? " · echo!" : ""}</div>
+      `;
+    } else {
+      el.innerHTML = `<div class="erg-bobbin-label">${desk}</div><div class="erg-bobbin-empty">find ${desk} ergon →</div>`;
+    }
+  });
+
+  // Verdict
+  const filled = slots.every(d => state.thread[d]);
+  const goldBtn = document.getElementById("btn-gold");
+  if (!filled) {
+    const count = slots.filter(d => state.thread[d]).length;
+    verdictEl.textContent = count === 0 ? "no thread yet" : `${count}/5 — broken thread`;
+    verdictEl.className = "erg-thread-verdict" + (count > 0 ? " broken" : "");
+    goldBtn.disabled = true;
+    return;
+  }
+  const items = slots.map(d => ERGA.find(x => x.ergon_id === state.thread[d]));
+  const anyEmerging = items.some(e => e.confidence === "emerging");
+  const anyEchoUnresolved = items.some(e => (e.methodology_flags||[]).includes("echo-unresolved"));
+  if (anyEmerging || anyEchoUnresolved) {
+    verdictEl.textContent = "loose thread — something to pick at";
+    verdictEl.className = "erg-thread-verdict loose";
+  } else {
+    verdictEl.textContent = "golden thread — exportable";
+    verdictEl.className = "erg-thread-verdict gold";
+  }
+  goldBtn.disabled = false;
+}
+
+// KEEL: empty-slot click → activate desk filter for that slot.
+document.getElementById("thread-bobbins").addEventListener("click", ev => {
+  const slot = ev.target.closest(".erg-bobbin");
+  if (!slot || !slot.classList.contains("empty-clickable")) return;
+  // don't fire when clicking the remove × (slot is filled) — guarded by empty-clickable check
+  const desk = slot.dataset.desk;
+  state.filters.desk = desk;
+  document.querySelectorAll('.erg-chip[data-f="desk"]').forEach(b => {
+    b.classList.toggle("active", b.dataset.v === desk);
+  });
+  renderAll();
+  // scroll cards back into view
+  document.getElementById("erg-cards-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+// ── EXPORTS ─────────────────────────────────────────────────────────────────
+window.exportGoldenThread = function() {
+  const slots = ["SYM","MEAS","BIO","MECH","NUT"];
+  const items = slots.map(d => ERGA.find(x => x.ergon_id === state.thread[d])).filter(Boolean);
+  if (items.length !== 5) { alert("Fill all five slots before exporting."); return; }
+  const anyEmerging = items.some(e => e.confidence === "emerging");
+  const anyEchoUnresolved = items.some(e => (e.methodology_flags||[]).includes("echo-unresolved"));
+  const verdict = (anyEmerging || anyEchoUnresolved) ? "loose" : "golden";
+  const out = {
+    export_type: "golden_thread",
+    verdict,
+    generated_at: new Date().toISOString(),
+    chain_order: "SYM → MEAS → BIO → MECH → NUT",
+    links: items.map(e => ({
+      slot: e.desk,
+      ergon_id: e.ergon_id,
+      claim: e.canonical_name,
+      source_excerpt: e.source_excerpt,
+      confidence: e.confidence,
+      data_origin: e.data_origin,
+      source_tier: e.source_tier,
+      guilds: e.guilds,
+      methodology_flags: e.methodology_flags || [],
+      source_paper: e.source_paper
+    })),
+    provenance_debts: items
+      .filter(e => e.chain_hints && (e.data_origin === "echo" || e.source_tier === "secondary"))
+      .map(e => ({ ergon_id: e.ergon_id, hint: e.chain_hints }))
+  };
+  downloadJSON(out, `golden_thread_${verdict}_${Date.now()}.json`);
+};
+
+window.exportCustodianQueue = function() {
+  const sorted = [...ERGA].sort((a,b) => reviewScore(b) - reviewScore(a));
+  const queue = sorted.filter(e => reviewScore(e) >= 0.5).map(e => ({
+    ergon_id: e.ergon_id,
+    claim: e.canonical_name,
+    review_score: Math.round(reviewScore(e)*100),
+    confidence: e.confidence,
+    data_origin: e.data_origin,
+    source_tier: e.source_tier,
+    methodology_flags: e.methodology_flags || [],
+    chain_hints: e.chain_hints || null
+  }));
+  const out = {
+    export_type: "custodian_queue",
+    generated_at: new Date().toISOString(),
+    threshold: 0.5,
+    total_in_queue: queue.length,
+    total_erga: ERGA.length,
+    erga: queue
+  };
+  downloadJSON(out, `custodian_queue_${Date.now()}.json`);
+};
+
+window.exportSeedDigest = function() {
+  const seed = prompt("Enter seed term (e.g. 'H2S spike', 'CH4 baseline', 'butyrate production'):");
+  if (!seed) return;
+  const q = seed.toLowerCase();
+  const hits = ERGA.filter(e =>
+    (e.seeds || []).some(s => s.toLowerCase().includes(q)) ||
+    e.canonical_name.toLowerCase().includes(q) ||
+    excerptPlain(e).toLowerCase().includes(q)
+  );
+  if (!hits.length) { alert(`No erga match seed "${seed}".`); return; }
+  const byDesk = {};
+  ["SYM","MEAS","BIO","MECH","NUT"].forEach(d => {
+    byDesk[d] = hits.filter(e => e.desk === d).map(e => ({
+      ergon_id: e.ergon_id,
+      claim: e.canonical_name,
+      confidence: e.confidence,
+      guilds: e.guilds
+    }));
+  });
+  const out = {
+    export_type: "seed_digest",
+    seed_term: seed,
+    generated_at: new Date().toISOString(),
+    total_hits: hits.length,
+    by_desk: byDesk
+  };
+  downloadJSON(out, `seed_digest_${seed.replace(/\s+/g,"_")}_${Date.now()}.json`);
+};
+
+// ── WOLFPACK SCOUT ──────────────────────────────────────────────────────────
+// KEEL: outbound coverage-gap finder. Emits a briefing JSON describing what
+// a real search backend should hunt. Does NOT perform the search here — the
+// briefing is the contract between this UI and whatever backend executes.
+
+// Small stoplist to keep concept extraction from surfacing junk tokens.
+const WOLFPACK_STOP = new Set([
+  "the","a","an","and","or","of","in","on","at","to","from","for","with","by",
+  "is","are","was","were","be","been","being","has","have","had","do","does","did",
+  "this","that","these","those","such","as","not","no","than","then","thus","also",
+  "may","can","will","would","could","should","between","among","across",
+  "study","studies","subjects","cohort","results","finding","findings"
+]);
+
+function extractConcepts(erga, k) {
+  // Concept tokens come from: seeds (weighted 3x), canonical_name (1x),
+  // claim_text (1x), guilds (2x), desk (1x). Top-k by frequency.
+  const freq = new Map();
+  const bump = (tok, w) => {
+    const t = tok.toLowerCase().replace(/[^\w\-]/g, "").trim();
+    if (t.length < 3 || WOLFPACK_STOP.has(t) || /^\d+$/.test(t)) return;
+    freq.set(t, (freq.get(t) || 0) + w);
+  };
+  erga.forEach(e => {
+    (e.seeds || []).forEach(s => s.split(/\s+/).forEach(w => bump(w, 3)));
+    (e.canonical_name || "").split(/\s+/).forEach(w => bump(w, 1));
+    (e.source_excerpt?.claim_text || "").split(/\s+/).forEach(w => bump(w, 1));
+    (e.guilds || []).forEach(g => bump(g, 2));
+    if (e.desk) bump(e.desk, 1);
+  });
+  return [...freq.entries()].sort((a,b) => b[1] - a[1]).slice(0, k).map(([t]) => t);
+}
+
+window.exportWolfpackScout = function() {
+  // Determine scope
+  const threadFilled = Object.values(state.thread).filter(Boolean);
+  let scope, scopeErga, scopeLabel;
+
+  if (threadFilled.length > 0) {
+    scopeErga = threadFilled.map(id => ERGA.find(e => e.ergon_id === id)).filter(Boolean);
+    scope = {
+      type: "thread-compilation",
+      description: `active thread (${scopeErga.length}/5 bobbins filled): ` +
+        Object.entries(state.thread).filter(([,v])=>v).map(([d,v])=>`${d}=${v}`).join(", "),
+      ergon_ids: scopeErga.map(e => e.ergon_id)
+    };
+    scopeLabel = "thread";
+  } else {
+    const f = state.filters;
+    const narrowed = (f.desk !== "all") || f.guild.length || f.confidence || f.origin || f.tier || f.mflag || state.search;
+    if (narrowed) {
+      scopeErga = filtered();
+      scope = {
+        type: "filter-set",
+        description: "current filter set: " + JSON.stringify({
+          desk: f.desk, guild: f.guild, guildMode: f.guildMode,
+          confidence: f.confidence, origin: f.origin, tier: f.tier,
+          mflag: f.mflag, search: state.search || null
+        }),
+        ergon_ids: scopeErga.map(e => e.ergon_id)
+      };
+      scopeLabel = "filter";
+    } else {
+      const custom = prompt("Scope is empty. Enter a custom scope description for the wolfpack (e.g. 'sulfur-reducer metabolism in IBS'):");
+      if (!custom) return;
+      scopeErga = [];
+      scope = { type: "custom", description: custom, ergon_ids: [] };
+      scopeLabel = "custom";
+    }
+  }
+
+  // Concept extraction
+  const terms = scopeErga.length
+    ? extractConcepts(scopeErga, 4)
+    : scope.description.split(/\s+/).slice(0, 4).map(t => t.toLowerCase().replace(/[^\w\-]/g, ""));
+
+  // Build 3-4 search strategies — each wolfpack member hunts one term with
+  // controlled source-breadth. Queries combine the focal term with one
+  // adjacent term to stay scoped but not too narrow.
+  const strategies = terms.map((term, i) => ({
+    pack_member: `wolf-${i + 1}`,
+    focal_term: term,
+    suggested_query: `"${term}"` + (terms[(i + 1) % terms.length] !== term ? ` "${terms[(i + 1) % terms.length]}"` : "") + " gut microbiome",
+    source_breadth: "wide (PubMed, preprints, reviews, .edu, .gov; exclude low-quality SEO blogs)",
+    recency_window: "prefer results from last 24 months; surface older only if highly cited"
+  }));
+
+  const briefing = {
+    export_type: "wolfpack_briefing",
+    generated_at: new Date().toISOString(),
+    scope,
+    concept_terms: terms,
+    search_strategies: strategies,
+
+    // KEEL: the backend executes the strategies and returns results shaped
+    // like this. Match classification is performed by the backend against
+    // the current ergastorion snapshot.
+    expected_return_schema: {
+      wolfpack_id: "uuid",
+      completed_at: "ISO timestamp",
+      results: [{
+        wolf: "wolf-N",
+        query: "string",
+        hit: {
+          title: "string",
+          authors: ["..."],
+          year: 2026,
+          doi: "string or null",
+          venue: "string",
+          url: "string",
+          snippet: "string"
+        },
+        match_tier: "confirmed | probable | no-match",
+        matched_ergon_id: "erg-XXX-NNN-V1 or null",
+        match_evidence: "e.g. DOI match / seed overlap (butyrate, colonocyte)",
+        proposed_desk: "SYM | BIO | NUT | MECH | MEAS (for no-match)",
+        proposed_seeds: ["..."],
+        linda_todo: "if no-match: extraction candidate; if probable: adjudicate"
+      }]
+    },
+
+    // Custodian integration
+    stale_scope_policy: "Record this run under scope.description. Flag scope stale after 12 weeks without re-run.",
+
+    // Architectural reminder for whoever wires this up
+    architectural_note: "Wolfpack is the sole component with open-web access. Briefing is read-only to the ergastorion; no direct writes to the fact layer. Results feed the standard extraction pipeline with Linda's adjudication."
+  };
+
+  downloadJSON(briefing, `wolfpack_briefing_${scopeLabel}_${Date.now()}.json`);
+};
+
+function downloadJSON(obj, filename) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+}
+
+// ── RENDER ALL ──────────────────────────────────────────────────────────────
+function renderAll() {
+  renderCards();
+  renderTable();
+  renderReader();
+  renderThread();
+}
+
+searchEl.addEventListener("input", ev => { state.search = ev.target.value; renderAll(); });
+
+// ═════════════════════════════════════════════════════════════════════════════
+// TALK TO AERINE — the persona / barfly layer (v0, template-Aerine, no LLM)
+//
+// Aerine's promise: she reasons over the ergastorion on a GOLDEN THREAD
+// (SYM→MEAS→BIO→MECH→NUT), speaks only as confidently as the chain earns, and
+// exposes every claim down to its verbatim source passage and paper link. This
+// module is the deterministic MVP responder (per IRENE spec §7.4 — "the MVP is
+// not an LLM"); the transport seam `aerineRespond()` is where a worker-proxied /
+// BYOK LLM engine drops in later (the "bring the Diddja engine home" step).
+// ═════════════════════════════════════════════════════════════════════════════
+(function AerineModule(){
+  const DESK_ORDER = ["SYM","MEAS","BIO","MECH","NUT"];
+  const DESK_ASKS = {
+    SYM:  "what you'd feel",
+    MEAS: "what a breath reading would show",
+    BIO:  "which microbes are involved",
+    MECH: "the mechanism — why it happens",
+    NUT:  "what you could try (diet/lifestyle)"
+  };
+  const raw = AERINE_RAW;
+  if (!raw.length) return; // no real corpus → leave the browser as-is
+  const deskOf = r => DESK_ABBR[r.desk] || (r.desk||"").toUpperCase();
+  const shortId = id => { const m=/erg-([A-Z]+)-(\d+)/.exec(id||""); return m?`${m[1]}-${m[2]}`:id; };
+
+  // ── cross-reference graph (explicit chain_hints ID refs) ──────────────────
+  const present = {}; raw.forEach(r => present[shortId(r.ergon_id)] = r.ergon_id);
+  function refsOf(r){
+    const text = (r.chain_hints||[]).map(h => typeof h==="string"?h:JSON.stringify(h)).join(" ");
+    const out = new Set();
+    (text.match(/\b[A-Z]{2,4}-\d+(?:\/\d+)*/g)||[]).forEach(tok=>{
+      const pre = tok.split("-")[0];
+      tok.replace(/^[A-Z]+-/,"").split("/").forEach(n=>{
+        const key = `${pre}-${String(parseInt(n,10)).padStart(3,"0")}`;
+        if(present[key] && present[key]!==r.ergon_id) out.add(present[key]);
+      });
+    });
+    return out;
+  }
+  const REFS = {}; raw.forEach(r => REFS[r.ergon_id] = refsOf(r));
+  const linked = (a,b) => REFS[a] && (REFS[a].has(b) || (REFS[b]&&REFS[b].has(a)));
+  const seedsOf = r => new Set((r.seeds||[]).map(s=>s.toLowerCase()));
+  const overlap = (a,b) => { const A=seedsOf(a),B=seedsOf(b); let n=0; A.forEach(s=>{if(B.has(s))n++;}); return n; };
+
+  function tokens(q){ return (q.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(w=>w.length>2); }
+  function relevance(r, toks){
+    const hay = [r.assertion, (r.seeds||[]).join(" "), (r.guilds||[]).join(" "),
+                 r.subject&&r.subject.name, r.object&&r.object.name,
+                 r.subject&&(r.subject.aliases||[]).join(" "), r.object&&(r.object.aliases||[]).join(" ")]
+                 .filter(Boolean).join(" ").toLowerCase();
+    let s=0; toks.forEach(t=>{ if(hay.includes(t)) s += (r.seeds||[]).some(sd=>sd.toLowerCase().includes(t))?2:1; });
+    return s;
+  }
+
+  // ── assemble one golden thread for a query ────────────────────────────────
+  function assemble(toks){
+    const scored = raw.map(r=>({r, s:relevance(r,toks)})).sort((a,b)=>b.s-a.s);
+    const seed = (scored[0] && scored[0].s>0) ? scored[0].r : null;
+    if(!seed) return { thread:{}, seed:null };
+    const thread = {}; thread[deskOf(seed)] = seed;
+    for(const desk of DESK_ORDER){
+      if(thread[desk]) continue;
+      const cands = raw.filter(r=>deskOf(r)===desk);
+      let best=null, bestScore=0;
+      for(const c of cands){
+        // connection to anything already on the thread (explicit edge) is the strong signal;
+        // shared seeds is the weak signal; query relevance breaks ties.
+        let conn=0, seedShare=0;
+        for(const d in thread){ if(linked(c.ergon_id, thread[d].ergon_id)) conn+=3; seedShare += overlap(c, thread[d]); }
+        const score = conn*10 + seedShare*2 + relevance(c,toks);
+        if(score>bestScore){ bestScore=score; best=c; }
+      }
+      if(best && bestScore>=2) thread[desk]=best; // only place a link that genuinely belongs
+    }
+    return { thread, seed };
+  }
+
+  function verdict(thread){
+    const filled = DESK_ORDER.filter(d=>thread[d]);
+    const n = filled.length;
+    const anyEmerging = filled.some(d=>thread[d].confidence==="emerging");
+    const anyEcho = filled.some(d=>((thread[d].integrity||{}).methodology_flags||[]).includes("echo-unresolved"));
+    let v;
+    if(n>=5) v = (anyEmerging||anyEcho) ? "loose" : "gold";
+    else if(n>=4) v = "loose";
+    else if(n>=3) v = "loose";
+    else v = "broken";
+    return { filled, n, v, anyEmerging, anyEcho };
+  }
+
+  // ── exposure: every claim links to its ergon + the paper ──────────────────
+  function paperLinks(r){
+    const doi = (r.provenance||{}).doi;
+    const ref = (r.provenance||{}).ref || "";
+    const parts = [];
+    if(doi) parts.push(`<a href="https://doi.org/${encodeURIComponent(doi)}" target="_blank" rel="noopener">doi.org/${doi} ↗</a>`);
+    const q = encodeURIComponent(doi || ref);
+    if(q) parts.push(`<a href="https://scholar.google.com/scholar?q=${q}" target="_blank" rel="noopener">find free copy ↗</a>`);
+    return parts.join(" · ");
+  }
+  function citeHTML(r){
+    const prov = r.provenance||{}, integ = r.integrity||{};
+    const tags = [];
+    tags.push(`<span class="aer-tag ${r.confidence}">${r.confidence}</span>`);
+    if(integ.coi_flag) tags.push(`<span class="aer-tag coi" title="${(integ.coi_detail||'industry conflict of interest').replace(/"/g,'&quot;')}">COI</span>`);
+    if((integ.methodology_flags||[]).includes("echo-unresolved")) tags.push(`<span class="aer-tag echo" title="provenance debt — traced to a secondary source, not yet the primary">echo-unresolved</span>`);
+    return `<div class="aer-cite">
+      <div class="c-claim"><strong>${shortId(r.ergon_id)}</strong> ${escapeHtml(r.assertion)} ${tags.join(" ")}</div>
+      ${prov.original_text?`<div class="c-quote">“${escapeHtml(prov.original_text)}”</div>`:""}
+      <div class="c-meta">${escapeHtml(prov.ref||"")}${prov.location?" — "+escapeHtml(prov.location):""} · ${paperLinks(r)}</div>
+    </div>`;
+  }
+  function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+  function chainHTML(thread){
+    return `<div class="aer-chain">` + DESK_ORDER.map(d=>{
+      if(thread[d]) return `<span class="aer-link" data-id="${thread[d].ergon_id}" title="open this ergon"><span class="lk-desk">${d}</span> ${shortId(thread[d].ergon_id)}</span>`;
+      return `<span class="aer-link miss"><span class="lk-desk">${d}</span> — ${DESK_ASKS[d]}</span>`;
+    }).join("") + `</div>`;
+  }
+
+  // ── the ladder: Aerine's voice by rung (warm, dry, never prescriptive) ─────
+  function compose(q, thread, vd){
+    const filled = vd.filled, missing = DESK_ORDER.filter(d=>!thread[d]);
+    const cites = filled.map(d=>citeHTML(thread[d])).join("");
+    let lead;
+    if(vd.n>=5 && vd.v==="gold"){
+      lead = `Good news — I can follow this one end to end, from what you feel all the way to what you could look at. That's a golden thread, so I'll say it plainly.`;
+    } else if(vd.n>=5){
+      lead = `I can connect all five links, but two things keep it from being airtight: ${vd.anyEmerging?"some of it is still emerging evidence":""}${vd.anyEmerging&&vd.anyEcho?", and ":""}${vd.anyEcho?"one link is an unresolved echo I haven't traced to its primary source yet":""}. So — a real thread, honestly held loosely.`;
+    } else if(vd.n===4){
+      lead = `I've got four of the five links solid. The one I'm missing is <strong>${missing[0]}</strong> — ${DESK_ASKS[missing[0]]}. Here's the chain I can show you, and exactly where it thins out.`;
+    } else if(vd.n===3){
+      lead = `There's a thread forming here, but I'm missing two links (${missing.join(" and ")}), so treat this as a hypothesis, not a finding. Here's what I can actually trace:`;
+    } else if(vd.n===2){
+      lead = `I can only see fragments so far — not enough to draw a line you should trust. To trace it properly I'd want ${DESK_ASKS[missing[0]]}. Can you tell me a bit more about that? Meanwhile, here's what I do have:`;
+    } else if(vd.n===1){
+      const only = thread[filled[0]];
+      lead = `I can tell you one thing honestly, and only one: ${escapeHtml(only.assertion)} But I can't connect it into a full chain for your question yet — the rest of the links aren't in what I can trace.`;
+    } else {
+      lead = `I'm going to be straight with you: I don't have evidence I can trace on that yet. That's not a dodge — it's the most useful thing I can say. I'd rather tell you the shelf is empty than make something up. If it's a common question, it's exactly the kind of gap my Custodian goes hunting for next.`;
+    }
+    const honesty = filled.some(d=>(thread[d].integrity||{}).coi_flag)
+      ? `<div class="c-meta" style="margin-top:6px;">A note on trust: at least one study below carries an industry conflict-of-interest flag — I've marked it. It doesn't make the finding wrong; it means read it with an eyebrow raised.</div>` : "";
+    const verdictChip = `<span class="aer-verdict-line ${vd.v}">${vd.v==="gold"?"golden thread":vd.v==="loose"?`loose thread · ${vd.n}/5 links`:`no full thread · ${vd.n}/5 links`}</span>`;
+    return `<div class="aer-who">aerine</div><div>${lead}</div>${verdictChip}${chainHTML(thread)}${cites?`<div class="aer-cites">${cites}</div>`:""}${honesty}
+      <div class="c-meta" style="margin-top:7px;">Aerine helps you research — she doesn't diagnose. Tap any ergon above to see the full record.</div>`;
+  }
+
+  // Transport seam: swap this for a worker-proxied / BYOK LLM call later.
+  function aerineRespond(q){
+    const { thread, seed } = assemble(tokens(q));
+    if(!seed){ return `<div class="aer-who">aerine</div><div>I don't have anything I can trace on that one yet — my seed corpus is a small slice (SIBO, methane/constipation, fiber and the microbes behind them). Try one of those, and watch me show my work.</div>`; }
+    return compose(q, thread, verdict(thread));
+  }
+
+  // ── DOM wiring ────────────────────────────────────────────────────────────
+  const logEl = document.getElementById("aer-log");
+  const formEl = document.getElementById("aer-form");
+  const inputEl = document.getElementById("aer-input");
+  const suggEl = document.getElementById("aer-suggest");
+  function addMsg(html, who){ const d=document.createElement("div"); d.className="aer-msg "+who; d.innerHTML=html; logEl.appendChild(d); logEl.scrollTop=logEl.scrollHeight; return d; }
+  function ask(q){ if(!q.trim())return; addMsg(escapeHtml(q),"user"); setTimeout(()=>addMsg(aerineRespond(q),"aerine"),120); }
+
+  logEl.addEventListener("click", ev=>{
+    const lk = ev.target.closest(".aer-link[data-id]"); if(!lk)return;
+    const id = lk.getAttribute("data-id");
+    if(typeof state!=="undefined"){ state.openId=id; if(typeof renderReader==="function") renderReader(); }
+    const rd = document.getElementById("erg-reader"); if(rd) rd.scrollIntoView({behavior:"smooth",block:"center"});
+  });
+  formEl.addEventListener("submit", ev=>{ ev.preventDefault(); const q=inputEl.value; inputEl.value=""; ask(q); });
+  const SUGGEST = ["I have bloating — could it be SIBO?","Does fiber actually help my gut?","Why am I constipated? (methane?)","What does breath hydrogen tell you?"];
+  SUGGEST.forEach(s=>{ const c=document.createElement("span"); c.className="aer-chip"; c.textContent=s; c.onclick=()=>ask(s); suggEl.appendChild(c); });
+
+  addMsg(`<div class="aer-who">aerine</div><div>Hi — I'm Aerine. Your gut is talking; let's listen. Ask me something and I'll trace it through the evidence on a golden thread — and show you every study behind what I say, down to the paper. Fair warning: I only speak as confidently as the evidence earns, and I'll tell you when I don't know.</div>`,"aerine");
+})();
+
+init();
+</script>
+</body>
+</html>
