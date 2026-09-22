@@ -4,8 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Aerine — the free run</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDF8ED'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%238B6F47' stroke-width='3'/%3E%3C/svg%3E"/>
 <style>
-/* ── Palette inherited verbatim from index.html (the ergastorion browser).
+/* ── Palette inherited verbatim from browser.html (the v1 ergastorion browser).
       Do not fork these values; a second source of truth for desk colour is
       how two surfaces stop looking like one product. ─────────────────────── */
 :root {
@@ -257,7 +258,7 @@ body {
 }
 .fr-erg-foot .sep { opacity: 0.45; }
 
-/* Tags — same grammar as index.html */
+/* Tags — same grammar as browser.html */
 .fr-tag {
   display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 3px;
   font-size: 10px; font-weight: 500; font-family: var(--font-mono);
@@ -398,6 +399,8 @@ body {
   letter-spacing: 0.03em; line-height: 1.7;
 }
 .fr-footer-line { font-size: 12px; color: var(--oak-mid); margin-bottom: 9px; font-family: var(--font-sans); font-style: italic; }
+.fr-foot-link { margin-bottom: 9px; font-family: var(--font-mono); font-size: 11px; }
+.fr-foot-link a { color: var(--brass); }
 .fr-footer strong { color: var(--oak-light); font-weight: 500; }
 
 @media (min-width: 400px) { .fr-cov-row { grid-template-columns: 104px minmax(0,1fr); } }
@@ -481,6 +484,10 @@ body {
 
   <footer class="fr-footer">
     <div class="fr-footer-line">Easier to travel than the literature. Never stronger than it.</div>
+    <div class="fr-foot-link">
+      Aerine&rsquo;s read of the same run: <a href="krites.html">the read</a>
+      &middot; start: <a href="index.html">aerine</a>
+    </div>
     <div class="fr-prov hidden" id="fr-prov"></div>
     © 2026 <strong>AEXTech Holdings</strong> · Aerine — gut-health research assistant<br/>
     Aerine <strong>helps you research; she does not diagnose</strong>. Nothing here is medical,
