@@ -46,9 +46,13 @@ if not IN_REPO:
     print(f"  out:      {OUT}")
     print("  The output is outside this repository, so nothing here can leak into it.")
 
+frame = runs_lib.load_frame(ROOT)
+
 size = runs_lib.inject(ROOT / "free-run.html", OUT, "aerine-freerun", runs)
+frame_size = runs_lib.inject(OUT, OUT, "aerine-frame", frame)
 
 print(f"Injected {len(runs)} runs ({size} bytes) into {OUT.name}")
+print(f"Injected the answer frame ({frame_size} bytes) into {OUT.name}")
 print("  order: " + ", ".join(r["name"] for r in runs))
 for r in runs:
     meta = r.get("_fixture") or {}
