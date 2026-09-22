@@ -14,10 +14,17 @@ exists in two places is a gate that will be half-updated.
 
 Extracted from build-freerun.py 2026-09-21 (job 3d97c936) with the gate
 unchanged; build-freerun.py's behaviour and CLI are the same as before.
+
+Since 2026-09-22 (job 4364393e, D-39 item 2) it also attaches each run's
+natural-language QUESTION from questions.json. That is here for the same reason
+the gate is: the question a run answers must read identically on both surfaces,
+and a copy in each build script is a copy that will drift.
 """
 import json
 import pathlib
 import sys
+
+QUESTIONS_FILE = "questions.json"
 
 REQUIRED_PAYLOAD_KEYS = [
     "entry", "coverage", "weakest", "returned", "absent", "unresolved", "notes",
@@ -32,7 +39,7 @@ RUN_ORDER = [
 ]
 
 LABELS = {
-    "consumer-ibsd": "SIBO, diarrhoea, gas",
+    "consumer-ibsd": "SIBO, diarrhea, gas",
     "consumer-fibre": "Fibre and whole grains",
     "device-gas": "Breath gas",
     "agent-relay": "Agent relay (structured)",
@@ -103,6 +110,56 @@ def normalise(name, fx):
     }
 
 
+def load_questions(root, slugs):
+    """Read questions.json and return {slug: {question|pending, attribution}}.
+
+    The question is the surface's, not the engine's -- a fixture records what
+    freeRun() was given, and a person does not speak in seeds. So it lives in
+    its own file at the repo root, beside the build scripts that render it,
+    rather than inside fixtures/ where an engine regeneration would own it.
+
+    Two things are refusals rather than warnings:
+
+      - a slug in questions.json with no fixture behind it. A question keyed to
+        a run that does not exist renders nowhere, and a silently-never-rendered
+        string is exactly the failure a typo produces. The build says so.
+      - a `question` that is present but empty. An empty question would render
+        as a blank quote above the seeds and read as though the run were asked
+        nothing at all.
+
+    A fixture with NO entry here is not an error: it renders the pending line.
+    That is the whole point -- the five questions are being written by another
+    seat, and this surface must show a run without one rather than invent it.
+    """
+    path = pathlib.Path(root) / QUESTIONS_FILE
+    if not path.exists():
+        sys.exit(f"ERROR: {QUESTIONS_FILE} not found at {path}")
+    doc = json.loads(path.read_text())
+    runs = doc.get("runs")
+    if not isinstance(runs, dict):
+        sys.exit(f"ERROR: {QUESTIONS_FILE} has no `runs` object")
+
+    orphans = [s for s in runs if s not in slugs]
+    if orphans:
+        sys.exit(
+            f"ERROR: {QUESTIONS_FILE} names run(s) with no fixture: "
+            + ", ".join(sorted(orphans))
+            + f"\n  fixtures present: {', '.join(sorted(slugs))}\n"
+            "  A question keyed to a run that does not exist renders nowhere."
+        )
+    for slug, q in runs.items():
+        if "question" in q and not str(q["question"]).strip():
+            sys.exit(f"ERROR: {QUESTIONS_FILE}: {slug} has an empty `question`")
+    return runs
+
+
+DEFAULT_PENDING = (
+    "The question for this run has not been written yet. What the run was "
+    "given is below; this page does not invent the question that would have "
+    "produced it."
+)
+
+
 def load_runs(root, fixtures_dir, apply_gate):
     """Read, order, validate and gate every fixture. Exits the process on a
     malformed fixture or a release-boundary violation -- both are build
@@ -120,10 +177,12 @@ def load_runs(root, fixtures_dir, apply_gate):
     ordered += [n for n in sorted(files) if n not in RUN_ORDER]
 
     public = {e["ergon_id"]: e for e in json.loads((root / "data" / "erga.json").read_text())}
+    questions = load_questions(root, set(files))
 
     runs, demo_count, leaks = [], 0, []
     for name in ordered:
         fx = normalise(name, json.loads(files[name].read_text()))
+        fx["question"] = questions.get(name) or {"pending": DEFAULT_PENDING}
         payload = fx.get("payload")
         if not isinstance(payload, dict):
             sys.exit(f"ERROR: {name}.json has no payload object")
