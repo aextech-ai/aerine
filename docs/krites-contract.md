@@ -104,6 +104,49 @@ surface keyed on `target_ergon` would render a blank most of the time, which is
 why this page treats `via_seed` as the bridge and shows `target_ergon` only
 when it is there.
 
+## The `source` block — what the surface does with it (Krites v2)
+
+*Added 2026-09-22, job `4364393e`, D-39 item 6. The contract change is Keel's;
+this is the surface's half of it, written down so the render is not a surprise
+when the field lands.*
+
+The founder's own reading of what a record should show: *"The ergon id, desk,
+grade, and link is a good record to show, I think."* Those four now lead every
+record drawer, in that order.
+
+The link is rendered from a `source` block on the node itself, alongside
+`ergon_id` / `desk` / `assertion` / `grade`:
+
+```json
+"source": { "ref": "…", "doi": "10.1000/x", "url": "https://…", "open_access": true }
+```
+
+**The surface offers a link only when `open_access === true`.** That is one
+rule in one helper (`paperLink`), not care at a dozen call sites, because the
+failure it prevents — the words *"read the paper"* over a paywall or a 404 —
+is the page telling a reader something it cannot verify. What the surface does
+with each shape, all five proved by construction against a tree carrying them:
+
+| the block says | the card shows |
+|---|---|
+| `url` + `open_access: true` | `source`, `doi`, and **paper → read the paper ↗ · open access** |
+| `doi` + `open_access: true`, no `url` | the same, linked through `https://doi.org/<doi>` |
+| `open_access: false` | `source`, `doi` as text; **no link**, and the card says *not marked open access — no free link to offer* |
+| no `source` block at all | today's honest text, unchanged; **no link is manufactured from the id** |
+| a published ergon (`data/erga.json`) with a `source` block | the whole record *and* the paper link |
+
+`open_access` absent is treated as `false`. A missing flag is not permission.
+
+**What left the card:** the corpus `sha256`. It was printed on every
+unpublished record, which made a 64-character digest the most prominent thing
+on the commonest card, and it is provenance about the *run* rather than about
+the *claim*. It lives once, in the page's colophon, where it already was.
+
+`ref`, `doi`, `url`, `open_access` are the four the surface reads. Anything
+else in the block is passed over in silence rather than rendered as an unnamed
+row — a renderer that prints whatever it is handed is how private fields reach
+a public page.
+
 ## Fixture the surface cannot demonstrate
 
 The five released runs cover four of the founder's readers: the consumer

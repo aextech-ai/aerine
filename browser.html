@@ -664,6 +664,10 @@ body {
 <footer class="erg-footer">
   <div class="erg-footer-row">
     <div class="erg-footer-copy">
+      <a href="index.html" style="color:var(--brass)">&#8592; back to the start</a>
+      &nbsp;·&nbsp; <a href="krites.html" style="color:var(--brass)">the read</a>
+      &nbsp;·&nbsp; <a href="free-run.html" style="color:var(--brass)">the free run</a>
+      <br/>
       © 2026 <strong>AEXTech Holdings</strong> · Aerine — gut-health research assistant (v0 prototype)
     </div>
     <div class="erg-footer-copy">
@@ -1511,6 +1515,7 @@ function renderReader() {
 
     <div class="erg-reader-actions">
       <button class="erg-btn primary" onclick="toggleThread('${e.ergon_id}')">${inChain ? "remove from chain" : "add to chain (" + e.desk + " slot)"}</button>
+      <a class="erg-btn" href="index.html" style="display:inline-flex;align-items:center;text-decoration:none;">&#8592; back to the start</a>
     </div>`;
 }
 
