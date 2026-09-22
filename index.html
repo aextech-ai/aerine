@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aerine — gut-health research assistant</title>
+<meta name="description" content="Aerine finds what you tell her in a validated store of published gut-health claims, reads where your entry is thinnest, and says plainly what the store does not have."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FDF8ED'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%238B6F47' stroke-width='3'/%3E%3C/svg%3E"/>
+<style>
+/* ── Palette inherited verbatim from krites.html / free-run.html / browser.html.
+      Do not fork these values; a second source of truth for colour is how two
+      surfaces stop looking like one product. ──────────────────────────────── */
+:root {
+  --oak:       #2A241C;
+  --oak-mid:   #3F362A;
+  --oak-light: #5A4A35;
+  --oak-faint: #7A6542;
+  --brass:     #8B6F47;
+  --brass-mid: #A6916B;
+  --brass-light:#D4C5A3;
+  --parch:     #FDF8ED;
+  --parch-mid: #FAF4E4;
+  --parch-warm:#F5EFDF;
+  --parch-card:#F5EAD0;
+  --parch-deep:#EDE4D1;
+
+  --font-mono: 'Courier New', Courier, monospace;
+  --font-sans: Georgia, 'Times New Roman', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--parch-deep); }
+body {
+  background: var(--parch-deep);
+  font-family: var(--font-sans);
+  color: var(--oak);
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--brass); }
+
+.ld-wrap { max-width: 760px; margin: 0 auto; padding: 18px 16px 40px; }
+
+/* ── HEADER ──────────────────────────────────────────────────────────────── */
+.ld-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.ld-wordmark { font-family: var(--font-mono); font-size: 13px; color: var(--oak-light); letter-spacing: 0.04em; }
+.ld-wordmark span { color: var(--brass); }
+.ld-kicker { font-family: var(--font-mono); font-size: 10.5px; color: var(--oak-faint); letter-spacing: 0.04em; }
+
+/* ── WHAT AERINE IS ──────────────────────────────────────────────────────── */
+.ld-what h1 {
+  font-size: 22px; line-height: 1.3; font-weight: normal; color: var(--oak);
+  margin-bottom: 10px;
+}
+.ld-what p { font-size: 15px; line-height: 1.6; color: var(--oak-mid); max-width: 62ch; }
+.ld-what p em { color: var(--oak); font-style: normal; border-bottom: 1px dotted var(--brass-mid); }
+
+/* ── THE TWO DOORS ───────────────────────────────────────────────────────── */
+.ld-doors { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 20px 0 14px; }
+@media (min-width: 640px) { .ld-doors { grid-template-columns: 1fr 1fr; } }
+.ld-door {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--parch); border: 0.5px solid var(--brass-light);
+  border-left: 4px solid var(--brass); border-radius: 4px;
+  padding: 14px 16px 14px 14px;
+}
+.ld-door:hover, .ld-door:focus-visible { background: var(--parch-mid); border-color: var(--brass); outline: none; }
+.ld-door:focus-visible { box-shadow: 0 0 0 2px var(--brass-light); }
+.ld-door-n { font-family: var(--font-mono); font-size: 10.5px; color: var(--oak-faint); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.ld-door-h { font-size: 18px; color: var(--oak); margin-bottom: 6px; }
+.ld-door-h::after { content: " \2192"; color: var(--brass); }
+.ld-door-p { font-size: 13.5px; line-height: 1.55; color: var(--oak-mid); }
+.ld-door-p b { color: var(--oak); font-weight: normal; }
+
+/* ── THE LIMIT, STATED ───────────────────────────────────────────────────── */
+.ld-limit {
+  background: var(--parch-warm); border: 0.5px solid var(--brass-light); border-radius: 4px;
+  padding: 10px 12px; font-size: 13px; line-height: 1.55; color: var(--oak-mid);
+}
+.ld-limit b { color: var(--oak); }
+
+/* ── ALSO HERE ───────────────────────────────────────────────────────────── */
+.ld-also { margin-top: 22px; padding-top: 12px; border-top: 0.5px solid var(--brass-light); font-size: 12.5px; line-height: 1.6; color: var(--oak-light); }
+.ld-also-h { font-family: var(--font-mono); font-size: 10.5px; color: var(--oak-faint); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.ld-footer { margin-top: 30px; padding-top: 12px; border-top: 0.5px solid var(--brass-light); font-size: 11px; line-height: 1.7; color: var(--oak-faint); }
+.ld-footer-line { font-family: var(--font-mono); font-size: 11px; color: var(--oak-light); margin-bottom: 6px; }
+.ld-footer strong { color: var(--oak-light); font-weight: normal; }
+
+@media (max-width: 380px) {
+  .ld-wrap { padding: 14px 16px 32px; }
+  .ld-what h1 { font-size: 19px; }
+  .ld-what p { font-size: 14px; }
+  .ld-doors { margin: 14px 0 12px; gap: 8px; }
+  .ld-door { padding: 11px 12px 11px 12px; }
+  .ld-door-h { font-size: 16.5px; }
+  .ld-door-p { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<div class="ld-wrap">
+
+  <header class="ld-head">
+    <div class="ld-wordmark">aerine</div>
+    <div class="ld-kicker">gut-health research assistant</div>
+  </header>
+
+  <section class="ld-what">
+    <h1>Aerine reads the gut-health literature with you, and says where it runs out.</h1>
+    <p>
+      Tell her a few things you know about yourself. She finds them in a validated store of
+      published claims &mdash; each one carrying <em>its source, its desk and its grade</em> &mdash;
+      reads where your entry is thinnest, and says plainly what the store does not have.
+    </p>
+  </section>
+
+  <nav class="ld-doors" aria-label="Where to start">
+    <a class="ld-door" href="krites.html">
+      <div class="ld-door-n">Start here</div>
+      <div class="ld-door-h">The read</div>
+      <div class="ld-door-p">
+        Aerine&rsquo;s read of a run, in four parts: <b>what we know</b>, <b>where it thins</b>,
+        <b>what we know there anyway</b>, and <b>worth a look</b>. Every claim opens its own record.
+      </div>
+    </a>
+    <a class="ld-door" href="free-run.html">
+      <div class="ld-door-n">The dense version</div>
+      <div class="ld-door-h">The free run</div>
+      <div class="ld-door-p">
+        The same run, complete: everything the engine returned, in the order it returned it,
+        and the desks it could not fill.
+      </div>
+    </a>
+  </nav>
+
+  <div class="ld-limit">
+    <b>The runs on both pages were prepared in advance.</b> You cannot enter your own yet.
+    Pick a prepared run on either page to see what a read looks like.
+  </div>
+
+  <div class="ld-also">
+    <div class="ld-also-h">Also here</div>
+    <a href="browser.html">The catalogue browser</a> &mdash; an earlier sketch (v1) for browsing the
+    published seed slice claim by claim, with its filters and thread builder. Kept for reference;
+    it is not where Aerine starts.
+  </div>
+
+  <footer class="ld-footer">
+    <div class="ld-footer-line">Easier to travel than the literature. Never stronger than it.</div>
+    &copy; 2026 <strong>AEXTech Holdings</strong> &middot; Aerine &mdash; gut-health research assistant<br/>
+    Aerine <strong>helps you research; she does not diagnose</strong>. Nothing here is medical,
+    clinical or nutritional advice. Grades describe the strength of the evidence behind a claim,
+    not a recommendation to act on it.
+  </footer>
+
+</div>
+</body>
+</html>
