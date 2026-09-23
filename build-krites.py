@@ -48,11 +48,16 @@ if not IN_REPO:
     print(f"  out:      {OUT}")
     print("  The output is outside this repository, so nothing here can leak into it.")
 
+frame = runs_lib.load_frame(ROOT)
+
 runs_size = runs_lib.inject(ROOT / "krites.html", OUT, "aerine-freerun", runs)
 corpus_size = runs_lib.inject(OUT, OUT, "aerine-corpus", published)
+frame_size = runs_lib.inject(OUT, OUT, "aerine-frame", frame)
 
 print(f"Injected {len(runs)} runs ({runs_size} bytes) into {OUT.name}")
 print(f"Injected {len(published)} published erga ({corpus_size} bytes) into {OUT.name}")
+print(f"Injected the answer frame ({frame_size} bytes) into {OUT.name}"
+      + ("" if frame else " -- ABSENT, the page falls back to its own headings"))
 print("  order: " + ", ".join(r["name"] for r in runs))
 for r in runs:
     meta = r.get("_fixture") or {}

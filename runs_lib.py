@@ -110,6 +110,69 @@ def normalise(name, fx):
     }
 
 
+def read_questions(root):
+    path = pathlib.Path(root) / QUESTIONS_FILE
+    if not path.exists():
+        sys.exit(f"ERROR: {QUESTIONS_FILE} not found at {path}")
+    return json.loads(path.read_text())
+
+
+def load_frame(root):
+    """The four-move answer frame -- section leads and transitions (D-39 item 4).
+
+    Authored copy, not markup: it lives beside the questions because copy that
+    lives only in an Office document has to be hand-transcribed into HTML, and
+    hand-transcribed copy drifts from its source silently.
+
+    Underscore-prefixed keys are NOT returned. They are the author's notes and
+    the deliberately withheld block (`_withheld_until_intake_exists`, which
+    offers a capability this surface does not have and whose own key says not to
+    render it until it does). Stripping them here rather than in the renderer is
+    the point: a surface that filters on a prefix at paint time is one refactor
+    away from painting them, and the withheld block is the single string on this
+    page that must never reach a reader by accident.
+    """
+    frame = read_questions(root).get("frame")
+    if frame is None:
+        return None
+
+    def strip(node):
+        if isinstance(node, dict):
+            return {k: strip(v) for k, v in node.items() if not k.startswith("_")}
+        return node
+
+    return strip(frame)
+
+
+def check_parses_to(slug, q, fixture_params):
+    """`parses_to` must equal the fixture's `_fixture.params`, IN ORDER.
+
+    Logothetes' check, made a build refusal (his `_the_check_a_build_should_run`,
+    Ponder's ask). That equality is the whole claim the surface makes when it
+    prints a question above the chips: the chips below the question are asserted
+    to be what the question resolved to. If it ever stops holding, the page is
+    showing a reader a question that is not what the run was asked -- silently,
+    and on a health surface.
+
+    A run carrying no `parses_to` is not an error; the check is on runs that
+    make the claim. Order matters because the chips render in payload order, so
+    the same set in a different order is a different rendered sentence.
+
+    NEVER reconcile by editing `parses_to`. The fixture is the engine's record
+    of what it was given; the question is written to match it, not the reverse.
+    """
+    pt = q.get("parses_to")
+    if pt is None:
+        return []
+    if list(pt) != list(fixture_params):
+        return [
+            f"{slug}: parses_to does not equal the fixture's params\n"
+            f"    questions.json parses_to : {pt}\n"
+            f"    _fixture.params          : {list(fixture_params)}"
+        ]
+    return []
+
+
 def load_questions(root, slugs):
     """Read questions.json and return {slug: {question|pending, attribution}}.
 
@@ -131,10 +194,7 @@ def load_questions(root, slugs):
     That is the whole point -- the five questions are being written by another
     seat, and this surface must show a run without one rather than invent it.
     """
-    path = pathlib.Path(root) / QUESTIONS_FILE
-    if not path.exists():
-        sys.exit(f"ERROR: {QUESTIONS_FILE} not found at {path}")
-    doc = json.loads(path.read_text())
+    doc = read_questions(root)
     runs = doc.get("runs")
     if not isinstance(runs, dict):
         sys.exit(f"ERROR: {QUESTIONS_FILE} has no `runs` object")
@@ -179,7 +239,7 @@ def load_runs(root, fixtures_dir, apply_gate):
     public = {e["ergon_id"]: e for e in json.loads((root / "data" / "erga.json").read_text())}
     questions = load_questions(root, set(files))
 
-    runs, demo_count, leaks = [], 0, []
+    runs, demo_count, leaks, mismatches = [], 0, [], []
     for name in ordered:
         fx = normalise(name, json.loads(files[name].read_text()))
         fx["question"] = questions.get(name) or {"pending": DEFAULT_PENDING}
@@ -190,12 +250,22 @@ def load_runs(root, fixtures_dir, apply_gate):
         if missing:
             sys.exit(f"ERROR: {name}.json payload is missing {', '.join(missing)}")
         fx.setdefault("name", name)
+        mismatches += check_parses_to(name, fx["question"], (fx.get("_fixture") or {}).get("params") or [])
         if apply_gate:
             for problem in check_release_boundary(name, fx, public):
                 leaks.append(f"  {name}.json: {problem}")
         if fx.get("_demo"):
             demo_count += 1
         runs.append(fx)
+
+    if mismatches:
+        sys.exit(
+            "REFUSING TO BUILD -- a question does not match what its run was asked.\n  "
+            + "\n  ".join(mismatches)
+            + "\n\nThe chips under a question are asserted to be what that question resolved\n"
+              "to. Fix the question or the fixture -- never `parses_to`, which is only a\n"
+              "copy of the engine's own record of the run's params."
+        )
 
     if leaks:
         sys.exit(
