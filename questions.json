@@ -112,7 +112,7 @@
     "_what_blocks_rendering": "A canon-owner release decision, and nothing else. Not copy, not engine work, not grammar. Named here so it is not rediscovered: the fiber guide cannot show a reader anything until erga behind these runs are released to the public repo, which is the founder's and Keel's, not this office's.",
     "_grammar": "Written to THESMO-RUL-2026-09-22-001 §9.3's shippable subset: rider 1 (charter law, binding today) plus §§2-5, with the actor named as the estate, gaps named without being promised, and no intake offered. Every question passes §7's stranger's test — it can be answered 'it doesn't' or 'none of them' — and every desk lead passes G-11's: delete every ergon id and grade and no sentence remains making a claim about gut biology. US spelling throughout, per D-39 item 3. All reader-facing strings scanned against engine/krites-emitted-fields.json _barred_substrings.",
     "_measured_against": "canon index sha256:4c8c27560cd925b89bb53469a7dc97d9ccf5c94efaf95a74605138a3a1484758, 171 erga, 648 seeds, 2026-09-23.",
-    "_barred_scan": "Scanned 2026-09-23 against engine/krites-emitted-fields.json _barred_substrings. ZERO hits on reader-facing strings (every key not beginning with an underscore). Three hits inside underscore notes, all of them the word 'direction' in its governance sense — 'founder direction', 'the direction of record' — which is the scope this file already follows and which the engine file itself relies on: it applies its list to `paths` while its own notes use the barred words in the course of naming them. A ban read literally against prose would delete the sentence that says what we do not do.",
+    "_barred_scan": "Scanned 2026-09-23 against engine/krites-emitted-fields.json _barred_substrings. ZERO hits on reader-facing strings (every key not beginning with an underscore). FOUR hits inside underscore notes, all of them the word 'direction' in its governance sense, at _what_this_is, _chain_order_note, runs.fiber-measurement._note and THIS NOTE — which is why the first count said three: it was true when measured and false once written down, and the note counting the hits is itself one of them. Locations are named so a reader can re-run the scan rather than trust the number — 'founder direction', 'the direction of record' — which is the scope this file already follows and which the engine file itself relies on: it applies its list to `paths` while its own notes use the barred words in the course of naming them. A ban read literally against prose would delete the sentence that says what we do not do.",
     "chain_order": [
       "biology",
       "nutrition",
@@ -199,8 +199,27 @@
           "banana",
           "potato"
         ],
-        "_ticket_class": "collection",
-        "_note": "The founder named 'where can I get ABC fiber from food' as one of three entry points, and it is the one canon cannot answer. Ten seeds absent; `whole_grain` returns ONE ergon and `resistant_starch` three. And the absence is real rather than an indexing artifact: a full-text scan of all 171 assertions finds ZERO mentions of beta-glucan, oats, barley, legumes, beans, lentils, bran or bananas. This is the guide's largest collection campaign and it is named as such on the page rather than routed around. Survives §7 cleanly: 'what has the research looked at' is answerable 'almost none of this', which is the answer this run in fact gives."
+        "_ticket_class": "collection — for eight of the ten seeds. See _ticket_class_per_seed: this run is NOT uniformly GAP-CANON, and dispatching one ticket class across all ten is the exact failure the three codes exist to prevent.",
+        "_ticket_class_per_seed": {
+          "GAP-CANON": [
+            "beta_glucan",
+            "oat",
+            "barley",
+            "legume",
+            "bean",
+            "lentil",
+            "bran",
+            "banana"
+          ],
+          "GAP-SEEDING": [
+            "potato"
+          ],
+          "GAP-CANON, with a caveat a collector needs": [
+            "rye"
+          ]
+        },
+        "_ticket_class_per_seed_why": "Corrected 2026-09-23 on the verification pass, by the seat that wrote the run. The eight-term full-text scan below is right and its scope is stated honestly — but the ticket class was applied to all TEN seeds, and the two seeds outside the scan are the two where canon has something. potato: erg-BIO-045-V1's ASSERTION says 'resistant potato starch' (a large human cohort; the ergon is seeded resistant_starch and not potato), which meets GAP-SEEDING's own `when` clause exactly — canon owner, a dokima pass, NO collection. A collection ticket here sends someone after a paper already on the shelf. rye: erg-BIO-024-V1 names whole-grain rye in its `conditions` and `model` — one of three arms of the RCT — but NOT in its assertion, so by the codes' own wording it stays GAP-CANON. It is flagged because 'canon holds nothing' is the wrong first sentence to hand a collector about rye. Whether a qualifier-level mention deserves a fourth code is the surface owner's call, not this run's.",
+        "_note": "The founder named 'where can I get ABC fiber from food' as one of three entry points, and it is the one canon cannot answer. Ten seeds absent; `whole_grain` returns ONE ergon and `resistant_starch` three. And for eight of the ten the absence is real rather than an indexing artifact: a full-text scan of all 171 assertions finds ZERO mentions of beta-glucan, oats, barley, legumes, beans, lentils, bran or bananas. The scan named eight terms; the other two are classed separately above, because canon does hold something on both. This is the guide's largest collection campaign and it is named as such on the page rather than routed around. Survives §7 cleanly: 'what has the research looked at' is answerable 'almost none of this', which is the answer this run in fact gives."
       },
       "fiber-symptom-bowel-habit": {
         "entry_point": "by symptom",
@@ -271,7 +290,7 @@
     },
     "gap_sentence": {
       "_what_this_is": "The one line that turns an absent[] or where_it_thins entry into something a stranger could pick up. TEMPLATED, not written: a code plus its values, rendered by the surface, never composed at a call site — G-10's requirement, and the reason there are three codes rather than one paragraph.",
-      "_why_three_codes": "Because an entry point fails for three different reasons and only ONE of them is 'go find a paper'. Collapsing them into a single 'gap' would send a collector after literature that is already in canon, and would hide the two failures that cost nothing to fix. Measured on the fiber runs: the solubility entry point is GAP-INDEX (three erga say 'soluble fiber' and no seed carries it), the grains-and-legumes entry point is GAP-CANON (zero mentions in 171 assertions), and nine erga across four terms are GAP-SEEDING.",
+      "_why_three_codes": "Because an entry point fails for three different reasons and only ONE of them is 'go find a paper'. Collapsing them into a single 'gap' would send a collector after literature that is already in canon, and would hide the two failures that cost nothing to fix. Measured on the fiber runs: the solubility entry point is GAP-INDEX (three erga say 'soluble fiber' and no seed carries it), the grains-and-legumes entry point is GAP-CANON for eight of its ten seeds (zero mentions in 171 assertions) and GAP-SEEDING for a ninth, `potato`, which is named in an assertion — an entry point does not have to fail the same way for every seed it asks about, and the first version of this run classed all ten as collection, and nine erga across four terms are GAP-SEEDING.",
       "codes": {
         "GAP-CANON": {
           "when": "no ergon in canon carries the seed AND no assertion mentions the subject",
